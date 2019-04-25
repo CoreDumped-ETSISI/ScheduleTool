@@ -25,18 +25,13 @@ const Datos: horario[] = [
 ]
 
 @Component({
-  selector: 'app-schedule-start',
-  templateUrl: './schedule-start.component.html',
-  styleUrls: ['./schedule-start.component.css']
+  selector: 'app-horarios',
+  templateUrl: './horarios.component.html',
+  styleUrls: ['./horarios.component.css']
 })
+export class HorariosComponent implements OnInit {
 
-
-
-export class ScheduleStartComponent implements OnInit {
-
-
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
   }

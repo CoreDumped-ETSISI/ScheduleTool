@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 .container {
     margin-right: 10%;
     margin-left: 10%
@@ -8,4 +9,7 @@
 }
 .noMargin {
     margin:0%;
+}
+body{
+    margin:0;
 }
