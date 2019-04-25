@@ -3,8 +3,9 @@
     margin-right: 10%;
     margin-left: 10%
 }
-
-.row {
-    position: relative;
-    width: 100%;
+.center {
+    text-align: center;
+}
+.noMargin {
+    margin:0%;
 }
