@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-.container {
-    margin-right: 10%;
-    margin-left: 10%
-}
+@import "~bootstrap/dist/css/bootstrap.css";
+
 .center {
     text-align: center;
 }
