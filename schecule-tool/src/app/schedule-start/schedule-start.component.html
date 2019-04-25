@@ -1,9 +1,47 @@
 <div class="container">
-  <div class="row">
-    <h1 class="center">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h1>
-    <h3 class="center noMargin">Herramienta de creación de horarios</h3>
+  <div class="card MainTitleCard">
+    <div class="row">
+      <div class="col-sm">
+        <h1 class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <h3 class="center">Herramienta de Creación de Horarios</h3>
+      </div>
+    </div>
   </div>
   <div class="row">
-    
+    <div class="col-sm">
+      <div class="card WholeCard">
+        <div class="row">
+          <div class="col-sm">
+            <div ngbDropdown class="d-inline-block mg">
+              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>Elige Grado</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Software</button>
+                <button ngbDropdownItem>Computadores</button>
+                <button ngbDropdownItem>Sistemas de Información</button>
+                <button ngbDropdownItem>Tecnologías de Sociedades de Información</button>
+                <button ngbDropdownItem>Software y Tecnologías de Sociedades de Información</button>
+                <button ngbDropdownItem>Computadores y Tecnologías de Sociedades de Información</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div ngbDropdown class="d-inline-block mg">
+              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>Elige Curso</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Primero</button>
+                <button ngbDropdownItem>Segundo</button>
+                <button ngbDropdownItem>Tercero</button>
+                <button ngbDropdownItem>Cuarto</button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary">Volver a Empezar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
