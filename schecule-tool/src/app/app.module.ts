@@ -7,12 +7,17 @@ import {MatCardModule} from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
+import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
+//Para el calendario 
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ScheduleStartComponent
+    ScheduleStartComponent,
+    ScheduleMonthlyComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,8 @@ import { ScheduleStartComponent } from './schedule-start/schedule-start.componen
     MatGridListModule,
     MatCardModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
