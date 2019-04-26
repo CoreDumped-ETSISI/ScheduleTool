@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-schedule-monthly',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduleMonthlyComponent implements OnInit {
 
+  calendarPlugins= [dayGridPlugin]
+  
   constructor() { }
 
   ngOnInit() {
