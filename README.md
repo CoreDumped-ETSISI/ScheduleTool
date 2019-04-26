@@ -4,7 +4,9 @@ Porting cic.etsisi.upm.es/horarios to angular (and improving it)
 //INSTALAR
 
 npm install bootstrap
+
 npm install --save @angular/material @angular/cdk @angular/animations
+
 npm install ngx-bootstrap --save
 
 
