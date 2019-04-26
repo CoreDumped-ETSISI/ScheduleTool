@@ -20,7 +20,8 @@
 }
 
 .bigger {
-
+    overflow: hidden;
+    display: inline-block;
 }
 
 .WholeCard {

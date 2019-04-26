@@ -2,7 +2,8 @@
   <div class="card MainTitleCard">
     <div class="row">
       <div class="col-sm">
-        <h1 class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h1>
+        <h1 *ngIf="!mobile" class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h1>
+        <h2 *ngIf="mobile" class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h2>
       </div>
     </div>
     <div class="row">
@@ -17,28 +18,34 @@
         <div class="row">
           <div class="col-sm">
             <div ngbDropdown class="d-inline-block mg">
-              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>Elige Grado</button>
+              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{subjectName}}</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem>Software</button>
-                <button ngbDropdownItem>Computadores</button>
-                <button ngbDropdownItem>Sistemas de Información</button>
-                <button ngbDropdownItem>Tecnologías de Sociedades de Información</button>
-                <button ngbDropdownItem>Software y Tecnologías de Sociedades de Información</button>
-                <button ngbDropdownItem>Computadores y Tecnologías de Sociedades de Información</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0])">{{grades[0]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1])">{{grades[1]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2])">{{grades[2]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3])">{{grades[3]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4])">{{grades[4]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5])">{{grades[5]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
               </div>
             </div>
           </div>
           <div class="col-sm">
             <div ngbDropdown class="d-inline-block mg">
-              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>Elige Curso</button>
+              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{courseName}}</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem>Primero</button>
-                <button ngbDropdownItem>Segundo</button>
-                <button ngbDropdownItem>Tercero</button>
-                <button ngbDropdownItem>Cuarto</button>
+                <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
+                <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
+                <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
+                <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
               </div>
             </div>
-            <button type="button" class="btn btn-secondary">Volver a Empezar</button>
+            <button type="button" class="btn btn-secondary" (click)="reset()">Volver a Empezar</button>
           </div>
         </div>
       </div>
