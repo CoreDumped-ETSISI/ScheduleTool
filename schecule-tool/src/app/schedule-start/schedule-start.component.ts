@@ -40,16 +40,15 @@ export class ScheduleStartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("yay");
     this.detectmob();
   }
 
-  ngOnChanges(){
-      
+  reset() {
+    this.subjectName = 'Elige Grado';
+    this.courseName = 'Elige Curso';
   }
 
   changeGradeName(name) {
-    console.log('epicidad');
     this.subjectName = name;
   }
 
