@@ -9,3 +9,5 @@ Porting cic.etsisi.upm.es/horarios to angular (and improving it)
 3. Importar Http a 'calendar.service.ts'
 4. Funcion getEventos() en service, lee los datos del json 
 5. Llamada a los datos recogidos desde el ngOnInit del 'schedule-monthly.component.ts' para cargar los eventos del calendario al inicio 
+
+Para añadir un nuevo evento se edita el json "eventos.json" con inicio, fin y título del evento
