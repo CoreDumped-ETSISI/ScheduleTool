@@ -12,6 +12,7 @@ import { ScheduleStartComponent } from './schedule-start/schedule-start.componen
 import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
 //Para el calendario 
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatCardModule,
     NgbPaginationModule,
     NgbAlertModule,
-    FullCalendarModule
+    FullCalendarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
