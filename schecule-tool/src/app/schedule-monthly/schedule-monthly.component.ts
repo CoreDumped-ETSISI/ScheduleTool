@@ -19,8 +19,6 @@ export class ScheduleMonthlyComponent implements OnInit {
 
   //Cargar eventos recogidos en service getDate
   ngOnInit() {
-    console.log({events})
-    console.log({exams})
     this.calendarEvents = exams.concat(events)
     //this.service.getEventos().subscribe(data => this.calendarEvents = data);
   }
