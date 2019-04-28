@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTabsModule } from '@angular/material/tabs'
@@ -14,13 +16,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon'
 import { HorariosComponent } from './horarios/horarios.component'
-
+import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
+//Para el calendario 
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScheduleStartComponent,
-    HorariosComponent
+    HorariosComponent,
+    ScheduleMonthlyComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,11 @@ import { HorariosComponent } from './horarios/horarios.component'
     MatCardModule,
     MatTableModule,
     MatExpansionModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    NgbPaginationModule,
+    NgbAlertModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

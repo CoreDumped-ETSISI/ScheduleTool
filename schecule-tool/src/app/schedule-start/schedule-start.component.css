@@ -1,3 +1,4 @@
+
 mat-toolbar{
     margin-bottom:25px;
     height:75px;
@@ -8,4 +9,40 @@ mat-toolbar.mat-primary{
 .show_schedules{
     padding-left:15px;
     font-size:20px;
+}
+.MainTitle {
+    margin-bottom: 0%;
+}
+
+.MainTitleCard {
+    background-color: lightblue;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.mg {
+    margin-top: 2%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    background-color: gray;
+    border-radius: 10px;
+    padding-right: 0%;
+    border-right: 0;
+}
+
+.bigger {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.WholeCard {
+    background-color: lightblue;
+}
+
+.MainDropdown {
+    margin-right: 0%;
+}
+.redBg{
+    background-color: red;
 }
