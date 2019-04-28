@@ -1,3 +1,6 @@
+<mat-toolbar color="primary">
+  <span>CENTRO DE INFORMÁTICA Y COMUNICACIONES</span>
+</mat-toolbar>
 <div class="container">
   <div class="card MainTitleCard">
     <div class="row">
@@ -73,8 +76,22 @@
       <button (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])">X</button>
     </div>
 
-    </div>
+  <div class="row">
+    <h3 class="center noMargin">Herramienta de creación de horarios</h3>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>calendar_today</mat-icon>  <span class="show_schedules">Horarios</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-horarios></app-horarios>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
+</div>
+
 
 
 
