@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-sm">
             <div ngbDropdown class="d-inline-block mg">
-              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{subjectName}}</button>
+              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{gradeName}}</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0])">{{grades[0]}}</button>
                 <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1])">{{grades[1]}}</button>
@@ -46,9 +46,35 @@
               </div>
             </div>
             <button type="button" class="btn btn-secondary" (click)="reset()">Volver a Empezar</button>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="">
+      <table class="table table-bordered">
+        <thead >
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of matrizHorario; let col = index">
+            <td>{{horas[col]}} - {{horas[col] + 1}}</td>
+            <td *ngFor="let j of i;let row">{{j}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngFor="let col of matrizBotones;let asignatura = index" class="row">
+    <div *ngFor=" let row of col; let grupo = index" class="col">
+      <button (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])">X</button>
+    </div>
+
+    </div>
 </div>
+
+
+

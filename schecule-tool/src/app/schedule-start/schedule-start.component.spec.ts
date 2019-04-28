@@ -2,13 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScheduleStartComponent } from './schedule-start.component';
 
+
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
   let fixture: ComponentFixture<ScheduleStartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScheduleStartComponent ]
+      declarations: [ ScheduleStartComponent]
     })
     .compileComponents();
   }));
