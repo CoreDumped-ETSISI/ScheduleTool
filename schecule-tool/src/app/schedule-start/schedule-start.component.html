@@ -52,13 +52,12 @@
               </div>
             </div>
             <button type="button" class="btn btn-secondary" (click)="reset()">Volver a Empezar</button>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="">
+  <div class="row">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -80,17 +79,18 @@
     </div>
   </div>
   <div class="row">
-      <h3 class="center noMargin">Herramienta de creación de horarios</h3>
+    <h3 class="center noMargin">Herramienta de creación de horarios</h3>
   </div>
-  <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-horarios></app-horarios>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <div class="row">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-horarios></app-horarios>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>
- 

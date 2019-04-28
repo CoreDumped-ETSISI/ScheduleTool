@@ -5,10 +5,6 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 
-.container {
-    margin-right: 10%;
-    margin-left: 10%
-}
 .center {
     text-align: center;
 }

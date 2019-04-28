@@ -40,10 +40,8 @@ export class ScheduleStartComponent implements OnInit {
     'Sistemas de Información',
     'Tecnologías de Sociedades de Información',
     //'Software y Tecnologías de Sociedades de Información',
-    //'Computadores y Tecnologías de Sociedades de Información' AUN NO HAY INFO  DE ESTOS 2.
+    //'Computadores y Tecnologías de Sociedades de Información'
   ];
-
-
 
   constructor() {
   }
@@ -53,8 +51,8 @@ export class ScheduleStartComponent implements OnInit {
     'Computadores',
     'Sistemas de Información',
     'Tecnologías de Soc de Inf',
-    'Software y Tec Soc Inf',
-    'Computadores y Tec Soc Inf'
+    //'Software y Tec Soc Inf',
+    //'Computadores y Tec Soc Inf'
   ];
 
   courses = [
