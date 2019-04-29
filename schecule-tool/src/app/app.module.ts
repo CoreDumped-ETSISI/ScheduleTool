@@ -4,7 +4,7 @@ import {NgbModule,NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bo
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
-
+import { MatRadioModule } from '@angular/material/radio';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -20,6 +20,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     ScheduleMonthlyComponent
   ],
   imports: [
+    MatRadioModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,

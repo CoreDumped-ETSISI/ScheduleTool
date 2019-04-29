@@ -34,3 +34,6 @@
 .redBg{
     background-color: red;
 }
+input, label{
+    display: block;
+}

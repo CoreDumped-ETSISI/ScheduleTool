@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatRadioModule} from '@angular/material/radio'; 
 
 @Component({
   selector: 'app-schedule-start',
@@ -40,13 +41,13 @@ export class ScheduleStartComponent implements OnInit {
   ];
   inicialDias = ["L","M", "X", "J", "V"];
   horas = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-  auxCurso1 = ['GM11', 'GM12', 'GM13', 'GM14', 'GM15', 'GT11', 'GT12', 'GT13', 'GT14'];//Como los 2 primeros anos son comunes a todos los grados y tienen las mismas clases, 
+  auxCurso1 = ['GM11', 'GM12', 'GM13', 'GM14', 'GM15', 'GT11', 'GT12', 'GT13'];//Como los 2 primeros anos son comunes a todos los grados y tienen las mismas clases, 
   auxCurso2 = ['GM21', 'GM22', 'GM23', 'GT21', 'GT22'];//generamos esta estructura auxiliar para no repetir codigo.
-   cursos = [
-	[this.auxCurso1, this.auxCurso2, ['GSWM31', 'GSWT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSWM41', 'GSWT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Software
+   cursos = [//HAY QUE REVISAR ESTOS ARRAYS, LOS NOMBRES DE LOS GRUPOS DE 3º Y 4º ESTAN DISTINTOS EN EL JSON Y NO LOS ENCUENTRA CUANDO LLAMANMOS A cargarAsignatura().
+	[this.auxCurso1, this.auxCurso2, ['GSIM31', 'GSWT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSWM41', 'GSWT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Software
 	[this.auxCurso1, this.auxCurso2,['GCOM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'],['GCOT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Computadores
 	[this.auxCurso1, this.auxCurso2, ['GSIT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSIM41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Sist. Informacion
-	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GTIT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Tech. Sociedad Inform.
+	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GMOPT41a', 'GMOPT41b', 'GMOPT41', 'GTOPT41', 'GTOPT42']],//Tech. Sociedad Inform.
 ]
   grupos = { "GCOM31":
   { "AA": {"J":[11,12],"M":[9,10]},
@@ -223,6 +224,7 @@ export class ScheduleStartComponent implements OnInit {
       this.chargeCheckboxes = true;
       this.actualCourse = this.actualGrade[this.courses.indexOf(name)];
       this.actualSubjects = Object.keys(this.grupos[this.actualCourse[0]]);
+      this.matrizBotones = null;
       this.cargarMatrizBotones();
       this.courseName = name;
     }
