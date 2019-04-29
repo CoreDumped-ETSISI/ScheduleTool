@@ -63,9 +63,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let i of matrizHorario; let col = index">
-              <td>{{horas[col]}} - {{horas[col] + 1}}</td>
-              <td *ngFor="let j of i;let row">{{j}}</td>
+            <tr *ngFor="let col of matrizHorario; let columnas = index">
+              <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
+              <td *ngFor="let row of col; let filas = index">
+                <p *ngIf="row[0] != null">{{matrizHorario[columnas][filas][0].nombre}}:{{matrizHorario[columnas][filas][0].grupo}}</p>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio'; 
-
+import {SubjectModel} from '../subject-model';
+import { strictEqual } from 'assert';
+import { stringify } from '@angular/core/src/util';
 @Component({
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
@@ -187,7 +189,7 @@ export class ScheduleStartComponent implements OnInit {
   actualCourse;
   actualGrade;
   actualSubjects;
-  public matrizHorario:string[][];
+  public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
   constructor() { }
@@ -197,9 +199,9 @@ export class ScheduleStartComponent implements OnInit {
     this.matrizCoincidencias = [];
     for(var i: number = 0; i < 11; i++) {
       this.matrizHorario[i] = [];
-      this.matrizCoincidencias[i] = [];
+      this.matrizCoincidencias[i] = [null];
       for(var j: number = 0; j< 5; j++) {
-          this.matrizHorario[i][j] = "";
+          this.matrizHorario[i][j] = [];
           this.matrizCoincidencias[i][j] = false;
       }
   }
@@ -239,22 +241,28 @@ export class ScheduleStartComponent implements OnInit {
     }
     console.log(this.matrizBotones);
   }
-  cargarAsignatura(asignatura:string, grupo:string){
-
-    let clases = this.grupos[grupo][asignatura];
+  cargarAsignatura(asignatura:string, grupoStr:string){
+    let subject:SubjectModel = {
+      nombre:asignatura,
+      grupo:grupoStr
+    };
+    let clases = this.grupos[grupoStr][asignatura];
     let dayNames = Object.keys(clases);
+    let finded = false;
     for(let day in clases){
       for(let hour in clases[day]){
         //console.log("Guardamos: " + asignatura + " en " + "[" + (-9 + clases[day][hour]) +"]" + "[" + this.inicialDias.indexOf(day) + "]");
         let hourPos = clases[day][hour] - 9;
         let dayPos = this.inicialDias.indexOf(day);
-        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos] != "";
-        this.matrizHorario[hourPos][dayPos] +=  asignatura + "(" + grupo +")\n";
-
-
+        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length < 2;
+        if(!this.matrizHorario[hourPos][dayPos].includes(subject)){
+         console.log("Metemos " + subject.nombre + ":" + subject.grupo);
+        this.matrizHorario[hourPos][dayPos].push(subject);
+        }  
       }
     }
   }
+   
   detectmob() { 
     if( navigator.userAgent.match(/Android/i)
     || navigator.userAgent.match(/webOS/i)
@@ -279,3 +287,4 @@ export class ScheduleStartComponent implements OnInit {
   }
 
 }
+
