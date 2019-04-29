@@ -58,39 +58,45 @@
     </div>
   </div>
   <div class="row">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let i of matrizHorario; let col = index">
-          <td>{{horas[col]}} - {{horas[col] + 1}}</td>
-          <td *ngFor="let j of i;let row">{{j}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <!--HORARIO-->
+    <div class="col-6">
+        <table class="table table-bordered">
+          <thead >
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of matrizHorario; let col = index">
+              <td>{{horas[col]}} - {{horas[col] + 1}}</td>
+              <td *ngFor="let j of i;let row">{{j}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <!--CHECKBOX-->
+      <div *ngIf="chargeCheckboxes" class="col-6">
+        <div *ngFor="let row of matrizBotones;let asignatura = index" class="row" style="">
+          <div class="col-1 mt-4" *ngIf="asignatura == 0" style="width:auto">
+            <p>{{actualSubjects[asignatura]}}</p>
+          </div>
+          <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
+              <p>{{actualSubjects[asignatura]}}</p>
+            </div>
+          <mat-radio-group class="col row">
+          <div *ngFor="let col of row; let grupo = index" class="">
+            <label *ngIf="asignatura == 0">{{actualCourse[grupo]}}</label>
+            <label *ngIf="asignatura > 0"></label>
+            <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
+          </div>
+        </mat-radio-group>
+        </div>
+      </div>
   </div>
-  <div *ngFor="let col of matrizBotones;let asignatura = index" class="row">
-    <div *ngFor=" let row of col; let grupo = index" class="col">
-      <button (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])">X</button>
-    </div>
   </div>
-  <div class="row">
-    <h3 class="center noMargin">Herramienta de creación de horarios</h3>
-  </div>
-  <div class="row">
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <app-horarios></app-horarios>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
-</div>
+
+
+
+
