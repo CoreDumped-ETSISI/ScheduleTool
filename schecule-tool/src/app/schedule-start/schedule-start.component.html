@@ -94,6 +94,18 @@
         </mat-radio-group>
         </div>
       </div>
+    <div class="col-6">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>calendar_today</mat-icon>  <span class="show_schedules">Horarios</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-horarios></app-horarios>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
   </div>
 
