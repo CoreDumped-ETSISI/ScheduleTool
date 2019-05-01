@@ -273,8 +273,10 @@ export class ScheduleStartComponent implements OnInit {
         }else{
           console.log("Ya existe!");
         }
+        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
       }  
     }
+    console.log(this.matrizCoincidencias);
   }
    
   detectmob() { 
