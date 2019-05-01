@@ -1,8 +1,10 @@
 .mat-cell{
     padding:10px;
+    width: 10px;
 }
 .mat-header-cell{
     padding:10px;
+    width:10px;
     color:white;
     background-color:#0072CE;
 }
@@ -11,12 +13,32 @@
     color:white;
 }
 /* Margin top and margin bottom 7px */
-.marg-tb-7{
+.marg-7{
     margin:7px 0;
 }
+
+.marg-tb-20{
+    margin: 20px 0;
+}
+
 .horas-cell{
     color:white;
-    font-size: 18px;
+    font-size: 16px;
     text-align:center;
     background-color:#0072CE;
 }
+
+.btn-pantone285{
+    background-color:#0072CE;
+    color:white;
+}
+
+.btn-pantone285:hover{
+    background-color:#00569b;
+}
+
+.btn-pantone285-active{
+    background-color:#00569b;
+    color:white;
+}
+
