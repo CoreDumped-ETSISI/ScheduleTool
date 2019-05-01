@@ -1,10 +1,22 @@
 .mat-cell{
-    padding:15px
+    padding:10px;
 }
 .mat-header-cell{
-    padding:15px
+    padding:10px;
+    color:white;
+    background-color:#0072CE;
 }
 .curso{
     font-size:16px;
-    color:black;
+    color:white;
+}
+/* Margin top and margin bottom 7px */
+.marg-tb-7{
+    margin:7px 0;
+}
+.horas-cell{
+    color:white;
+    font-size: 18px;
+    text-align:center;
+    background-color:#0072CE;
 }
