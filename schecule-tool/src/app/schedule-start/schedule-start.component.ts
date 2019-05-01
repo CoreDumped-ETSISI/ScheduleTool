@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio'; 
 import {SubjectModel} from '../subject-model';
+import {MatIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
+
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
 @Component({
@@ -192,7 +195,11 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-  constructor() { }
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer) { 
+    iconRegistry.addSvgIcon(
+      'delete',
+      sanitizer.bypassSecurityTrustResourceUrl('../deleteIcon.svg'));
+  }
 
   cargarMatriz(){
     this.matrizHorario = [];
@@ -250,17 +257,7 @@ export class ScheduleStartComponent implements OnInit {
     let dayNames = Object.keys(clases);
     let finded = false;
 
-    for(let i in this.matrizHorario){
-      for(let j in this.matrizHorario[i]){
-        let counter = 0;
-        for(let k in this.matrizHorario[i][j]){
-          if(this.matrizHorario[i][j][k].nombre == asignatura){
-            this.matrizHorario[i][j].splice(counter);
-          }
-          counter++;
-        }
-      }
-    }
+    this.limpiarAsignatura(asignatura);
 
     for(let day in clases){
       for(let hour in clases[day]){
@@ -277,6 +274,19 @@ export class ScheduleStartComponent implements OnInit {
       }  
     }
     console.log(this.matrizCoincidencias);
+  }
+  limpiarAsignatura(asignatura){
+    for(let i in this.matrizHorario){
+      for(let j in this.matrizHorario[i]){
+        let counter = 0;
+        for(let k in this.matrizHorario[i][j]){
+          if(this.matrizHorario[i][j][k].nombre == asignatura){
+            this.matrizHorario[i][j].splice(counter);
+          }
+          counter++;
+        }
+      }
+    }
   }
    
   detectmob() { 

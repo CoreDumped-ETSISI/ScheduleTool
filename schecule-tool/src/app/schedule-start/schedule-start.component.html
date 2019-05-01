@@ -53,44 +53,56 @@
     </div>
   </div>
   <div class="row">
-    <!--HORARIO-->
-    <div class="col-6">
-        <table class="table table-bordered">
-          <thead >
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let col of matrizHorario; let columnas = index">
-              <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
-              <td *ngFor="let row of col; let filas = index">
-                  <p *ngFor="let subject of row;let a = index">{{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <!--CHECKBOX-->
-      <div *ngIf="chargeCheckboxes" class="col-6">
-        <div *ngFor="let row of matrizBotones;let asignatura = index" class="row" style="">
-          <div class="col-1 mt-4" *ngIf="asignatura == 0" style="width:auto">
-            <p>{{actualSubjects[asignatura]}}</p>
-          </div>
-          <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
+      <!--HORARIO-->
+      <div class="col-6">
+          <table class="table table-bordered">
+            <thead >
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let col of matrizHorario; let columnas = index">
+                <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
+                <td *ngFor="let row of col; let filas = index">
+                  <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
+                    <p *ngFor="let subject of row;let a = index">{{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                  </div>
+                  <ng-template #libre>
+                    <div class="redBg">
+                      <p *ngFor="let subject of row;let a = index">{{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                    </div>
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <!--CHECKBOX-->
+        <div *ngIf="chargeCheckboxes" class="col-6">
+          <div *ngFor="let row of matrizBotones;let asignatura = index" class="row" style="">
+            <div class="col-1 mt-4" *ngIf="asignatura == 0" style="width:auto">
               <p>{{actualSubjects[asignatura]}}</p>
             </div>
-          <mat-radio-group class="col row">
-          <div *ngFor="let col of row; let grupo = index" class="">
-            <label *ngIf="asignatura == 0">{{actualCourse[grupo]}}</label>
+            <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
+                <p>{{actualSubjects[asignatura]}}</p>
+              </div>
+            <mat-radio-group class="col row">
+            <div *ngFor="let col of row; let grupo = index" class="">
+              <label *ngIf="asignatura == 0">{{actualCourse[grupo]}}</label>
+              <label *ngIf="asignatura > 0"></label>
+              <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
+            </div>
+            <div>
+            <label *ngIf="asignatura == 0"><!--<mat-icon svgIcon="delete"></mat-icon>-->X</label>
             <label *ngIf="asignatura > 0"></label>
-            <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
+            <mat-radio-button class="col" (click)="limpiarAsignatura(actualSubjects[asignatura])"></mat-radio-button>
           </div>
-        </mat-radio-group>
+          </mat-radio-group>
+          </div>
         </div>
-      </div>
-  </div>
+    </div>
   </div>
 
 

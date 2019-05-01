@@ -37,3 +37,9 @@
 input, label{
     display: block;
 }
+.red{
+    color:red;
+}
+.black{
+    color:black;
+}
