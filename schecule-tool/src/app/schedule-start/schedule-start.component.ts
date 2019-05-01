@@ -24,8 +24,8 @@ export class ScheduleStartComponent implements OnInit {
     'Computadores',
     'Sistemas de Información',
     'Tecnologías de Soc de Inf',
-    'Software y Tec Soc Inf',
-    'Computadores y Tec Soc Inf'
+    //'Software y Tec Soc Inf',
+    //'Computadores y Tec Soc Inf'
   ];
 
   courses = [
@@ -197,7 +197,7 @@ export class ScheduleStartComponent implements OnInit {
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
-    for(var i: number = 0; i < 11; i++) {
+    for(var i: number = 0; i < 12; i++) {
       this.matrizHorario[i] = [];
       this.matrizCoincidencias[i] = [null];
       for(var j: number = 0; j< 5; j++) {
@@ -249,17 +249,31 @@ export class ScheduleStartComponent implements OnInit {
     let clases = this.grupos[grupoStr][asignatura];
     let dayNames = Object.keys(clases);
     let finded = false;
+
+    for(let i in this.matrizHorario){
+      for(let j in this.matrizHorario[i]){
+        let counter = 0;
+        for(let k in this.matrizHorario[i][j]){
+          if(this.matrizHorario[i][j][k].nombre == asignatura){
+            this.matrizHorario[i][j].splice(counter);
+          }
+          counter++;
+        }
+      }
+    }
+
     for(let day in clases){
       for(let hour in clases[day]){
         //console.log("Guardamos: " + asignatura + " en " + "[" + (-9 + clases[day][hour]) +"]" + "[" + this.inicialDias.indexOf(day) + "]");
         let hourPos = clases[day][hour] - 9;
         let dayPos = this.inicialDias.indexOf(day);
-        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length < 2;
-        if(!this.matrizHorario[hourPos][dayPos].includes(subject)){
-         console.log("Metemos " + subject.nombre + ":" + subject.grupo);
-        this.matrizHorario[hourPos][dayPos].push(subject);
-        }  
-      }
+        if(!this.matrizHorario[hourPos][dayPos].includes(subject)){ //HAY QUE PENSAR ESTO AGAIN.
+          this.matrizHorario[hourPos][dayPos].push(subject);
+          console.log("Metemos " + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].nombre + ":" + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].grupo );
+        }else{
+          console.log("Ya existe!");
+        }
+      }  
     }
   }
    
