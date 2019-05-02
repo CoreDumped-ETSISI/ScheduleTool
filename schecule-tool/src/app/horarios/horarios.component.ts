@@ -335,30 +335,38 @@ const grados: grados[] = [
 })
 export class HorariosComponent implements OnInit {
 
-  gradoSel: grados
-  cursoSel: cursos
+  public gradoSel: grados
+  public cursoSel: cursos
 
   constructor() { 
-    this.setGrado(grados[0])
-    this.setCurso(grados[0].curso[0])
+
   }
 
   ngOnInit() {
-
+    
   }
 
+  public setGradoFromMatrix(grado){
+    $('#'+grado.gradoCode).click()
+  }
 
-  setGrado(grado){
+  public setCursoFromMatrix(curso){
+    $('#'+curso.cursoN).click()
+  }
+
+  public setGrado(grado){
+    if(this.cursoSel!=null) $('#'+this.cursoSel.cursoN+'.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     if(this.gradoSel!=null) $('#'+this.gradoSel.gradoCode+'.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
-    this.gradoSel = grado
+    this.gradoSel=null
     console.log(grado.gradoCode)
     $('#'+grado.gradoCode).addClass('btn-pantone285-active')
     $('#'+grado.gradoCode).removeClass('btn-pantone285')
-    this.setCurso(this.gradoSel.curso[0])
-    console.log("gs: "+this.gradoSel.grado)
+    console.log("gradoo: "+grado.grado)
+    this.gradoSel = grado
+    this.cursoSel = null
   }
 
-  setCurso(curso){
+  public setCurso(curso){
     if(this.cursoSel!=null) $('#'+this.cursoSel.cursoN+'.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     this.cursoSel = curso
     $('#'+curso.cursoN).addClass('btn-pantone285-active')
@@ -375,5 +383,5 @@ export class HorariosComponent implements OnInit {
   }
 
   displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
-  grados = grados;
+  public grados = grados;
 }

@@ -20,12 +20,12 @@
             <div ngbDropdown class="d-inline-block mg">
               <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{gradeName}}</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);getGradoByName(grades[0])">{{grades[0]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);getGradoByName(grades[1])">{{grades[1]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);getGradoByName(grades[2])">{{grades[2]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);getGradoByName(grades[3])">{{grades[3]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);getGradoByName(grades[4])">{{grades[4]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);getGradoByName(grades[5])">{{grades[5]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
+                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
                 <button *ngIf="mobile" ngbDropdownItem
                   (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
                 <button *ngIf="mobile" ngbDropdownItem
