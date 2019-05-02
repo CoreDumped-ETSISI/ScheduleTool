@@ -7,7 +7,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTabsModule } from '@angular/material/tabs'
@@ -42,7 +42,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatCardModule,
     NgbPaginationModule,
     NgbAlertModule,
-    FullCalendarModule
+    FullCalendarModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

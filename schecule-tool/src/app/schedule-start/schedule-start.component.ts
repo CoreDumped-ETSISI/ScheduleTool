@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio'; 
+import { HttpClient } from '@angular/common/http';
 
 export interface horario {
   horas: string
@@ -32,8 +33,6 @@ const Datos: horario[] = [
   styleUrls: ['./schedule-start.component.css']
 })
 
-
-
 export class ScheduleStartComponent implements OnInit {
   grades = [
     'Software',
@@ -44,7 +43,18 @@ export class ScheduleStartComponent implements OnInit {
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
 
-  constructor() {
+  constructor(private http: HttpClient) {
+  }
+
+  groupJson;
+
+  getJson(){
+    return this.http.get('http://localhost:3000/json').subscribe(data => {
+      var groupString = '';
+      groupString = data[0].file;      
+      this.groupJson = JSON.parse(groupString);
+      console.log(this.groupJson)
+    });  
   }
 
   mobileGrades = [
@@ -305,6 +315,7 @@ export class ScheduleStartComponent implements OnInit {
     this.detectmob();
     this.cargarMatriz();
     //console.log(this.matrizHorario);
+    this.getJson();
 
   }
 
