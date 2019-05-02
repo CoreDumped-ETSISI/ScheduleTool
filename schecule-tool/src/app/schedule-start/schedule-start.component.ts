@@ -197,8 +197,8 @@ export class ScheduleStartComponent implements OnInit {
   public matrizBotones;
   constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer) { 
     iconRegistry.addSvgIcon(
-      'delete',
-      sanitizer.bypassSecurityTrustResourceUrl('../deleteIcon.svg'));
+      'deleteicon',
+      sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
   }
 
   cargarMatriz(){
@@ -281,10 +281,12 @@ export class ScheduleStartComponent implements OnInit {
         let counter = 0;
         for(let k in this.matrizHorario[i][j]){
           if(this.matrizHorario[i][j][k].nombre == asignatura){
-            this.matrizHorario[i][j].splice(counter);
+            this.matrizHorario[i][j].splice(counter, 1);
           }
           counter++;
         }
+        this.matrizCoincidencias[i][j] = this.matrizHorario[i][j].length > 1;
+
       }
     }
   }
