@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery';
 
 export interface horario {
@@ -250,82 +250,82 @@ const GTOPT42: horario[] = [
 
 
 const primero: grupos[] = [
-  { nombreGrupo: "GM11", grupo: GM11 },
-  { nombreGrupo: "GM12", grupo: GM12 },
-  { nombreGrupo: "GM13", grupo: GM13 },
-  { nombreGrupo: "GM14", grupo: GM14 },
-  { nombreGrupo: "GM15", grupo: GM15 },
-  { nombreGrupo: "GT11", grupo: GT11 },
-  { nombreGrupo: "GT12", grupo: GT12 },
-  { nombreGrupo: "GT13", grupo: GT13 }
+  {nombreGrupo:"GM11",grupo:GM11},
+  {nombreGrupo:"GM12",grupo:GM12},
+  {nombreGrupo:"GM13",grupo:GM13},
+  {nombreGrupo:"GM14",grupo:GM14},
+  {nombreGrupo:"GM15",grupo:GM15},
+  {nombreGrupo:"GT11",grupo:GT11},
+  {nombreGrupo:"GT12",grupo:GT12},
+  {nombreGrupo:"GT13",grupo:GT13}
 ]
 
 const segundo: grupos[] = [
-  { nombreGrupo: "GM21", grupo: GM21 },
-  { nombreGrupo: "GM22", grupo: GM22 },
-  { nombreGrupo: "GM23", grupo: GM23 },
-  { nombreGrupo: "GT21", grupo: GT21 },
-  { nombreGrupo: "GT22", grupo: GT22 }
+  {nombreGrupo:"GM21",grupo:GM21},
+  {nombreGrupo:"GM22",grupo:GM22},
+  {nombreGrupo:"GM23",grupo:GM23},
+  {nombreGrupo:"GT21",grupo:GT21},
+  {nombreGrupo:"GT22",grupo:GT22}
 ]
 
-const terceroComputadores: grupos[] = [
-  { nombreGrupo: "GCOM31", grupo: GCOM31 }
+const terceroComputadores: grupos [] = [
+  {nombreGrupo:"GCOM31",grupo:GCOM31}
 ]
 
-const terceroSoftware: grupos[] = [
-  { nombreGrupo: "GIWM31", grupo: GIWM31 },
-  { nombreGrupo: "GIWT31", grupo: GIWT31 }
+const terceroSoftware: grupos [] = [
+  {nombreGrupo:"GIWM31",grupo:GIWM31},
+  {nombreGrupo:"GIWT31",grupo:GIWT31}
 ]
 
 const terceroSI: grupos[] = [
-  { nombreGrupo: "GSIT31", grupo: GSIT31 }
+  {nombreGrupo:"GSIT31",grupo:GSIT31}
 ]
 
 const terceroTSI: grupos[] = [
-  { nombreGrupo: "GTIM31", grupo: GTIM31 }
+  {nombreGrupo:"GTIM31",grupo:GTIM31}
 ]
 
-const cuarto: grupos[] = [
-  { nombreGrupo: "GMOPT41", grupo: GMOPT41 },
-  { nombreGrupo: "GMOPT41a", grupo: GMOPT41a },
-  { nombreGrupo: "GMOPT41b", grupo: GMOPT41b },
-  { nombreGrupo: "GTOPT41", grupo: GTOPT41 },
-  { nombreGrupo: "GTOPT42", grupo: GTOPT42 }
+const cuarto: grupos [] = [
+  {nombreGrupo:"GMOPT41",grupo:GMOPT41},
+  {nombreGrupo:"GMOPT41a",grupo:GMOPT41a},
+  {nombreGrupo:"GMOPT41b",grupo:GMOPT41b},
+  {nombreGrupo:"GTOPT41",grupo:GTOPT41},
+  {nombreGrupo:"GTOPT42",grupo:GTOPT42}  
 ]
 
 const computadores: cursos[] = [
-  { cursoN: "primero", grupos: primero },
-  { cursoN: "segundo", grupos: segundo },
-  { cursoN: "tercero", grupos: terceroComputadores },
-  { cursoN: "cuarto", grupos: cuarto },
+  {cursoN:"primero",grupos:primero},
+  {cursoN:"segundo",grupos:segundo},
+  {cursoN:"tercero",grupos:terceroComputadores},
+  {cursoN:"cuarto",grupos:cuarto},
 ]
 
 const software: cursos[] = [
-  { cursoN: "primero", grupos: primero },
-  { cursoN: "segundo", grupos: segundo },
-  { cursoN: "tercero", grupos: terceroSoftware },
-  { cursoN: "cuarto", grupos: cuarto },
+  {cursoN:"primero",grupos:primero},
+  {cursoN:"segundo",grupos:segundo},
+  {cursoN:"tercero",grupos:terceroSoftware},
+  {cursoN:"cuarto",grupos:cuarto},
 ]
 
 const sistInformacion: cursos[] = [
-  { cursoN: "primero", grupos: primero },
-  { cursoN: "segundo", grupos: segundo },
-  { cursoN: "tercero", grupos: terceroSI },
-  { cursoN: "cuarto", grupos: cuarto },
+  {cursoN:"primero",grupos:primero},
+  {cursoN:"segundo",grupos:segundo},
+  {cursoN:"tercero",grupos:terceroSI},
+  {cursoN:"cuarto",grupos:cuarto},
 ]
 
 const tecSocInformacion: cursos[] = [
-  { cursoN: "primero", grupos: primero },
-  { cursoN: "segundo", grupos: segundo },
-  { cursoN: "tercero", grupos: terceroTSI },
-  { cursoN: "cuarto", grupos: cuarto },
+  {cursoN:"primero",grupos:primero},
+  {cursoN:"segundo",grupos:segundo},
+  {cursoN:"tercero",grupos:terceroTSI},
+  {cursoN:"cuarto",grupos:cuarto},
 ]
 
 const grados: grados[] = [
-  { grado: "Computadores", gradoCode: "comp", curso: computadores },
-  { grado: "Software", gradoCode: "soft", curso: software },
-  { grado: "Sist. Información", gradoCode: "si", curso: sistInformacion },
-  { grado: "Tec. para la Sociedad de la Información", gradoCode: "tsi", curso: tecSocInformacion }
+  {grado:"Computadores",gradoCode:"comp",curso:computadores},
+  {grado:"Software",gradoCode:"soft",curso:software},
+  {grado:"Sist. Información",gradoCode:"si",curso:sistInformacion},
+  {grado:"Tec. para la Sociedad de la Información",gradoCode:"tsi",curso:tecSocInformacion}
 ]
 
 @Component({
@@ -338,44 +338,42 @@ export class HorariosComponent implements OnInit {
   gradoSel: grados
   cursoSel: cursos
 
-  constructor() {
-    this.gradoSel = null
-    this.cursoSel = null
+  constructor() { 
+    this.setGrado(grados[0])
+    this.setCurso(grados[0].curso[0])
   }
 
   ngOnInit() {
 
   }
-  getGradoPos() {
+
+
+  setGrado(grado){
+    if(this.gradoSel!=null) $('#'+this.gradoSel.gradoCode+'.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
+    this.gradoSel = grado
+    console.log(grado.gradoCode)
+    $('#'+grado.gradoCode).addClass('btn-pantone285-active')
+    $('#'+grado.gradoCode).removeClass('btn-pantone285')
+    this.setCurso(this.gradoSel.curso[0])
+    console.log("gs: "+this.gradoSel.grado)
+  }
+
+  setCurso(curso){
+    if(this.cursoSel!=null) $('#'+this.cursoSel.cursoN+'.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
+    this.cursoSel = curso
+    $('#'+curso.cursoN).addClass('btn-pantone285-active')
+    $('#'+curso.cursoN).removeClass('btn-pantone285')
+    console.log("cs: "+this.cursoSel.cursoN)
+  }
+
+  getGradoPos(){
     return grados.indexOf(this.gradoSel)
   }
 
-  getCursoPos() {
+  getCursoPos(){
     return grados[grados.indexOf(this.gradoSel)].curso.indexOf(this.cursoSel)
   }
 
-  setGrado(grado) {
-    if (this.cursoSel != null) {
-      this.cursoSel = grado.curso[this.getCursoPos()]
-      $('#' + this.cursoSel.cursoN).addClass('btn-pantone285-active')
-      $('#' + this.cursoSel.cursoN).removeClass('btn-pantone285')
-    }
-    if (this.gradoSel != null) $('#' + this.gradoSel.gradoCode + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
-    this.gradoSel = grado
-    $('#' + grado.gradoCode).addClass('btn-pantone285-active')
-    $('#' + grado.gradoCode).removeClass('btn-pantone285')
-
-  }
-
-  setCurso(curso) {
-    if (this.cursoSel != null) $('#' + this.cursoSel.cursoN + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
-    this.cursoSel = curso
-    $('#' + curso.cursoN).addClass('btn-pantone285-active')
-    $('#' + curso.cursoN).removeClass('btn-pantone285')
-  }
-
-
-
-  displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+  displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
   grados = grados;
 }
