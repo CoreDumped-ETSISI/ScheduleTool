@@ -58,7 +58,6 @@
     </div>
   </div>
   <div class="row">
-
     <!--HORARIO-->
     <div class="col-6">
       <div #tabla>
@@ -70,15 +69,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let i of matrizHorario; let col = index">
-              <td>{{horas[col]}} - {{horas[col] + 1}}</td>
-              <td *ngFor="let j of i;let row">{{j}}</td>
+            <tr *ngFor="let col of matrizHorario; let columnas = index">
+              <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
+              <td *ngFor="let row of col; let filas = index">
+                <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
+                  <p *ngFor="let subject of row;let a = index">
+                    {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                </div>
+                <ng-template #libre>
+                  <div class="red">
+                    <p *ngFor="let subject of row;let a = index">
+                      {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                  </div>
+                </ng-template>
+              </td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="row">
-        <button type="button" class="btn btn-secondary" (click)="downloadPDF()">Descargar PDF</button>
       </div>
     </div>
     <!--CHECKBOX-->
@@ -90,27 +97,36 @@
         <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
           <p>{{actualSubjects[asignatura]}}</p>
         </div>
-        <mat-radio-group class="col row">
+        <mat-radio-group class="col row" style="text-align:center">
           <div *ngFor="let col of row; let grupo = index" class="">
             <label *ngIf="asignatura == 0">{{actualCourse[grupo]}}</label>
             <label *ngIf="asignatura > 0"></label>
             <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]"
               (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
           </div>
+          <div style="text-align:center">
+            <label *ngIf="asignatura == 0">
+              <mat-icon>delete</mat-icon>
+            </label>
+            <label *ngIf="asignatura > 0"></label>
+            <mat-radio-button class="col" (click)="limpiarAsignatura(actualSubjects[asignatura])"></mat-radio-button>
+          </div>
         </mat-radio-group>
       </div>
     </div>
-    <div class="col-6">
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-horarios></app-horarios>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
   </div>
+</div>
+<div class="col-6">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-horarios></app-horarios>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+</div>
 </div>

@@ -48,3 +48,9 @@ mat-toolbar.mat-primary{
 input, label{
     display: block;
 }
+.red{
+    color:red;
+}
+.black{
+    color:black;
+}
