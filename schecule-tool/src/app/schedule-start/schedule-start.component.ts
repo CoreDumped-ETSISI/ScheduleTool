@@ -257,7 +257,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-  
+
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
