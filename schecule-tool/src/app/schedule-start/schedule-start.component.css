@@ -1,3 +1,14 @@
+mat-toolbar{
+    margin-bottom:25px;
+    height:75px;
+}
+mat-toolbar.mat-primary{
+    background:'#1867B6'!important;
+}
+.show_schedules{
+    padding-left:15px;
+    font-size:20px;
+}
 .MainTitle {
     margin-bottom: 0%;
 }

@@ -4,7 +4,31 @@ import {MatRadioModule} from '@angular/material/radio';
 import {SubjectModel} from '../subject-model';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
+export interface horario {
+  horas: string
+  lunes: string
+  martes: string
+  miercoles: string
+  jueves: string
+  viernes: string
+}
+
+const Datos: horario[] = [
+  { horas: "9-10", lunes: '', martes: "ED", miercoles: 'FI', jueves: 'FS', viernes: 'FI' },
+  { horas: "10-11", lunes: '', martes: "ED", miercoles: 'FI', jueves: 'FS', viernes: 'FI' },
+  { horas: "11-12", lunes: '', martes: "A", miercoles: 'EC', jueves: 'A', viernes: 'EC' },
+  { horas: "12-13", lunes: '', martes: "A", miercoles: 'EC', jueves: 'A', viernes: 'EC' },
+  { horas: "13-14", lunes: '', martes: "AS", miercoles: 'ED', jueves: '', viernes: 'A' },
+  { horas: "14-15", lunes: '', martes: "AS", miercoles: 'ED', jueves: '', viernes: '' },
+  { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+  { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+  { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+  { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+  { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+  { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
+]
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
 @Component({
@@ -12,6 +36,7 @@ import { stringify } from '@angular/core/src/util';
   templateUrl: './schedule-start.component.html',
   styleUrls: ['./schedule-start.component.css']
 })
+
 export class ScheduleStartComponent implements OnInit {
   grades = [
     'Software',
@@ -19,8 +44,22 @@ export class ScheduleStartComponent implements OnInit {
     'Sistemas de Información',
     'Tecnologías de Sociedades de Información',
     //'Software y Tecnologías de Sociedades de Información',
-    //'Computadores y Tecnologías de Sociedades de Información' AUN NO HAY INFO  DE ESTOS 2.
+    //'Computadores y Tecnologías de Sociedades de Información'
   ];
+
+  constructor(private http: HttpClient) {
+  }
+
+  groupJson;
+
+  getJson(){
+    return this.http.get('http://localhost:3000/json').subscribe(data => {
+      var groupString = '';
+      groupString = data[0].file;      
+      this.groupJson = JSON.parse(groupString);
+      console.log(this.groupJson)
+    });  
+  }
 
   mobileGrades = [
     'Software',
@@ -200,7 +239,6 @@ export class ScheduleStartComponent implements OnInit {
       'deleteicon',
       sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
   }
-
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
@@ -311,8 +349,11 @@ export class ScheduleStartComponent implements OnInit {
     this.detectmob();
     this.cargarMatriz();
     //console.log(this.matrizHorario);
+    this.getJson();
 
   }
 
+  displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
+  dataSource = Datos;
 }
 
