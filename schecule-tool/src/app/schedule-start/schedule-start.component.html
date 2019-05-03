@@ -61,8 +61,9 @@
 
     <!--HORARIO-->
     <div class="col-6">
+      <div #tabla>
         <table class="table table-bordered">
-          <thead >
+          <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
@@ -76,30 +77,35 @@
           </tbody>
         </table>
       </div>
+      <div class="row">
+        <button type="button" class="btn btn-secondary" (click)="downloadPDF()">Descargar PDF</button>
+      </div>
+    </div>
     <!--CHECKBOX-->
-      <div *ngIf="chargeCheckboxes" class="col-6">
-        <div *ngFor="let row of matrizBotones;let asignatura = index" class="row" style="">
-          <div class="col-1 mt-4" *ngIf="asignatura == 0" style="width:auto">
-            <p>{{actualSubjects[asignatura]}}</p>
-          </div>
-          <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
-              <p>{{actualSubjects[asignatura]}}</p>
-            </div>
-          <mat-radio-group class="col row">
+    <div *ngIf="chargeCheckboxes" class="col-6">
+      <div *ngFor="let row of matrizBotones;let asignatura = index" class="row" style="">
+        <div class="col-1 mt-4" *ngIf="asignatura == 0" style="width:auto">
+          <p>{{actualSubjects[asignatura]}}</p>
+        </div>
+        <div class="col-1 " *ngIf="asignatura > 0" style="width:auto">
+          <p>{{actualSubjects[asignatura]}}</p>
+        </div>
+        <mat-radio-group class="col row">
           <div *ngFor="let col of row; let grupo = index" class="">
             <label *ngIf="asignatura == 0">{{actualCourse[grupo]}}</label>
             <label *ngIf="asignatura > 0"></label>
-            <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
+            <mat-radio-button class="col" [value]="actualSubjects[asignatura] + actualCourse[grupo]"
+              (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo])"></mat-radio-button>
           </div>
         </mat-radio-group>
-        </div>
       </div>
+    </div>
     <div class="col-6">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon>calendar_today</mat-icon>  <span class="show_schedules">Horarios</span>
+              <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <app-horarios></app-horarios>
@@ -107,8 +113,4 @@
       </mat-accordion>
     </div>
   </div>
-  </div>
-
-
-
-
+</div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio'; 
 import { HttpClient } from '@angular/common/http';
+import * as jsPDF from 'jspdf';
 
 export interface horario {
   horas: string
@@ -44,6 +45,25 @@ export class ScheduleStartComponent implements OnInit {
   ];
 
   constructor(private http: HttpClient) {
+  }
+
+  @ViewChild('tabla') tabla: ElementRef;
+
+  downloadPDF(){
+    let doc = new jsPDF('p', 'pt', 'letter');
+    let tabla = this.tabla.nativeElement;
+    let specialElementHandlers = {
+      '#editor': function(element, renderer){
+        return true;
+      } 
+    };
+
+    doc.fromHTML(tabla.innerHTML, 80, 15, {
+      'width': 210,
+      'elementHandlers': specialElementHandlers,
+    });
+
+    doc.save('horarios.pdf');
   }
 
   groupJson;
