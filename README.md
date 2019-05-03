@@ -9,6 +9,8 @@ npm install --save @angular/material @angular/cdk @angular/animations
 
 npm install ngx-bootstrap --save
 
+npm install html-pdf
+
 
 //CALENDARIO
  
