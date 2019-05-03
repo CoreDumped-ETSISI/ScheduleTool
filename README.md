@@ -9,6 +9,10 @@ npm install --save @angular/material @angular/cdk @angular/animations
 
 npm install ngx-bootstrap --save
 
+npm install jspdf --save
+
+npm install @types/jspdf --save-dev
+
 
 //CALENDARIO
  

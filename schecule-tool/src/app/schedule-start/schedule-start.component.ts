@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatRadioModule } from '@angular/material/radio';
-import { EventEmitter } from 'events';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatRadioModule} from '@angular/material/radio'; 
+import {SubjectModel} from '../subject-model';
+import {MatIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import * as jsPDF from 'jspdf';
+import { strictEqual } from 'assert';
+import { stringify } from '@angular/core/src/util';
 import { HorariosComponent } from '../horarios/horarios.component';
-
 @Component({
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
   styleUrls: ['./schedule-start.component.css']
 })
-
-
 
 export class ScheduleStartComponent implements OnInit {
   grades = [
@@ -22,8 +25,7 @@ export class ScheduleStartComponent implements OnInit {
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
 
-  constructor(private horariosComponent: HorariosComponent) {
-  }
+
   checkGradoName(gradoName) {
     if (gradoName === "Sistemas de Información") return 'Sist. Información'
     if (gradoName === "Tecnologías de Sociedades de Información") return 'Tec. para la Sociedad de la Información'
@@ -40,6 +42,42 @@ export class ScheduleStartComponent implements OnInit {
     let grado = this.horariosComponent.grados[this.horariosComponent.grados.map((el) => el.grado).indexOf(this.checkGradoName(this.gradeName))]
     let curso = grado.curso[grado.curso.map((el) => el.cursoN).indexOf(this.checkGradoName(cursoName))]
     this.horariosComponent.setCursoFromMatrix(curso)
+  }
+  
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosComponent: HorariosComponent) { 
+    iconRegistry.addSvgIcon(
+      'deleteicon',
+      sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
+  }
+
+  @ViewChild('tabla') tabla: ElementRef;
+
+  downloadPDF(){
+    let doc = new jsPDF('p', 'pt', 'letter');
+    let tabla = this.tabla.nativeElement;
+    let specialElementHandlers = {
+      '#editor': function(element, renderer){
+        return true;
+      } 
+    };
+
+    doc.fromHTML(tabla.innerHTML, 80, 15, {
+      'width': 210,
+      'elementHandlers': specialElementHandlers,
+    });
+
+    doc.save('horarios.pdf');
+  }
+
+  groupJson;
+
+  getJson(){
+    return this.http.get('http://localhost:3000/json').subscribe(data => {
+      var groupString = '';
+      groupString = data[0].file;      
+      this.groupJson = JSON.parse(groupString);
+      console.log(this.groupJson)
+    });  
   }
 
   mobileGrades = [
@@ -253,20 +291,19 @@ export class ScheduleStartComponent implements OnInit {
   actualCourse;
   actualGrade;
   actualSubjects;
-  public matrizHorario: string[][];
-  public matrizCoincidencias: boolean[][];
+  public matrizHorario:SubjectModel[][][];
+  public matrizCoincidencias:boolean[][];
   public matrizBotones;
-
-
-  cargarMatriz() {
+  
+  cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
-    for (var i: number = 0; i < 11; i++) {
+    for(var i: number = 0; i < 12; i++) {
       this.matrizHorario[i] = [];
-      this.matrizCoincidencias[i] = [];
-      for (var j: number = 0; j < 5; j++) {
-        this.matrizHorario[i][j] = "";
-        this.matrizCoincidencias[i][j] = false;
+      this.matrizCoincidencias[i] = [null];
+      for(var j: number = 0; j< 5; j++) {
+          this.matrizHorario[i][j] = [];
+          this.matrizCoincidencias[i][j] = false;
       }
     }
   }
@@ -307,31 +344,59 @@ export class ScheduleStartComponent implements OnInit {
     }
     console.log(this.matrizBotones);
   }
-  cargarAsignatura(asignatura: string, grupo: string) {
-
-    let clases = this.grupos[grupo][asignatura];
+  
+  cargarAsignatura(asignatura:string, grupoStr:string){
+    let subject:SubjectModel = {
+      nombre:asignatura,
+      grupo:grupoStr
+    };
+    let clases = this.grupos[grupoStr][asignatura];
     let dayNames = Object.keys(clases);
-    for (let day in clases) {
-      for (let hour in clases[day]) {
+    let finded = false;
+
+    this.limpiarAsignatura(asignatura);
+
+    for(let day in clases){
+      for(let hour in clases[day]){
         //console.log("Guardamos: " + asignatura + " en " + "[" + (-9 + clases[day][hour]) +"]" + "[" + this.inicialDias.indexOf(day) + "]");
         let hourPos = clases[day][hour] - 9;
         let dayPos = this.inicialDias.indexOf(day);
-        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos] != "";
-        this.matrizHorario[hourPos][dayPos] += asignatura + "(" + grupo + ")\n";
-
+        if(!this.matrizHorario[hourPos][dayPos].includes(subject)){ //HAY QUE PENSAR ESTO AGAIN.
+          this.matrizHorario[hourPos][dayPos].push(subject);
+          console.log("Metemos " + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].nombre + ":" + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].grupo );
+        }else{
+          console.log("Ya existe!");
+        }
+        this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
+      }  
+    }
+    console.log(this.matrizCoincidencias);
+  }
+  limpiarAsignatura(asignatura){
+    for(let i in this.matrizHorario){
+      for(let j in this.matrizHorario[i]){
+        let counter = 0;
+        for(let k in this.matrizHorario[i][j]){
+          if(this.matrizHorario[i][j][k].nombre == asignatura){
+            this.matrizHorario[i][j].splice(counter, 1);
+          }
+          counter++;
+        }
+        this.matrizCoincidencias[i][j] = this.matrizHorario[i][j].length > 1;
 
       }
     }
   }
-  detectmob() {
-    if (navigator.userAgent.match(/Android/i)
-      || navigator.userAgent.match(/webOS/i)
-      || navigator.userAgent.match(/iPhone/i)
-      || navigator.userAgent.match(/iPad/i)
-      || navigator.userAgent.match(/iPod/i)
-      || navigator.userAgent.match(/BlackBerry/i)
-      || navigator.userAgent.match(/Windows Phone/i)
-    ) {
+   
+  detectmob() { 
+    if( navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)
+    ){
       this.mobile = true;
     }
     else {
@@ -343,7 +408,9 @@ export class ScheduleStartComponent implements OnInit {
     this.detectmob();
     this.cargarMatriz();
     //console.log(this.matrizHorario);
+    this.getJson();
 
   }
 
 }
+
