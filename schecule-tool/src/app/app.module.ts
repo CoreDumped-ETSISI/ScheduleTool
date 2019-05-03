@@ -9,13 +9,11 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion'
-import { MatIconModule } from '@angular/material/icon'
 import { HorariosComponent } from './horarios/horarios.component'
 import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
 //Para el calendario 
