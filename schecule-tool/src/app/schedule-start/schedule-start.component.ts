@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio'; 
 import {SubjectModel} from '../subject-model';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import * as jsPDF from 'jspdf';
 
 export interface horario {
   horas: string
@@ -47,7 +48,29 @@ export class ScheduleStartComponent implements OnInit {
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient) { 
+    iconRegistry.addSvgIcon(
+      'deleteicon',
+      sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
+  }
+
+  @ViewChild('tabla') tabla: ElementRef;
+
+  downloadPDF(){
+    let doc = new jsPDF('p', 'pt', 'letter');
+    let tabla = this.tabla.nativeElement;
+    let specialElementHandlers = {
+      '#editor': function(element, renderer){
+        return true;
+      } 
+    };
+
+    doc.fromHTML(tabla.innerHTML, 80, 15, {
+      'width': 210,
+      'elementHandlers': specialElementHandlers,
+    });
+
+    doc.save('horarios.pdf');
   }
 
   public grupos;
@@ -234,7 +257,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-
+  
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
