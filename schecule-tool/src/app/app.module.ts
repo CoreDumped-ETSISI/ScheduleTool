@@ -6,6 +6,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { AppRoutingModule } from './app-routing.module';
+import {MatIconModule} from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
@@ -27,6 +29,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     ScheduleMonthlyComponent
   ],
   imports: [
+    HttpClientModule,
+    MatIconModule,
     MatRadioModule,
     BrowserModule,
     AppRoutingModule,
@@ -43,7 +47,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     NgbPaginationModule,
     NgbAlertModule,
     FullCalendarModule,
-    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
