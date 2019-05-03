@@ -26,12 +26,18 @@
                 <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3])">{{grades[3]}}</button>
                 <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4])">{{grades[4]}}</button>
                 <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5])">{{grades[5]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
+                <button *ngIf="mobile" ngbDropdownItem
+                  (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
               </div>
             </div>
           </div>
@@ -46,7 +52,6 @@
               </div>
             </div>
             <button type="button" class="btn btn-secondary" (click)="reset()">Volver a Empezar</button>
-
           </div>
         </div>
       </div>
@@ -102,8 +107,22 @@
           </mat-radio-group>
           </div>
         </div>
+      </div>
+    <div class="col-6">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>calendar_today</mat-icon>  <span class="show_schedules">Horarios</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-horarios></app-horarios>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
+  </div>
+
 
 
 

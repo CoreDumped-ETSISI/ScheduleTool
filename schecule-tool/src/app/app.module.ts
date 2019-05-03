@@ -9,8 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http'
 import { AppComponent } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ScheduleStartComponent } from './schedule-start/schedule-start.component';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatIconModule } from '@angular/material/icon'
+import { HorariosComponent } from './horarios/horarios.component'
 import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
 //Para el calendario 
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -19,7 +25,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   declarations: [
     AppComponent,
     ScheduleStartComponent,
-    ScheduleMonthlyComponent,
+    HorariosComponent,
+    ScheduleMonthlyComponent
   ],
   imports: [
     HttpClientModule,
@@ -30,6 +37,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     NgbModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatCardModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatIconModule,
     MatCardModule,
     NgbPaginationModule,
     NgbAlertModule,
