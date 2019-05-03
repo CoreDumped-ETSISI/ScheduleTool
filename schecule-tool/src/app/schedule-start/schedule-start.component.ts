@@ -57,7 +57,11 @@ export class ScheduleStartComponent implements OnInit {
   @ViewChild('tabla') tabla: ElementRef;
 
   downloadPDF(){
-    let doc = new jsPDF('p', 'pt', 'letter');
+    let doc = new jsPDF({
+      unit: 'pt',
+      format: 'letter',
+    });
+    doc.setFontSize(12);
     let tabla = this.tabla.nativeElement;
     let specialElementHandlers = {
       '#editor': function(element, renderer){
@@ -371,7 +375,7 @@ export class ScheduleStartComponent implements OnInit {
     this.getJson();
 
   }
-
+w
   displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
   dataSource = Datos;
 }

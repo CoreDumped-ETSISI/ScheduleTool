@@ -64,7 +64,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">###</th>
               <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
             </tr>
           </thead>
@@ -86,6 +86,7 @@
             </tr>
           </tbody>
         </table>
+        <button type="button" class="btn btn-secondary" (click)="downloadPDF()">Descargar PDF</button>
       </div>
     </div>
     <!--CHECKBOX-->
