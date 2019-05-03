@@ -50,14 +50,14 @@ export class ScheduleStartComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  groupJson;
+  public grupos;
 
   getJson(){
     return this.http.get('http://localhost:3000/json').subscribe(data => {
       var groupString = '';
       groupString = data[0].file;      
-      this.groupJson = JSON.parse(groupString);
-      console.log(this.groupJson)
+      this.grupos = JSON.parse(groupString);
+      console.log(this.grupos)
     });  
   }
 
@@ -93,7 +93,7 @@ export class ScheduleStartComponent implements OnInit {
 	[this.auxCurso1, this.auxCurso2, ['GSIT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSIM41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Sist. Informacion
 	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GMOPT41a', 'GMOPT41b', 'GMOPT41', 'GTOPT41', 'GTOPT42']],//Tech. Sociedad Inform.
 ]
-  grupos = { "GCOM31":
+  gruposJson = { "GCOM31":
   { "AA": {"J":[11,12],"M":[9,10]},
     "PHW": {"J":[13,14],"M":[13,14]},
     "SSR": {"M":[11,12],"X":[11,12]},
@@ -234,11 +234,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer) { 
-    iconRegistry.addSvgIcon(
-      'deleteicon',
-      sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
-  }
+
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
@@ -350,7 +346,7 @@ export class ScheduleStartComponent implements OnInit {
     this.cargarMatriz();
     //console.log(this.matrizHorario);
     this.getJson();
-
+    console.log(this.grupos)
   }
 
   displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
