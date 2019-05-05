@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="btn-group" role="group" aria-label="Basic example">
+  <div class="btn-group mobile-btngroup" role="group">
     <button type="button" class="btn btn-pantone285" *ngFor="let grado of grados" (click)="setGrado(grado)"
       id="{{grado.gradoCode}}">{{grado.grado}}</button>
   </div>
@@ -7,7 +7,7 @@
 
 <div *ngIf="gradoSel!=null">
   <div class="d-flex justify-content-center marg-tb-20">
-    <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="btn-group" role="group">
       <button type="button" class="btn btn-pantone285" *ngFor="let curso of grados[getGradoPos()].curso"
         id="{{curso.cursoN}}" (click)="setCurso(curso)">{{curso.cursoN}}</button>
     </div>
