@@ -110,10 +110,10 @@ export class ScheduleStartComponent implements OnInit {
   auxCurso2 = ['GM21', 'GM22', 'GM23', 'GT21', 'GT22'];//generamos esta estructura auxiliar para no repetir codigo.
   auxCurso4 = ['GMOPT41', 'GMOPT41a', 'GMOPT41b', 'GTOPT41', 'GTOPT42'];
    cursos = [//HAY QUE REVISAR ESTOS ARRAYS, LOS NOMBRES DE LOS GRUPOS DE 3º Y 4º ESTAN DISTINTOS EN EL JSON Y NO LOS ENCUENTRA CUANDO LLAMANMOS A cargarAsignatura().
-	[this.auxCurso1, this.auxCurso2, ['GSIM31', 'GSWT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Software
-	[this.auxCurso1, this.auxCurso2,['GCOM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'],this.auxCurso4],//Computadores
-	[this.auxCurso1, this.auxCurso2, ['GSIT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Sist. Informacion
-	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Tech. Sociedad Inform.
+	[this.auxCurso1, this.auxCurso2, ['GIWM31', 'GIWT31'], this.auxCurso4],//Software
+	[this.auxCurso1, this.auxCurso2,['GCOM31'],this.auxCurso4],//Computadores
+	[this.auxCurso1, this.auxCurso2, ['GIWM31', 'GIWT31', 'GTIM31'], this.auxCurso4],//Sist. Informacion
+	[this.auxCurso1, this.auxCurso2, ['GTIM31'], this.auxCurso4],//Tech. Sociedad Inform.
 ]
   gruposJson = { "GCOM31":
   { "AA": {"J":[11,12],"M":[9,10]},
