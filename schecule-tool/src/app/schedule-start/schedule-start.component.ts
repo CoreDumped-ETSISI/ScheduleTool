@@ -6,32 +6,9 @@ import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import * as jsPDF from 'jspdf';
-
-export interface horario {
-  horas: string
-  lunes: string
-  martes: string
-  miercoles: string
-  jueves: string
-  viernes: string
-}
-
-const Datos: horario[] = [
-  { horas: "9-10", lunes: '', martes: "ED", miercoles: 'FI', jueves: 'FS', viernes: 'FI' },
-  { horas: "10-11", lunes: '', martes: "ED", miercoles: 'FI', jueves: 'FS', viernes: 'FI' },
-  { horas: "11-12", lunes: '', martes: "A", miercoles: 'EC', jueves: 'A', viernes: 'EC' },
-  { horas: "12-13", lunes: '', martes: "A", miercoles: 'EC', jueves: 'A', viernes: 'EC' },
-  { horas: "13-14", lunes: '', martes: "AS", miercoles: 'ED', jueves: '', viernes: 'A' },
-  { horas: "14-15", lunes: '', martes: "AS", miercoles: 'ED', jueves: '', viernes: '' },
-  { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-  { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-  { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-  { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-  { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-  { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
-]
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
+import { HorariosComponent } from '../horarios/horarios.component';
 @Component({
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
@@ -48,7 +25,26 @@ export class ScheduleStartComponent implements OnInit {
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient) { 
+
+  checkGradoName(gradoName) {
+    if (gradoName === "Sistemas de Información") return 'Sist. Información'
+    if (gradoName === "Tecnologías de Sociedades de Información") return 'Tec. para la Sociedad de la Información'
+    return gradoName
+  }
+  getAndUpdateGradoByName(gradoName) {
+    gradoName = this.checkGradoName(gradoName)
+    this.horariosComponent.setGradoFromMatrix(this.horariosComponent.grados[this.horariosComponent.grados.map((el) => el.grado).indexOf(gradoName)])
+  }
+
+  getAndUpdateCursoByName(cursoName) {
+    cursoName = cursoName.toLowerCase()
+    if(cursoName===undefined) cursoName = 'primero'    
+    let grado = this.horariosComponent.grados[this.horariosComponent.grados.map((el) => el.grado).indexOf(this.checkGradoName(this.gradeName))]
+    let curso = grado.curso[grado.curso.map((el) => el.cursoN).indexOf(this.checkGradoName(cursoName))]
+    this.horariosComponent.setCursoFromMatrix(curso)
+  }
+  
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosComponent: HorariosComponent) { 
     iconRegistry.addSvgIcon(
       'deleteicon',
       sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
@@ -100,13 +96,13 @@ export class ScheduleStartComponent implements OnInit {
     'Cuarto'
   ];
   dias = [
-    'Lunes', 
+    'Lunes',
     'Martes',
     'Miercoles',
     'Jueves',
     'Viernes',
   ];
-  inicialDias = ["L","M", "X", "J", "V"];
+  inicialDias = ["L", "M", "X", "J", "V"];
   horas = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   auxCurso1 = ['GM11', 'GM12', 'GM13', 'GM14', 'GM15', 'GT11', 'GT12', 'GT13'];//Como los 2 primeros anos son comunes a todos los grados y tienen las mismas clases, 
   auxCurso2 = ['GM21', 'GM22', 'GM23', 'GT21', 'GT22'];//generamos esta estructura auxiliar para no repetir codigo.
@@ -257,7 +253,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-  
+
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
@@ -268,7 +264,7 @@ export class ScheduleStartComponent implements OnInit {
           this.matrizHorario[i][j] = [];
           this.matrizCoincidencias[i][j] = false;
       }
-  }
+    }
   }
 
   reset() {
@@ -279,32 +275,35 @@ export class ScheduleStartComponent implements OnInit {
   }
 
   changeGradeName(name) {
-    if(name != 'Elige Grado'){
+    if (name != 'Elige Grado') {
       this.actualGrade = this.cursos[this.grades.indexOf(name)];
       this.gradeName = name;
+      this.getAndUpdateGradoByName(name)
     }
   }
 
   changeCourseName(name) {
-    if(this.gradeName != 'Elige Grado' && name != 'Elige Curso'){
+    if (this.gradeName != 'Elige Grado' && name != 'Elige Curso') {
       this.chargeCheckboxes = true;
       this.actualCourse = this.actualGrade[this.courses.indexOf(name)];
       this.actualSubjects = Object.keys(this.grupos[this.actualCourse[0]]);
       this.matrizBotones = null;
       this.cargarMatrizBotones();
       this.courseName = name;
+      this.getAndUpdateCursoByName(name)
     }
   }
-  cargarMatrizBotones(){
+  cargarMatrizBotones() {
     this.matrizBotones = [];
-    for(var i:number = 0; i < this.actualSubjects.length; i++){
+    for (var i: number = 0; i < this.actualSubjects.length; i++) {
       this.matrizBotones[i] = [];
-      for(var j:number = 0; j < this.actualCourse.length;j++){
+      for (var j: number = 0; j < this.actualCourse.length; j++) {
         this.matrizBotones[i][j] = j;
       }
     }
     console.log(this.matrizBotones);
   }
+  
   cargarAsignatura(asignatura:string, grupoStr:string){
     let subject:SubjectModel = {
       nombre:asignatura,
@@ -372,7 +371,5 @@ export class ScheduleStartComponent implements OnInit {
     console.log(this.grupos)
   }
 
-  displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles','jueves','viernes'];
-  dataSource = Datos;
 }
 

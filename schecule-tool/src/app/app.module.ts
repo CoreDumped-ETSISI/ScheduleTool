@@ -46,7 +46,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     NgbAlertModule,
     FullCalendarModule,
   ],
-  providers: [],
+  providers: [HorariosComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
