@@ -16,6 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { HorariosComponent } from './horarios/horarios.component'
 import { ScheduleMonthlyComponent } from './schedule-monthly/schedule-monthly.component';
+import {MatButtonModule} from '@angular/material/button';
+
 //Para el calendario 
 import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -27,8 +29,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     ScheduleMonthlyComponent
   ],
   imports: [
+    MatButtonModule,
     HttpClientModule,
-    MatIconModule,
     MatRadioModule,
     BrowserModule,
     AppRoutingModule,

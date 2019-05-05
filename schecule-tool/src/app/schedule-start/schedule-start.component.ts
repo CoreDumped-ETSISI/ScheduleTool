@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
-import {MatRadioModule} from '@angular/material/radio'; 
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonModule} from '@angular/material/button';
+
 import {SubjectModel} from '../subject-model';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -106,11 +108,12 @@ export class ScheduleStartComponent implements OnInit {
   horas = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   auxCurso1 = ['GM11', 'GM12', 'GM13', 'GM14', 'GM15', 'GT11', 'GT12', 'GT13'];//Como los 2 primeros anos son comunes a todos los grados y tienen las mismas clases, 
   auxCurso2 = ['GM21', 'GM22', 'GM23', 'GT21', 'GT22'];//generamos esta estructura auxiliar para no repetir codigo.
+  auxCurso4 = ['GMOPT41', 'GMOPT41a', 'GMOPT41b', 'GTOPT41', 'GTOPT42'];
    cursos = [//HAY QUE REVISAR ESTOS ARRAYS, LOS NOMBRES DE LOS GRUPOS DE 3º Y 4º ESTAN DISTINTOS EN EL JSON Y NO LOS ENCUENTRA CUANDO LLAMANMOS A cargarAsignatura().
-	[this.auxCurso1, this.auxCurso2, ['GSIM31', 'GSWT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSWM41', 'GSWT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Software
-	[this.auxCurso1, this.auxCurso2,['GCOM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'],['GCOT41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Computadores
-	[this.auxCurso1, this.auxCurso2, ['GSIT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GSIM41', 'GMOPT', 'GTOPT 1', 'GTOPT 2']],//Sist. Informacion
-	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], ['GMOPT41a', 'GMOPT41b', 'GMOPT41', 'GTOPT41', 'GTOPT42']],//Tech. Sociedad Inform.
+	[this.auxCurso1, this.auxCurso2, ['GSIM31', 'GSWT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Software
+	[this.auxCurso1, this.auxCurso2,['GCOM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'],this.auxCurso4],//Computadores
+	[this.auxCurso1, this.auxCurso2, ['GSIT31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Sist. Informacion
+	[this.auxCurso1, this.auxCurso2, ['GTIM31', 'GMOPT', 'GTOPT 1', 'GTOPT 2'], this.auxCurso4],//Tech. Sociedad Inform.
 ]
   gruposJson = { "GCOM31":
   { "AA": {"J":[11,12],"M":[9,10]},
@@ -253,6 +256,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
+  public matrizBotonesPulsados;
 
   cargarMatriz(){
     this.matrizHorario = [];
@@ -294,17 +298,21 @@ export class ScheduleStartComponent implements OnInit {
     }
   }
   cargarMatrizBotones() {
+    this.matrizBotonesPulsados = [];
     this.matrizBotones = [];
     for (var i: number = 0; i < this.actualSubjects.length; i++) {
+      this.matrizBotonesPulsados[i] = [];
       this.matrizBotones[i] = [];
       for (var j: number = 0; j < this.actualCourse.length; j++) {
         this.matrizBotones[i][j] = j;
+        this.matrizBotonesPulsados[i][j] = false;
       }
     }
     console.log(this.matrizBotones);
   }
   
-  cargarAsignatura(asignatura:string, grupoStr:string){
+  cargarAsignatura(asignatura:string, grupoStr:string, row:number, col:number){
+    this.botonPulsado(row, col);
     let subject:SubjectModel = {
       nombre:asignatura,
       grupo:grupoStr
@@ -331,7 +339,15 @@ export class ScheduleStartComponent implements OnInit {
     }
     console.log(this.matrizCoincidencias);
   }
-  limpiarAsignatura(asignatura){
+  botonLimpiarAsignatura(asignatura:string, row:number){
+    for(let col in this.matrizBotonesPulsados[row]){
+      this.matrizBotonesPulsados[row][col] = false;
+    }
+    console.log("Limpiamos...");
+    this.limpiarAsignatura(asignatura);
+  }
+  limpiarAsignatura(asignatura:string){
+ 
     for(let i in this.matrizHorario){
       for(let j in this.matrizHorario[i]){
         let counter = 0;
@@ -345,6 +361,12 @@ export class ScheduleStartComponent implements OnInit {
 
       }
     }
+  }
+  botonPulsado(row:number, col:number){
+    for(let i in this.matrizBotonesPulsados[row]){
+      this.matrizBotonesPulsados[row][i] = false;
+    }
+    this.matrizBotonesPulsados[row][col] = true;
   }
    
   detectmob() { 
