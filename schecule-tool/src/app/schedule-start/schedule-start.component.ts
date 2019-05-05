@@ -53,11 +53,7 @@ export class ScheduleStartComponent implements OnInit {
   @ViewChild('tabla') tabla: ElementRef;
 
   downloadPDF(){
-    let doc = new jsPDF({
-      unit: 'pt',
-      format: 'letter',
-    });
-    doc.setFontSize(12);
+    let doc = new jsPDF('p', 'pt', 'letter');
     let tabla = this.tabla.nativeElement;
     let specialElementHandlers = {
       '#editor': function(element, renderer){
@@ -298,7 +294,7 @@ export class ScheduleStartComponent implements OnInit {
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
-
+  
   cargarMatriz(){
     this.matrizHorario = [];
     this.matrizCoincidencias = [];
@@ -415,5 +411,5 @@ export class ScheduleStartComponent implements OnInit {
     this.getJson();
 
   }
-}
 
+}
