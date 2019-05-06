@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {SubjectModel} from '../subject-model';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -78,7 +78,7 @@ export class ScheduleStartComponent implements OnInit {
       var groupString = '';
       groupString = data[0].file;      
       this.grupos = JSON.parse(groupString);
-      console.log(this.grupos)
+      //console.log(this.grupos)
     });  
   }
 
@@ -250,9 +250,9 @@ export class ScheduleStartComponent implements OnInit {
   chargeCheckboxes = false;
   gradeName = 'Elige Grado';
   courseName = 'Elige Curso';
-  actualCourse;
+  actualCourse = [];
   actualGrade;
-  actualSubjects;
+  actualSubjects = [];
   public matrizHorario:SubjectModel[][][];
   public matrizCoincidencias:boolean[][];
   public matrizBotones;
@@ -282,15 +282,17 @@ export class ScheduleStartComponent implements OnInit {
     if (name != 'Elige Grado') {
       this.actualGrade = this.cursos[this.grades.indexOf(name)];
       this.gradeName = name;
+      this.changeCourseName(this.courseName);
       this.getAndUpdateGradoByName(name)
     }
   }
 
   changeCourseName(name) {
+    this.actualSubjects=[];
     if (this.gradeName != 'Elige Grado' && name != 'Elige Curso') {
       this.chargeCheckboxes = true;
       this.actualCourse = this.actualGrade[this.courses.indexOf(name)];
-      this.actualSubjects = Object.keys(this.grupos[this.actualCourse[0]]);
+      this.obtainActualSubjects();
       this.matrizBotones = null;
       this.cargarMatrizBotones();
       this.courseName = name;
@@ -308,7 +310,7 @@ export class ScheduleStartComponent implements OnInit {
         this.matrizBotonesPulsados[i][j] = false;
       }
     }
-    console.log(this.matrizBotones);
+    //console.log(this.matrizBotones);
   }
   
   cargarAsignatura(asignatura:string, grupoStr:string, row:number, col:number){
@@ -330,20 +332,20 @@ export class ScheduleStartComponent implements OnInit {
         let dayPos = this.inicialDias.indexOf(day);
         if(!this.matrizHorario[hourPos][dayPos].includes(subject)){ //HAY QUE PENSAR ESTO AGAIN.
           this.matrizHorario[hourPos][dayPos].push(subject);
-          console.log("Metemos " + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].nombre + ":" + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].grupo );
+          //console.log("Metemos " + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].nombre + ":" + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].grupo );
         }else{
-          console.log("Ya existe!");
+          //console.log("Ya existe!");
         }
         this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
       }  
     }
-    console.log(this.matrizCoincidencias);
+    //console.log(this.matrizCoincidencias);
   }
   botonLimpiarAsignatura(asignatura:string, row:number){
     for(let col in this.matrizBotonesPulsados[row]){
       this.matrizBotonesPulsados[row][col] = false;
     }
-    console.log("Limpiamos...");
+    //console.log("Limpiamos...");
     this.limpiarAsignatura(asignatura);
   }
   limpiarAsignatura(asignatura:string){
@@ -368,6 +370,18 @@ export class ScheduleStartComponent implements OnInit {
     }
     this.matrizBotonesPulsados[row][col] = true;
   }
+  obtainActualSubjects(){
+    for(var group in this.actualCourse){
+      Object.keys(this.grupos[this.actualCourse[group]]).forEach(subject => {
+        if(!this.actualSubjects.includes(subject)){
+          this.actualSubjects.push(subject);
+        }
+      });
+    }
+  }
+  contieneLaAsignatura(subject:string, group:string){
+    return Object.keys(this.grupos[group]).includes(subject);
+  }
    
   detectmob() { 
     if( navigator.userAgent.match(/Android/i)
@@ -390,7 +404,7 @@ export class ScheduleStartComponent implements OnInit {
     this.cargarMatriz();
     //console.log(this.matrizHorario);
     this.getJson();
-    console.log(this.grupos)
+    //console.log(this.grupos)
   }
 
 }

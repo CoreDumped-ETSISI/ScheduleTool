@@ -104,20 +104,27 @@
                       </tr>
                     </thead>
                   <tbody>
-                    <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-                      <td>{{actualSubjects[asignatura]}}</td>
-                          <td *ngFor="let row of col;let grupo = index">
-                              <button mat-icon-button (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-                                <mat-icon *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado">radio_button_unchecked</mat-icon>
-                                <ng-template #pulsado>
-                                  <mat-icon class="upmBlue">radio_button_checked</mat-icon>
-                                </ng-template>
-                              </button>
-                          </td>
-                          <td>
-                            <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
-                          </td>
-                    </tr>
+                      <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
+                          <td>{{actualSubjects[asignatura]}}</td>
+                              <td *ngFor="let row of col;let grupo = index">
+                                  <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
+                                    <mat-icon  class="red">highlight_off</mat-icon>
+                                  </button>
+                                    <ng-template #included>
+                                      <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                                        <mat-icon>check_circle_outline</mat-icon>
+                                      </button>
+                                    </ng-template>
+                                    <ng-template #pulsado>
+                                        <button mat-icon-button >
+                                          <mat-icon class="upmBlue">check_circle</mat-icon>
+                                        </button>
+                                    </ng-template>
+                              </td>
+                              <td>
+                                <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
+                              </td>
+                        </tr>
                   </tbody>
                 </table>
               </div>
@@ -159,23 +166,29 @@
               <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
             </tr>
           </thead>
-        <tbody>
-          <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-            <td>{{actualSubjects[asignatura]}}</td>
-                <td *ngFor="let row of col;let grupo = index">
-                    <button mat-icon-button (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-                      <mat-icon *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado">radio_button_unchecked</mat-icon>
-                      <ng-template #pulsado>
-                        <mat-icon class="upmBlue">radio_button_checked</mat-icon>
-                      </ng-template>
-                    </button>
-                </td>
-                <td>
-                  <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
-                </td>
-          </tr>
-
-        </tbody>
+          <tbody>
+              <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
+                  <td>{{actualSubjects[asignatura]}}</td>
+                      <td *ngFor="let row of col;let grupo = index">
+                          <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
+                            <mat-icon  class="red">highlight_off</mat-icon>
+                          </button>
+                            <ng-template #included>
+                              <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                                <mat-icon>check_circle_outline</mat-icon>
+                              </button>
+                            </ng-template>
+                            <ng-template #pulsado>
+                                <button mat-icon-button >
+                                  <mat-icon class="upmBlue">check_circle</mat-icon>
+                                </button>
+                            </ng-template>
+                      </td>
+                      <td>
+                        <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
+                      </td>
+                </tr>
+          </tbody>
       </table>
   </div>
 </ng-template>
