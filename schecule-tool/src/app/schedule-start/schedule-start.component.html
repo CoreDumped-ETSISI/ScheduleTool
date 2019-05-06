@@ -87,11 +87,52 @@
                       <p *ngFor="let subject of row;let a = index">
                         {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
                     </div>
-                  </ng-template>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    <ng-template #libre>
+                      <div class="red">
+                        <p *ngFor="let subject of row;let a = index">{{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                      </div>
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        <!--CHECKBOX-->
+        <div *ngIf="chargeCheckboxes" class="col-4">
+              <table class="table table-borderless">
+                  <thead>
+                      <tr>
+                        <th scope="">###</th>
+                        <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
+                      </tr>
+                    </thead>
+                  <tbody>
+                      <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
+                          <td>{{actualSubjects[asignatura]}}</td>
+                              <td *ngFor="let row of col;let grupo = index">
+                                  <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
+                                    <mat-icon  class="red">highlight_off</mat-icon>
+                                  </button>
+                                    <ng-template #included>
+                                      <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                                        <mat-icon>check_circle_outline</mat-icon>
+                                      </button>
+                                    </ng-template>
+                                    <ng-template #pulsado>
+                                        <button mat-icon-button >
+                                          <mat-icon class="upmBlue">check_circle</mat-icon>
+                                        </button>
+                                    </ng-template>
+                              </td>
+                              <td>
+                                <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
+                              </td>
+                        </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div>
         </div>
       </div>
       <!--CHECKBOX-->
@@ -160,6 +201,7 @@
   </div>
   <div *ngIf="chargeCheckboxes" class="col-12 table-responsive">
     <table class="table table-borderless">
+<<<<<<< HEAD
       <thead>
         <tr>
           <th scope="">###</th>
@@ -187,6 +229,38 @@
 
       </tbody>
     </table>
+=======
+        <thead>
+            <tr>
+              <th scope="">###</th>
+              <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
+                  <td>{{actualSubjects[asignatura]}}</td>
+                      <td *ngFor="let row of col;let grupo = index">
+                          <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
+                            <mat-icon  class="red">highlight_off</mat-icon>
+                          </button>
+                            <ng-template #included>
+                              <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                                <mat-icon>check_circle_outline</mat-icon>
+                              </button>
+                            </ng-template>
+                            <ng-template #pulsado>
+                                <button mat-icon-button >
+                                  <mat-icon class="upmBlue">check_circle</mat-icon>
+                                </button>
+                            </ng-template>
+                      </td>
+                      <td>
+                        <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
+                      </td>
+                </tr>
+          </tbody>
+      </table>
+>>>>>>> 94e63c6b9e33c7ae512500be474a440dd71e0ecf
   </div>
 </ng-template>
 <div class="container-fluid">

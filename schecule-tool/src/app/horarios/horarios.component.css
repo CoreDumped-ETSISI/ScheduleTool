@@ -42,3 +42,8 @@
     color:white;
 }
 
+@media only screen and (max-width: 550px) {
+    .mobile-btngroup {
+      transform: scale(0.7);
+    }
+  }
