@@ -11,6 +11,8 @@ import * as jsPDF from 'jspdf';
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
 import { HorariosComponent } from '../horarios/horarios.component';
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
@@ -18,6 +20,9 @@ import { HorariosComponent } from '../horarios/horarios.component';
 })
 
 export class ScheduleStartComponent implements OnInit {
+
+  primeroSelected=false;
+
   grades = [
     'Software',
     'Computadores',
@@ -297,6 +302,9 @@ export class ScheduleStartComponent implements OnInit {
       this.cargarMatrizBotones();
       this.courseName = name;
       this.getAndUpdateCursoByName(name)
+      if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
+      else $('table.table').removeClass('up-table')
+      
     }
   }
   cargarMatrizBotones() {
