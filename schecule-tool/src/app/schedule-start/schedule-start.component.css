@@ -63,3 +63,97 @@ input, label{
 .upmBlueBg{
     background-color: #1867b7;
 }
+
+.header-tool-schedule{
+    height:400px;
+    color: White;
+    font-family: 'Roboto', sans-serif;
+    padding-top:50px;
+    padding-left:80px;
+    position: relative;
+}
+
+button.btn-white{
+    background-color: white;
+}
+
+.buttons-grades{
+    margin: 2% 1% 0 0;
+}
+
+.reset-buttons{
+    
+    margin-left:1%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.material-icons.reset{
+    font-size:36px;
+}
+
+button.reset{
+    padding-left: 0;
+    height: 40px;
+    border-radius: 100%;
+    width:40px;  
+    padding-top:0px;  
+    color:white;
+    background-color: transparent;
+    border: 2px solid white;
+}
+
+.sch-tool-mom{
+    margin-top:20px;
+    display: table;
+    width: 100%;
+}
+
+.sch-tool-child{
+    display: table-cell;
+    margin-right:5px;
+}
+
+.mat-icon.dwld{
+    color:red
+}
+
+span.text-dl-pdf{
+    margin-left:10px;
+}
+
+.card.matrix{
+    position: absolute;
+    width: 90%;
+    padding:2%;
+    z-index: 100;
+    top:210px;
+    border-radius: 20px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+
+@media only screen and (min-width: 1200px) {
+    .checkboxes-div{
+        transform:scale(0.6)!important;
+        margin-top:-160px;
+        margin-left:-90px;
+     }
+}
+@media only screen and (min-width: 1500px) {
+    .checkboxes-div{
+        transform:scale(0.7)!important;
+        margin-top:-160px;
+        margin-left:-90px;
+     }
+}
+@media only screen and (min-width: 1800px) {
+    .checkboxes-div{
+        transform:scale(0.75)!important;
+        margin-top:-100px;
+        margin-left:-80px;
+     }
+}

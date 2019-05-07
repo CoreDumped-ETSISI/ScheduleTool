@@ -1,95 +1,88 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-<div class="container">
-  <div class="card MainTitleCard">
+<div class="upmBlueBg header-tool-schedule">
+  <h2>CENTRO DE INFORMÁTICA Y COMUNICACIONES</h2>
+  <h4>Herramienta de Creación de Horarios</h4>
+  <div class="container">
     <div class="row">
-      <div class="col-sm">
-        <h1 *ngIf="!mobile" class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h1>
-        <h2 *ngIf="mobile" class="center MainTitle">CENTRO DE INFORMÁTICA Y COMUNICACIONES</h2>
+      <div class="col-md-4 col-9 sch-tool-mom">
+        <div ngbDropdown class="buttons-grades sch-tool-child">
+          <button class="btn bigger btn-white" id="dropdownBasic1" ngbDropdownToggle>{{gradeName}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
+            <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
+            <button *ngIf="mobile" ngbDropdownItem
+              (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
+          </div>
+        </div>
+        <div ngbDropdown class="buttons-grades sch-tool-child">
+          <button class="btn bigger btn-white" id="dropdownBasic1" ngbDropdownToggle>{{courseName}}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
+            <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
+            <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
+            <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
+          </div>
+        </div>
+        <div class="reset-buttons sch-tool-child">
+          <button class="btn btn-white reset" (click)="reset()">
+            <i class="material-icons reset">
+              clear_all
+            </i>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm">
-        <h3 class="center">Herramienta de Creación de Horarios</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
-      <div class="card WholeCard">
-        <div class="row">
-          <div class="col-sm">
-            <div ngbDropdown class="d-inline-block mg">
-              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{gradeName}}</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div ngbDropdown class="d-inline-block mg">
-              <button class="btn bigger" id="dropdownBasic1" ngbDropdownToggle>{{courseName}}</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
-              </div>
-            </div>
-            <button type="button" class="btn btn-secondary" (click)="reset()">Volver a Empezar</button>
-          </div>
-          <div class="col-sm white">
-              <button mat-flat-button color="warn" class="white mt-2" (click)="downloadPDF()"><mat-icon>cloud_download</mat-icon> Descargar PDF</button>
-          </div>
+      <div class="col-md-5 col-0"></div>
+      <div class="col-md-3 col-3 sch-tool-mom">
+        <div class="sch-tool-child">
+          <button mat-flat-button color="white" class="black mt-2" (click)="downloadPDF()">
+            <mat-icon class="dwld">cloud_download</mat-icon><span class="text-dl-pdf">Descargar PDF</span>
+          </button>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="!mobile; else mobileBlock" class=" mt-3">
-    <div class="row">
-      <!--HORARIO-->
-      <div class="col-8">
-        <div #tabla>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">###</th>
-                <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let col of matrizHorario; let columnas = index">
-                <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
-                <td *ngFor="let row of col; let filas = index">
-                  <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
-                    <p *ngFor="let subject of row;let a = index">
-                      {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
-                  </div>
-                  <ng-template #libre>
-                    <div class="red">
+  <div *ngIf="!mobile; else mobileBlock" class="card matrix">
+    <div class="container-fluid">
+
+      <div class="row">
+        <!--HORARIO-->
+        <div class="col-12 col-lg-8">
+          <div #tabla>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">####</th>
+                  <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let col of matrizHorario; let columnas = index">
+                  <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
+                  <td *ngFor="let row of col; let filas = index">
+                    <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
                       <p *ngFor="let subject of row;let a = index">
                         {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
                     </div>
                     <ng-template #libre>
                       <div class="red">
-                        <p *ngFor="let subject of row;let a = index">{{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                        <p *ngFor="let subject of row;let a = index">
+                          {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
                       </div>
                     </ng-template>
                   </td>
@@ -97,86 +90,73 @@
               </tbody>
             </table>
           </div>
-          </div>
+        </div>
         <!--CHECKBOX-->
-        <div *ngIf="chargeCheckboxes" class="col-4">
-              <table class="table table-borderless">
-                  <thead>
-                      <tr>
-                        <th scope="">###</th>
-                        <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
-                      </tr>
-                    </thead>
-                  <tbody>
-                      <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-                          <td>{{actualSubjects[asignatura]}}</td>
-                              <td *ngFor="let row of col;let grupo = index">
-                                  <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
-                                    <mat-icon  class="red">highlight_off</mat-icon>
-                                  </button>
-                                    <ng-template #included>
-                                      <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-                                        <mat-icon>check_circle_outline</mat-icon>
-                                      </button>
-                                    </ng-template>
-                                    <ng-template #pulsado>
-                                        <button mat-icon-button >
-                                          <mat-icon class="upmBlue">check_circle</mat-icon>
-                                        </button>
-                                    </ng-template>
-                              </td>
-                              <td>
-                                <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
-                              </td>
-                        </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
+        <div *ngIf="chargeCheckboxes" class="col-12 col-xl-4 checkboxes-div">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="">####</th>
+                <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
+                <td>{{actualSubjects[asignatura]}}</td>
+                <td *ngFor="let row of col;let grupo = index">
+                  <button mat-icon-button
+                    *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included"
+                    matTooltip="Asignatura no disponible">
+                    <mat-icon class="red">highlight_off</mat-icon>
+                  </button>
+                  <ng-template #included>
+                    <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado"
+                      (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                      <mat-icon>check_circle_outline</mat-icon>
+                    </button>
+                  </ng-template>
+                  <ng-template #pulsado>
+                    <button mat-icon-button>
+                      <mat-icon class="upmBlue">check_circle</mat-icon>
+                    </button>
+                  </ng-template>
+                </td>
+                <td>
+                  <button mat-icon-button class=""
+                    (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <!--CHECKBOX-->
-      <div *ngIf="chargeCheckboxes" class="col-4">
-        <table class="table table-borderless">
-          <thead>
-            <tr>
-              <th scope="">###</th>
-              <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-              <td>{{actualSubjects[asignatura]}}</td>
-              <td *ngFor="let row of col;let grupo = index">
-                <button mat-icon-button
-                  (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-                  <mat-icon *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado">radio_button_unchecked
-                  </mat-icon>
-                  <ng-template #pulsado>
-                    <mat-icon class="upmBlue">radio_button_checked</mat-icon>
-                  </ng-template>
-                </button>
-              </td>
-              <td>
-                <button mat-icon-button class=""
-                  (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <div class="container-fluid" style="margin-top:2px;">
+      <div class="row">
+        <div class="col-12">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <app-horarios></app-horarios>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 <ng-template #mobileBlock>
   <div #tabla class="col-12 table-responsive">
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">###</th>
+          <th scope="col">####</th>
           <th scope="col" *ngFor="let dia of dias">{{dia}}</th>
         </tr>
       </thead>
@@ -201,10 +181,9 @@
   </div>
   <div *ngIf="chargeCheckboxes" class="col-12 table-responsive">
     <table class="table table-borderless">
-<<<<<<< HEAD
       <thead>
         <tr>
-          <th scope="">###</th>
+          <th scope="">####</th>
           <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
         </tr>
       </thead>
@@ -213,12 +192,21 @@
           <td>{{actualSubjects[asignatura]}}</td>
           <td *ngFor="let row of col;let grupo = index">
             <button mat-icon-button
-              (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-              <mat-icon *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado">radio_button_unchecked</mat-icon>
-              <ng-template #pulsado>
-                <mat-icon class="upmBlue">radio_button_checked</mat-icon>
-              </ng-template>
+              *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included"
+              matTooltip="Asignatura no disponible">
+              <mat-icon class="red">highlight_off</mat-icon>
             </button>
+            <ng-template #included>
+              <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado"
+                (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                <mat-icon>check_circle_outline</mat-icon>
+              </button>
+            </ng-template>
+            <ng-template #pulsado>
+              <button mat-icon-button>
+                <mat-icon class="upmBlue">check_circle</mat-icon>
+              </button>
+            </ng-template>
           </td>
           <td>
             <button mat-icon-button class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)">
@@ -226,56 +214,7 @@
             </button>
           </td>
         </tr>
-
       </tbody>
     </table>
-=======
-        <thead>
-            <tr>
-              <th scope="">###</th>
-              <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-                  <td>{{actualSubjects[asignatura]}}</td>
-                      <td *ngFor="let row of col;let grupo = index">
-                          <button mat-icon-button *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included" matTooltip="Asignatura no disponible">
-                            <mat-icon  class="red">highlight_off</mat-icon>
-                          </button>
-                            <ng-template #included>
-                              <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado" (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
-                                <mat-icon>check_circle_outline</mat-icon>
-                              </button>
-                            </ng-template>
-                            <ng-template #pulsado>
-                                <button mat-icon-button >
-                                  <mat-icon class="upmBlue">check_circle</mat-icon>
-                                </button>
-                            </ng-template>
-                      </td>
-                      <td>
-                        <button mat-icon-button	 class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)"><mat-icon>delete</mat-icon></button>
-                      </td>
-                </tr>
-          </tbody>
-      </table>
->>>>>>> 94e63c6b9e33c7ae512500be474a440dd71e0ecf
   </div>
 </ng-template>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon>calendar_today</mat-icon> <span class="show_schedules">Horarios</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <app-horarios></app-horarios>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
-  </div>
-</div>
