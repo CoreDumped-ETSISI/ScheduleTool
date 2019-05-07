@@ -80,9 +80,8 @@ export class ScheduleStartComponent implements OnInit {
 
   getJson(){
     return this.http.get('http://localhost:3000/json').subscribe(data => {
-      var groupString = '';
-      groupString = data[0].file;      
-      this.grupos = JSON.parse(groupString);
+      console.log(data)    
+      this.grupos = data;
       //console.log(this.grupos)
     });  
   }
