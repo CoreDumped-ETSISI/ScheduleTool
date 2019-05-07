@@ -302,12 +302,9 @@ export class ScheduleStartComponent implements OnInit {
       this.cargarMatrizBotones();
       this.courseName = name;
       this.getAndUpdateCursoByName(name)
-      if(name=="Primero"){
-        console.log("ey")
-        $('#checkboxes-div').addClass('checkboxes-div')
-      }else{
-        $('#checkboxes-div').removeClass('checkboxes-div')
-      }
+      if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
+      else $('table.table').removeClass('up-table')
+      
     }
   }
   cargarMatrizBotones() {
