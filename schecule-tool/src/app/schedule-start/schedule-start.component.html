@@ -1,65 +1,57 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
 <div class="upmBlueBg header-tool-schedule">
   <h2>CENTRO DE INFORMÁTICA Y COMUNICACIONES</h2>
   <h4>Herramienta de Creación de Horarios</h4>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 sch-tool-mom float-left">
-        <div class="sch-tool-child">
-          <div class="btn-group" role="group">
-            <div ngbDropdown class="buttons-grades sch-tool-child">
-              <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
-                <mat-icon class="selects-buttons">school</mat-icon><span class="text-button">{{gradeName}}</span>
-              </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
-                <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
-                <button *ngIf="mobile" ngbDropdownItem
-                  (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
-              </div>
-            </div>
-            <div ngbDropdown class="buttons-grades sch-tool-child">
-              <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
-                <mat-icon class="selects-buttons">filter_1</mat-icon><span class="text-button">{{courseName}}</span>
-              </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
-                <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
-              </div>
-            </div>
-            <div class="reset-buttons sch-tool-child">
-              <button class="btn btn-white reset mt-2" (click)="reset()">
-                <i class="material-icons reset">
-                  refresh
-                </i>
-              </button>
-            </div>
-            <button mat-flat-button color="white" class="black mt-2 dwld-btn" (click)="downloadPDF()">
-              <mat-icon class="dwld">cloud_download</mat-icon><span class="text-button">Descargar PDF</span>
-            </button>
-          </div>
-        </div>
-        <div class="col-5 sch-tool-mom order-md-2 float-right">
+
+  <div class="sch-tool-child">
+    <div class="btn-group" role="group">
+      <div ngbDropdown class="buttons-grades sch-tool-child">
+        <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
+          <mat-icon class="selects-buttons">school</mat-icon><span class="text-button">{{gradeName}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
+          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
+          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
         </div>
       </div>
+      <div ngbDropdown class="buttons-grades sch-tool-child">
+        <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
+          <mat-icon class="selects-buttons">filter_1</mat-icon><span class="text-button">{{courseName}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
+          <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
+          <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
+          <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
+        </div>
+      </div>
+      <div class="reset-buttons sch-tool-child">
+        <button class="btn btn-white reset mt-2" matTooltip="Limpiar datos"
+          matTooltipPosition="after" aria-label="Limpiar datos"
+          (click)="reset()">
+          <i class="material-icons reset">
+            refresh
+          </i>
+        </button>
+      </div>
     </div>
+  </div>
+  <div class="float-right dwld-btn">
+    <button mat-flat-button color="white" class="black mt-2 dwld-btn" (click)="downloadPDF()">
+      <mat-icon class="dwld">cloud_download</mat-icon><span class="text-button">Descargar PDF</span>
+    </button>
   </div>
   <div class="card matrix">
     <div class="container-fluid">
