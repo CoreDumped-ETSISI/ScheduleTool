@@ -119,137 +119,7 @@ export class ScheduleStartComponent implements OnInit {
 	[this.auxCurso1, this.auxCurso2, ['GIWM31', 'GIWT31', 'GTIM31'], this.auxCurso4],//Sist. Informacion
 	[this.auxCurso1, this.auxCurso2, ['GTIM31'], this.auxCurso4],//Tech. Sociedad Inform.
 ]
-  gruposJson = { "GCOM31":
-  { "AA": {"J":[11,12],"M":[9,10]},
-    "PHW": {"J":[13,14],"M":[13,14]},
-    "SSR": {"M":[11,12],"X":[11,12]},
-    "TL": {"V":[11,12],"X":[9,10]}},
- "GIWM31":
-  { "ADS": {"J":[9,10],"X":[13,14]},
-    "TL": {"J":[11,12],"M":[11,12]},
-    "CDI": {"J":[13,14],"M":[13,14]},
-    "BDA": {"V":[9,10],"X":[9,10]},
-    "EM": {"V":[11,12],"X":[11,12]}},
- "GIWT31":
-  { "EM": {"J":[15,16],"X":[15,16]},
-    "CDI": {"J":[17,18],"M":[15,16]},
-   "BDA": {"J":[19,20],"M":[19,20]},
-    "ADS": {"M":[17,18],"V":[15,16]},
-    "TL": {"V":[17,18],"X":[17,18]}},
- "GM11":
-  { "FS": {"J":[9,10]},
-    "A": {"J":[11,12],"M":[11,12],"V":[13]},
-    "ED": {"M":[9,10],"X":[13,14]},
-    "AS": {"M":[13,14]},
-    "FI": {"V":[9,10],"X":[9,10]},
-    "EC": {"V":[11,12],"X":[11,12]}},
- "GM12":
-  { "FI": {"J":[9,10],"M":[9,10]},
-    "EC": {"J":[11,12],"M":[11,12]},
-    "ED": {"J":[13,14],"X":[9,10]},
-    "A": {"M":[13],"V":[11,12],"X":[13,14]},
-    "FS": {"V":[9,10]},
-    "AS": {"X":[11,12]}},
- "GM13":
-  { "A": {"J":[9,10],"M":[9,10],"X":[13]},
-    "ED": {"J":[11,12],"M":[11,12]},
-    "FS": {"J":[13,14]},
-    "EC": {"V":[9,10],"X":[9,10]},
-    "AS": {"V":[11,12]},
-    "FI": {"V":[13,14],"X":[11,12]}},
- "GM14":
-  { "EC": {"J":[9,10],"M":[13,14]},
-    "FI": {"J":[11,12],"M":[11,12]},
-    "A": {"J":[13],"V":[13,14],"X":[9,10]},
-    "AS": {"M":[9,10]},
-    "ED": {"V":[9,10],"X":[11,12]},
-    "FS": {"V":[11,12]}},
- "GM15":
-  { "ED": {"J":[9,10],"V":[9,10]},
-    "FI": {"J":[11,12],"V":[11,12]},
-    "A": {"J":[13],"M":[11,12],"X":[11,12]},
-    "EC": {"M":[9,10],"X":[13,14]},
-    "FS": {"V":[13,14]},
-    "AS": {"X":[9,10]}},
- "GM21":
-  { "FIS": {"J":[9,10],"M":[9,10],"X":[13,14]},
-    "E": {"J":[11,12],"M":[11,12],"V":[13]},
-    "SI": {"M":[13,14]},
-    "FE": {"V":[9,10],"X":[9,10]},
-    "PCA": {"V":[11,12],"X":[11,12]}},
- "GM22":
-  { "FE": {"J":[9,10],"M":[9,10]},
-    "PCA": {"J":[11,12],"M":[11,12]},
-    "FIS": {"J":[13,14],"V":[9,10],"X":[9,10]},
-    "E": {"M":[13],"V":[11,12],"X":[13,14]},
-    "SI": {"X":[11,12]}},
- "GM23":
-  { "E": {"J":[9,10],"M":[9,10],"X":[13]},
-    "FIS": {"J":[11,12],"M":[11,12],"X":[11,12]},
-    "FE": {"J":[13,14],"V":[13,14]},
-    "PCA": {"V":[9,10],"X":[9,10]},
-    "SI": {"V":[11,12]}},
- "GMOPT41":
-  { "MTS": {"J":[9,10],"V":[9,10]},
-    "INM": {"J":[10],"X":[13,14]},
-    "EPAC": {"J":[11,12],"M":[11,12]},
-    "TDW": {"V":[11,12],"X":[11,12]}},
- "GMOPT41a": { "INA": {"X":[13,14]}},
- "GMOPT41b": { "TCI": {"X":[13,14]}},
- "GSIT31":
-  { "MP": {"J":[15,16],"M":[15,16]},
-    "MD": {"J":[17,18],"M":[17,18]},
-    "BDA": {"J":[19,20],"M":[19,20]},
-    "SIG": {"V":[15,16]},
-    "TL": {"V":[17,18],"X":[17,18]},
-    "PO": {"X":[15,16]}},
- "GT11":
-  { "A": {"J":[16],"V":[15,16],"X":[17,18]},
-    "EC": {"J":[17,18],"M":[15,16]},
-    "FI": {"J":[19,20],"M":[19,20]},
-    "AS": {"M":[17,18]},
-    "ED": {"V":[17,18],"X":[19,20]},
-    "FS": {"V":[19,20]}},
- "GT12":
-  { "ED": {"J":[15,16],"X":[17,18]},
-    "FI": {"J":[17,18],"M":[17,18]},
-    "EC": {"J":[19,20],"M":[19,20]},
-    "A": {"M":[16],"V":[19,20],"X":[15,16]},
-    "FS": {"V":[17,18]},
-    "AS": {"X":[19,20]}},
- "GT13":
-  { "FS": {"J":[15,16]},
-    "A": {"J":[17,18],"M":[17,18],"X":[16]},
-    "ED": {"J":[19,20],"M":[19,20]},
-    "FI": {"V":[15,16],"X":[19,20]},
-    "EC": {"V":[17,18],"X":[17,18]},
-    "AS": {"V":[19,20]}},
- "GT21":
-  { "PCA": {"J":[15,16],"M":[19,20]},
-    "FIS": {"J":[17,18],"M":[17,18],"X":[15,16]},
-    "E": {"J":[19],"V":[17,18],"X":[19,20]},
-    "SI": {"M":[15,16]},
-    "FE": {"V":[15,16],"X":[17,18]}},
- "GT22":
-  { "FIS": {"J":[15,16],"M":[19,20],"V":[17,18]},
-    "FE": {"J":[17,18],"M":[17,18]},
-    "E": {"J":[19],"V":[15,16],"X":[15,16]},
-    "PCA": {"M":[15,16],"X":[17,18]},
-    "SI": {"X":[19,20]}},
- "GTIM31":
-  { "CU": {"J":[9,10],"V":[9,10]},
-    "SSR": {"M":[11,12],"X":[11,12]},
-    "TL": {"V":[11,12],"X":[9,10]},
-    "RA": {"V":[13,14],"X":[13,14]}},
- "GTOPT41":
-  { "EPAC": {"J":[15,16],"M":[17,18]},
-    "AI": {"J":[17,18],"M":[15,16]},
-    "GPS": {"M":[19,20]},
-    "DV": {"V":[15,16],"X":[15,16]},
-    "SIA": {"V":[17,18],"X":[17,18]}},
- "GTOPT42": { "EPAC": {"J":[15,16],"M":[17,18]}} 
-  };
-
+  
   mobile = false;
   chargeCheckboxes = false;
   gradeName = 'Elige Grado';
@@ -293,13 +163,14 @@ export class ScheduleStartComponent implements OnInit {
 
   changeCourseName(name) {
     this.actualSubjects=[];
+    this.courseName = name;
     if (this.gradeName != 'Elige Grado' && name != 'Elige Curso') {
       this.chargeCheckboxes = true;
       this.actualCourse = this.actualGrade[this.courses.indexOf(name)];
       this.obtainActualSubjects();
       this.matrizBotones = null;
       this.cargarMatrizBotones();
-      this.courseName = name;
+      this.checkDesignedSchedule();
       this.getAndUpdateCursoByName(name)
       if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
       else $('table.table').removeClass('up-table')
@@ -389,7 +260,17 @@ export class ScheduleStartComponent implements OnInit {
   contieneLaAsignatura(subject:string, group:string){
     return Object.keys(this.grupos[group]).includes(subject);
   }
-   
+  checkDesignedSchedule(){
+    for(let row in this.matrizHorario){
+      for(let col in this.matrizHorario[row]){
+        for(let asig in this.matrizHorario[row][col]){
+          if(this.actualCourse.includes(this.matrizHorario[row][col][asig].grupo)){
+            this.botonPulsado(this.actualSubjects.indexOf(this.matrizHorario[row][col][asig].nombre), this.actualCourse.indexOf(this.matrizHorario[row][col][asig].grupo));
+          }
+        }
+      }
+    }
+  }
   detectmob() { 
     if( navigator.userAgent.match(/Android/i)
     || navigator.userAgent.match(/webOS/i)
