@@ -74,7 +74,7 @@ input, label {
     color: White;
     font-family: 'Roboto', sans-serif;
     padding-top: 50px;
-    padding-left: 80px;
+    padding-left: 5%;
     position: relative;
 }
 
@@ -119,8 +119,9 @@ button.reset {
     color: red
 }
 
-.dwld-btn {
-    margin-left: 50px;
+div.dwld-btn{
+    transform:translateY(-50px);
+    margin-right:5%;
 }
 
 span.text-button {
@@ -128,9 +129,7 @@ span.text-button {
 }
 
 @media only screen and (min-width: 1000px) {
-    .dwld-btn {
-        margin-left: 200px;
-    }
+
 }
 
 .card.matrix {
@@ -138,7 +137,7 @@ span.text-button {
     width: 90%;
     padding: 2%;
     z-index: 100;
-    top: 210px;
+    top: 195px;
     border-radius: 20px;
     left: 0;
     right: 0;
@@ -147,10 +146,6 @@ span.text-button {
 }
 
 @media only screen and (max-width: 825px) {
-    .header-tool-schedule {
-        padding-left: 40px;
-        padding-top: 30px;
-    }
     .header-tool-schedule>h2 {
         font-size: 1.75rem!important;
     }
@@ -172,7 +167,7 @@ span.text-button {
 
 @media only screen and (max-width: 670px) {
     .header-tool-schedule {
-        padding-left: 25px;
+        padding-left: 2.5%;
         padding-top: 25px;
     }
     .header-tool-schedule>h2 {
@@ -186,7 +181,7 @@ span.text-button {
         width: 95%;
         padding: 2%;
         z-index: 100;
-        top: 200px;
+        top: 170px;
         border-radius: 17.5px;
     }
     .sch-tool-mom {
@@ -203,10 +198,6 @@ span.text-button {
 }
 
 @media only screen and (max-width: 550px) {
-    .header-tool-schedule {
-        padding-left: 25px;
-        padding-top: 25px;
-    }
     .header-tool-schedule>h2 {
         font-size: 1.5rem!important;
     }
@@ -218,7 +209,7 @@ span.text-button {
         width: 100%;
         padding: 2%;
         z-index: 100;
-        top: 220px;
+        top: 200px;
         border-radius: 17.5px;
     }
     .sch-tool-mom {
@@ -256,6 +247,7 @@ span.text-button {
         margin-top: -160px;
         margin-left: -90px;
     }
+   
 }
 
 @media only screen and (max-width: 1300px) {
@@ -264,8 +256,14 @@ span.text-button {
         margin-top: -200px;
         margin-left: -100px;
     }
+    div.dwld-btn{
+        margin-right:2.5%;
+    }
     .card.matrix {
         width: 95%;
+    }
+    .header-tool-schedule {
+        padding-left: 2.5%;
     }
 }
 
@@ -361,8 +359,8 @@ span.text-button {
 
 @media only screen and (max-width: 480px) {
     .checkboxes-div {
-        transform-origin: scale(0.7)!important;
-        margin-left: -17.5%;
+        transform-origin: scale(0.65)!important;
+        margin-left: -19%;
         left: 0;
         right: 0;
     }
@@ -374,18 +372,21 @@ span.text-button {
 @media only screen and (max-width: 440px) {
     .checkboxes-div {
         transform-origin: scale(0.63)!important;
-        margin-top: -70px;
+        margin-top: -20%;
         margin-left: -20%;
     }
     .up-table {
         margin-top: -65px;
     }
+    table.table{
+        transform: translateX(-15px);
+    }
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 435px) {
     .checkboxes-div {
         transform: scale(0.62)!important;
-        margin-top: -80px;
+        margin-top: -23%;
         margin-left: -22.5%;
     }
     .up-table {
@@ -393,14 +394,41 @@ span.text-button {
     }
 }
 
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 393px) {
     .checkboxes-div {
-        transform: scale(0.6)!important;
-        margin-top: -80px;
-        margin-left: -25%;
+        transform: scale(0.57)!important;
+        margin-top: -25%;
+        margin-left: -26%;
     }
     .up-table {
         margin-top: -75px;
+    }
+    table.table {
+        width: 100%;
+        font-size: 10px;
+        transform: translateX(-15px);
+    }
+}
+
+@media only screen and (max-width: 393px) {
+    table.table {
+        width: 100%;
+        font-size: 9px;
+        transform: translateX(-15px);
+    }
+    .header-tool-schedule {
+        padding-left: 2.5%;
+        padding-top: 25px;
+    }
+    .header-tool-schedule>h2 {
+        font-size: 1.3rem!important;
+    }
+    .header-tool-schedule>h4 {
+        font-size: 1.1rem;
+        margin-top: 20px;
+    }
+    .sch-tool-mom{
+        transform: scale(0.8) translateX(-15%);
     }
 }
 
