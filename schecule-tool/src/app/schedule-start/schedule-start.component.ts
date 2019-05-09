@@ -12,11 +12,12 @@ import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
 import { HorariosComponent } from '../horarios/horarios.component';
 import * as $ from 'jquery';
+import { ScheduleStartService } from './schedule-start.service';
 
 @Component({
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
-  styleUrls: ['./schedule-start.component.css']
+  styleUrls: ['./schedule-start.component.css'],
 })
 
 export class ScheduleStartComponent implements OnInit {
@@ -31,7 +32,6 @@ export class ScheduleStartComponent implements OnInit {
     //'Software y Tecnologías de Sociedades de Información',
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
-
 
   checkGradoName(gradoName) {
     if (gradoName === "Sistemas de Información") return 'Sist. Información'
@@ -51,15 +51,17 @@ export class ScheduleStartComponent implements OnInit {
     this.horariosComponent.setCursoFromMatrix(curso)
   }
   
-  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosComponent: HorariosComponent) { 
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosComponent: HorariosComponent, private scheduleStartService: ScheduleStartService) { 
     iconRegistry.addSvgIcon(
       'deleteicon',
       sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
   }
+  
 
   @ViewChild('tabla') tabla: ElementRef;
 
   downloadPDF(){
+    var result = null;
     let doc = new jsPDF('p', 'pt', 'letter');
     let tabla = this.tabla.nativeElement;
     let specialElementHandlers = {
@@ -73,18 +75,17 @@ export class ScheduleStartComponent implements OnInit {
       'elementHandlers': specialElementHandlers,
     });
 
-    doc.save('horarios.pdf');
+    try {
+      doc.save('horarios.pdf');
+      result = true;
+    } catch (error) {
+      console.log(error);
+      result = false;
+    }
+    return result;
   }
 
-  public grupos;
-
-  getJson(){
-    return this.http.get('http://localhost:3000/json').subscribe(data => {
-      console.log(data)    
-      this.grupos = data;
-      //console.log(this.grupos)
-    });  
-  }
+  public grupos = {};
 
   mobileGrades = [
     'Software',
@@ -271,6 +272,7 @@ export class ScheduleStartComponent implements OnInit {
       }
     }
   }
+  
   detectmob() { 
     if( navigator.userAgent.match(/Android/i)
     || navigator.userAgent.match(/webOS/i)
@@ -291,7 +293,7 @@ export class ScheduleStartComponent implements OnInit {
     this.detectmob();
     this.cargarMatriz();
     //console.log(this.matrizHorario);
-    this.getJson();
+    this.grupos = this.scheduleStartService.getJson()
     //console.log(this.grupos)
   }
 
