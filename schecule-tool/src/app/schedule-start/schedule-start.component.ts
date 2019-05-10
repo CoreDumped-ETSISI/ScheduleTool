@@ -18,6 +18,7 @@ import { ScheduleStartService } from './schedule-start.service';
   selector: 'app-schedule-start',
   templateUrl: './schedule-start.component.html',
   styleUrls: ['./schedule-start.component.css'],
+  providers: [ScheduleStartComponent]
 })
 
 export class ScheduleStartComponent implements OnInit {
@@ -57,34 +58,6 @@ export class ScheduleStartComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
   }
   
-
-  @ViewChild('tabla') tabla: ElementRef;
-
-  downloadPDF(){
-    var result = null;
-    let doc = new jsPDF('p', 'pt', 'letter');
-    let tabla = this.tabla.nativeElement;
-    let specialElementHandlers = {
-      '#editor': function(element, renderer){
-        return true;
-      } 
-    };
-
-    doc.fromHTML(tabla.innerHTML, 80, 15, {
-      'width': 210,
-      'elementHandlers': specialElementHandlers,
-    });
-
-    try {
-      doc.save('horarios.pdf');
-      result = true;
-    } catch (error) {
-      console.log(error);
-      result = false;
-    }
-    return result;
-  }
-
   public grupos = {};
 
   mobileGrades = [
@@ -272,25 +245,9 @@ export class ScheduleStartComponent implements OnInit {
       }
     }
   }
-  
-  detectmob() { 
-    if( navigator.userAgent.match(/Android/i)
-    || navigator.userAgent.match(/webOS/i)
-    || navigator.userAgent.match(/iPhone/i)
-    || navigator.userAgent.match(/iPad/i)
-    || navigator.userAgent.match(/iPod/i)
-    || navigator.userAgent.match(/BlackBerry/i)
-    || navigator.userAgent.match(/Windows Phone/i)
-    ){
-      this.mobile = true;
-    }
-    else {
-      this.mobile = false;
-    }
-  };
 
   ngOnInit() {
-    this.detectmob();
+    this.mobile = this.scheduleStartService.detectMob();
     this.cargarMatriz();
     //console.log(this.matrizHorario);
     this.grupos = this.scheduleStartService.getJson()
