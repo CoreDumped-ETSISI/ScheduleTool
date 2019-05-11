@@ -13,6 +13,8 @@ import { stringify } from '@angular/core/src/util';
 import { HorariosComponent } from '../horarios/horarios.component';
 import * as $ from 'jquery';
 import { ScheduleStartService } from './schedule-start.service';
+import { async } from '@angular/core/testing';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-schedule-start',
@@ -22,6 +24,8 @@ import { ScheduleStartService } from './schedule-start.service';
 })
 
 export class ScheduleStartComponent implements OnInit {
+
+  @ViewChild('tabla') tabla: ElementRef;
 
   primeroSelected=false;
 
@@ -127,6 +131,8 @@ export class ScheduleStartComponent implements OnInit {
   }
 
   changeGradeName(name) {
+    console.log(this.tabla.nativeElement)
+    console.log(this.grupos)
     if (name != 'Elige Grado') {
       this.actualGrade = this.cursos[this.grades.indexOf(name)];
       this.gradeName = name;
@@ -194,6 +200,7 @@ export class ScheduleStartComponent implements OnInit {
     //console.log(this.matrizCoincidencias);
   }
   botonLimpiarAsignatura(asignatura:string, row:number){
+    console.log(this.tabla)
     for(let col in this.matrizBotonesPulsados[row]){
       this.matrizBotonesPulsados[row][col] = false;
     }
@@ -245,13 +252,22 @@ export class ScheduleStartComponent implements OnInit {
       }
     }
   }
+  
+  async loadJson(){
+    try{
+      this.grupos = await this.scheduleStartService.getJson();
+      console.log(this.grupos)
+    }catch(error){
+      console.log(error)
+    }
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.mobile = this.scheduleStartService.detectMob();
     this.cargarMatriz();
+    this.loadJson();
     //console.log(this.matrizHorario);
-    this.grupos = this.scheduleStartService.getJson()
-    //console.log(this.grupos)
+    //console.log(this.grupos)  
   }
 
 }

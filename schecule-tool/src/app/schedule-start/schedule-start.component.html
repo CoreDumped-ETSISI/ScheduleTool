@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="float-right dwld-btn">
-    <button mat-flat-button color="white" class="black mt-2 dwld-btn" (click)="downloadPDF()">
+    <button mat-flat-button color="white" class="black mt-2 dwld-btn" (click)="scheduleStartService.downloadPDF(tabla)">
       <mat-icon class="dwld">cloud_download</mat-icon><span class="text-button">Descargar PDF</span>
     </button>
   </div>
@@ -134,7 +134,7 @@
         <div class="col-4"></div>
         <div class="col-4">
           <div class="float-smartphone float-center">
-            <button mat-flat-button color="warning" class="white mt-2" (click)="downloadPDF()">
+            <button mat-flat-button color="warning" class="white mt-2" (click)="scheduleStartService.downloadPDF(tabla)">
               <mat-icon>cloud_download</mat-icon><span class="text-button">Descargar PDF</span>
             </button>
           </div>

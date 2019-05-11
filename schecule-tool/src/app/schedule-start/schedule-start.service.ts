@@ -8,21 +8,25 @@ import * as jsPDF from 'jspdf';
 })
 
 @NgModule({
-    providers: [HttpClient, NetworkConstants],
-  })
+    providers: [HttpClient, NetworkConstants], 
+})
   
 export class ScheduleStartService {
 
     constructor(private http: HttpClient, private networkConstants: NetworkConstants) { }
 
-    getJson () {
-    var result = null;
-    this.http.get(this.getJSONURL()).subscribe(data => {        
-        console.log(data)    
-        result = data;
-    });
-    return result;
+    delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
     }
+
+    async getJson () {          
+        var result;
+        this.http.get(this.getJSONURL()).subscribe(data => {           
+          result = data;
+        });     
+        await this.delay(1000);
+        return result       
+      }
 
     getJSONURL () {
         return this.networkConstants.getJSONEndpoint()
@@ -44,12 +48,11 @@ export class ScheduleStartService {
         }
       };
 
-      @ViewChild('tabla') tabla: ElementRef;
-
-      downloadPDF(){
+      downloadPDF(table){
+        console.log(table)
         var result = null;
         let doc = new jsPDF('p', 'pt', 'letter');
-        let tabla = this.tabla.nativeElement;
+        let tabla = table.nativeElement;      
         let specialElementHandlers = {
           '#editor': function(element, renderer){
             return true;
