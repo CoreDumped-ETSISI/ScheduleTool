@@ -132,7 +132,6 @@ export class ScheduleStartComponent implements OnInit {
 
   changeGradeName(name) {
     console.log(this.tabla.nativeElement)
-    console.log(this.grupos)
     if (name != 'Elige Grado') {
       this.actualGrade = this.cursos[this.grades.indexOf(name)];
       this.gradeName = name;
@@ -256,7 +255,6 @@ export class ScheduleStartComponent implements OnInit {
   async loadJson(){
     try{
       this.grupos = await this.scheduleStartService.getJson();
-      console.log(this.grupos)
     }catch(error){
       console.log(error)
     }

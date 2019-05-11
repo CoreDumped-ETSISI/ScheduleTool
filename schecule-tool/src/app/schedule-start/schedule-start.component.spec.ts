@@ -59,4 +59,45 @@ describe('ScheduleStartService', () => {
     });
   });
 
+  describe('#it is downloaded', () => {
+    it('should return true', () => {
+      let table = '<div></div>'
+      let down = service.downloadPDF(table);
+      expect(down).toBe(true);
+    });
+  });
+
+  describe('#detect mobile', () => {
+    it('should detect mobile devices', () => {
+      if( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+        ){
+          expect(service.detectMob()).toBe(true)
+        }
+        else {
+          expect(service.detectMob()).toBe(false)
+        }     
+    })
+  })
 });
+
+/*describe('DownloadPdf', () => {
+  let injector: TestBed;
+  let service: ScheduleStartService;
+
+  
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [ScheduleStartService, NetworkConstants]
+    });
+    injector = getTestBed();
+    service = injector.get(ScheduleStartService);
+  });
+
+
+})*/

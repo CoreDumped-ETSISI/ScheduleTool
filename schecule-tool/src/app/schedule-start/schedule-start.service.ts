@@ -51,15 +51,14 @@ export class ScheduleStartService {
       downloadPDF(table){
         console.log(table)
         var result = null;
-        let doc = new jsPDF('p', 'pt', 'letter');
-        let tabla = table.nativeElement;      
+        let doc = new jsPDF('p', 'pt', 'letter');      
         let specialElementHandlers = {
           '#editor': function(element, renderer){
             return true;
           } 
         };
     
-        doc.fromHTML(tabla.innerHTML, 80, 15, {
+        doc.fromHTML(table.innerHTML, 80, 15, {
           'width': 210,
           'elementHandlers': specialElementHandlers,
         });
