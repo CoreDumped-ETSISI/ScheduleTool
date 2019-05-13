@@ -142,6 +142,10 @@ export class ScheduleStartComponent implements OnInit {
   
   async ngOnInit() {
     this.mobile = this.scheduleStartService.detectMob();
+    this.scheduleStartService.cargarMatriz();
+    this.scheduleStartService.actualSubjects  =[];
+    this.scheduleStartService.actualCourse = [];
+    this.scheduleStartService.getJson();    
   }
 
 }
