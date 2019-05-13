@@ -68,17 +68,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let col of matrizHorario; let columnas = index">
+                <tr *ngFor="let col of scheduleStartService.matrizHorario; let columnas = index">
                   <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
                   <td *ngFor="let row of col; let filas = index">
-                    <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
+                    <div *ngIf="!scheduleStartService.matrizCoincidencias[columnas][filas]; else libre">
                       <p *ngFor="let subject of row;let a = index">
-                        {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                        {{scheduleStartService.matrizHorario[columnas][filas][a].nombre}}:{{scheduleStartService.matrizHorario[columnas][filas][a].grupo}}</p>
                     </div>
                     <ng-template #libre>
                       <div class="red">
                         <p *ngFor="let subject of row;let a = index">
-                          {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                          {{scheduleStartService.matrizHorario[columnas][filas][a].nombre}}:{{scheduleStartService.matrizHorario[columnas][filas][a].grupo}}</p>
                       </div>
                     </ng-template>
                   </td>
@@ -93,21 +93,21 @@
             <thead>
               <tr>
                 <th scope="">###</th>
-                <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
+                <th scope="" *ngFor="let groupName of scheduleStartService.actualCourse;">{{groupName}}</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-                <td>{{actualSubjects[asignatura]}}</td>
+              <tr class="" *ngFor="let col of scheduleStartService.matrizBotones;let asignatura = index">
+                <td>{{scheduleStartService.actualSubjects[asignatura]}}</td>
                 <td *ngFor="let row of col;let grupo = index">
                   <button mat-icon-button
-                    *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included"
+                    *ngIf="!scheduleStartService.contieneLaAsignatura(scheduleStartService.actualSubjects[asignatura], scheduleStartService.actualCourse[grupo]); else included"
                     matTooltip="Asignatura no disponible">
                     <mat-icon class="red">highlight_off</mat-icon>
                   </button>
                   <ng-template #included>
-                    <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado"
-                      (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+                    <button mat-icon-button *ngIf="!scheduleStartService.matrizBotonesPulsados[asignatura][grupo];else pulsado"
+                      (click)="scheduleStartService.cargarAsignatura(scheduleStartService.actualSubjects[asignatura], scheduleStartService.actualCourse[grupo], asignatura, grupo)">
                       <mat-icon>check_circle_outline</mat-icon>
                     </button>
                   </ng-template>
@@ -119,7 +119,7 @@
                 </td>
                 <td>
                   <button mat-icon-button class=""
-                    (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)">
+                    (click)="scheduleStartService.botonLimpiarAsignatura(scheduleStartService.actualSubjects[asignatura], asignatura)">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </td>
@@ -166,17 +166,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let col of matrizHorario; let columnas = index">
+        <tr *ngFor="let col of scheduleStartService.matrizHorario; let columnas = index">
           <td>{{horas[columnas]}} - {{horas[columnas] + 1}}</td>
           <td *ngFor="let row of col; let filas = index">
-            <div *ngIf="!matrizCoincidencias[columnas][filas]; else libre">
+            <div *ngIf="!scheduleStartService.matrizCoincidencias[columnas][filas]; else libre">
               <p *ngFor="let subject of row;let a = index">
-                {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                {{scheduleStartService.matrizHorario[columnas][filas][a].nombre}}:{{scheduleStartService.matrizHorario[columnas][filas][a].grupo}}</p>
             </div>
             <ng-template #libre>
               <div class="red">
                 <p *ngFor="let subject of row;let a = index">
-                  {{matrizHorario[columnas][filas][a].nombre}}:{{matrizHorario[columnas][filas][a].grupo}}</p>
+                  {{scheduleStartService.matrizHorario[columnas][filas][a].nombre}}:{{scheduleStartService.matrizHorario[columnas][filas][a].grupo}}</p>
               </div>
             </ng-template>
           </td>
@@ -189,21 +189,21 @@
       <thead>
         <tr>
           <th scope="">###</th>
-          <th scope="" *ngFor="let groupName of actualCourse;">{{groupName}}</th>
+          <th scope="" *ngFor="let groupName of scheduleStartService.actualCourse;">{{groupName}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="" *ngFor="let col of matrizBotones;let asignatura = index">
-          <td>{{actualSubjects[asignatura]}}</td>
+        <tr class="" *ngFor="let col of scheduleStartService.matrizBotones;let asignatura = index">
+          <td>{{scheduleStartService.actualSubjects[asignatura]}}</td>
           <td *ngFor="let row of col;let grupo = index">
             <button mat-icon-button
-              *ngIf="!contieneLaAsignatura(actualSubjects[asignatura], actualCourse[grupo]); else included"
+              *ngIf="!scheduleStartService.contieneLaAsignatura(scheduleStartService.actualSubjects[asignatura], scheduleStartService.actualCourse[grupo]); else included"
               matTooltip="Asignatura no disponible">
               <mat-icon class="red">highlight_off</mat-icon>
             </button>
             <ng-template #included>
-              <button mat-icon-button *ngIf="!matrizBotonesPulsados[asignatura][grupo];else pulsado"
-                (click)="cargarAsignatura(actualSubjects[asignatura], actualCourse[grupo], asignatura, grupo)">
+              <button mat-icon-button *ngIf="!scheduleStartService.matrizBotonesPulsados[asignatura][grupo];else pulsado"
+                (click)="scheduleStartService.cargarAsignatura(scheduleStartService.actualSubjects[asignatura], scheduleStartService.actualCourse[grupo], asignatura, grupo)">
                 <mat-icon>check_circle_outline</mat-icon>
               </button>
             </ng-template>
@@ -214,7 +214,7 @@
             </ng-template>
           </td>
           <td>
-            <button mat-icon-button class="" (click)="botonLimpiarAsignatura(actualSubjects[asignatura], asignatura)">
+            <button mat-icon-button class="" (click)="scheduleStartService.botonLimpiarAsignatura(scheduleStartService.actualSubjects[asignatura], asignatura)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
