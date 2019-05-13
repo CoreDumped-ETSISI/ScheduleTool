@@ -27,10 +27,7 @@ export class ScheduleStartService {
 
     //dataConstants =new DataConstants;
     constructor(private http: HttpClient, private networkConstants: NetworkConstants){
-      this.cargarMatriz();
-      this.actualSubjects  =[];
-      this.actualCourse = [];
-      this.getJson();
+
      }
 
     delay(ms: number) {
