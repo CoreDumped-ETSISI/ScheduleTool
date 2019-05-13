@@ -14,6 +14,7 @@ export interface horario {
 export interface grupos {
   nombreGrupo: string
   grupo: horario[]
+  asignaturas: string[]
 }
 
 export interface cursos {
@@ -38,8 +39,20 @@ export class HorariosComponent implements OnInit {
   public gruposJSON;
   public gruposPrimero = ['GM11', 'GM12', 'GM13', 'GM14', 'GM15', 'GT11', 'GT12', 'GT13']
   public gruposSegundo = ['GM21', 'GM22', 'GM23', 'GT21', 'GT22']
+  public gruposTercerosCom = ['GCOM31']
+  public gruposTercerosSoft = ['GIWM31', 'GIWT31']
+  public gruposTerceroSI = ['GSIT31']
+  public gruposTerceroTI = ['GTIM31']
+  public gruposCuarto = ['GMOPT41', 'GMOPT41a', 'GMOPT41b', 'GTOPT41', 'GTOPT42']
+  public gradosCodes = ['comp', 'soft', 'si', 'tsi']
+  public cursos = ['primero', 'segundo', 'tercero', 'cuarto']
   public asignaturasPrimero = ['FS', 'A', 'ED', 'AS', 'FI', 'EC']
   public asignaturasSegundo = ['E', 'FE', 'FIS', 'PCA', 'SI']
+  public asignaturasTerceroCompu = ['AA', 'PHW', 'SSR', 'TL']
+  public asignaturasTerceroSoft = ['ADS', 'BDA', 'CDI', 'EM']
+  public asignaturasTerceroSI = ['BDA', 'MD', 'MP', 'PO', 'SIG', 'TL']
+  public asignaturasTerceroTI = ['CU', 'RA', 'SSR', 'TL']
+  public asignaturasCuarto = ["EPAC", "AI", "GPS", "DV", "SIA", "MTS", "INM", "TDW", "INA", "TCI"]
   public diasSemanaShort = ['L', 'M', 'X', 'J', 'V']
   public diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
 
@@ -50,10 +63,15 @@ export class HorariosComponent implements OnInit {
     return flag
   }
 
-  checkGrupo(grupo: String, i, curso: String) {
+  checkGrupo(grupo: String, i, curso: String, gcode: String) {
     var flag: boolean = false
     if (curso === 'primero') if (this.gruposPrimero[i] == this.primero[this.primero.indexOf(this.primero.find(primero => primero.nombreGrupo === grupo))].nombreGrupo) flag = true
     if (curso === 'segundo') if (this.gruposSegundo[i] == this.segundo[this.segundo.indexOf(this.segundo.find(segundo => segundo.nombreGrupo === grupo))].nombreGrupo) flag = true
+    if (curso === 'tercero' && gcode === 'comp') if (this.gruposTercerosCom[i] == this.terceroComputadores[this.terceroComputadores.indexOf(this.terceroComputadores.find(terceroCompu => terceroCompu.nombreGrupo === grupo))].nombreGrupo) flag = true
+    if (curso === 'tercero' && gcode === 'soft') if (this.gruposTercerosSoft[i] == this.terceroSoftware[this.terceroSoftware.indexOf(this.terceroSoftware.find(terceroSoft => terceroSoft.nombreGrupo === grupo))].nombreGrupo) flag = true
+    if (curso === 'tercero' && gcode === 'si') if (this.gruposTerceroSI[i] == this.terceroSI[this.terceroSI.indexOf(this.terceroSI.find(terceroSI => terceroSI.nombreGrupo === grupo))].nombreGrupo) flag = true
+    if (curso === 'tercero' && gcode === 'tsi') if (this.gruposTerceroTI[i] == this.terceroTSI[this.terceroTSI.indexOf(this.terceroTSI.find(terceroTSI => terceroTSI.nombreGrupo === grupo))].nombreGrupo) flag = true
+    if (curso === 'cuarto') if (this.gruposCuarto[i] == this.cuarto[this.cuarto.indexOf(this.cuarto.find(cuarto => cuarto.nombreGrupo === grupo))].nombreGrupo) flag = true
     return flag
   }
 
@@ -61,29 +79,50 @@ export class HorariosComponent implements OnInit {
     return this.http.get('http://localhost:3000/json').subscribe(data => {
       console.log(data)
       this.gruposJSON = data;
-      for (let grupo in this.gruposPrimero) {
-        var aux
-        this.gruposPrimero[grupo].charAt(1) === 'T' ? aux = 1 : aux = 0
-        for (let asig in this.asignaturasPrimero) {
-          for (let dias in this.diasSemanaShort) {
+      for (let grado in this.gradosCodes) {
+        for (let curso in this.grados[grado].curso) {
+          for (let grupo in this.grados[grado].curso[curso].grupos) {
+            var grupoAux = this.grados[grado].curso[curso].grupos[grupo]
+            var aux
+            var gt: boolean
+            if (this.grados[grado].curso[curso].cursoN == 'primero' || this.grados[grado].curso[curso].cursoN == 'segundo' || this.grados[grado].curso[curso].cursoN == 'cuarto') this.grados[grado].curso[curso].grupos[grupo].nombreGrupo.charAt(1) === 'T' ? aux = 1 : aux = 0
+            if (this.grados[grado].curso[curso].cursoN == 'tercero') this.grados[grado].curso[curso].grupos[grupo].nombreGrupo.charAt(3) === 'T' ? aux = 1 : aux = 0
+            aux == 1 ? gt = true : gt = false
+
             for (let i = aux; i < 7; i++) {
-              if (data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]] != undefined) {
-                if (this.diasSemanaShort[dias] == 'L' && this.checkHora(data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]], i, this.gruposPrimero[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposPrimero[grupo], grupo, 'primero')) this.primero[grupo].grupo[i].lunes = this.asignaturasPrimero[asig]
-                if (this.diasSemanaShort[dias] == 'M' && this.checkHora(data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]], i, this.gruposPrimero[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposPrimero[grupo], grupo, 'primero')) this.primero[grupo].grupo[i].martes = this.asignaturasPrimero[asig]
-                if (this.diasSemanaShort[dias] == 'X' && this.checkHora(data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]], i, this.gruposPrimero[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposPrimero[grupo], grupo, 'primero')) this.primero[grupo].grupo[i].miercoles = this.asignaturasPrimero[asig]
-                if (this.diasSemanaShort[dias] == 'J' && this.checkHora(data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]], i, this.gruposPrimero[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposPrimero[grupo], grupo, 'primero')) this.primero[grupo].grupo[i].jueves = this.asignaturasPrimero[asig]
-                if (this.diasSemanaShort[dias] == 'V' && this.checkHora(data[this.gruposPrimero[grupo]][this.asignaturasPrimero[asig]][this.diasSemanaShort[dias]], i, this.gruposPrimero[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposPrimero[grupo], grupo, 'primero')) this.primero[grupo].grupo[i].viernes = this.asignaturasPrimero[asig]
+              for (let asig in grupoAux.asignaturas) {
+                var asigAux
+                if (this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig] != undefined) {
+                  asigAux = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+
+                  for (let dias in this.diasSemanaShort) {
+                    var diasAux = this.diasSemanaShort[dias]
+                    try {
+                      if (data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux] != undefined) {
+                        if (this.diasSemanaShort[dias] == 'L' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].lunes = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+                        if (this.diasSemanaShort[dias] == 'M' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].martes = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+                        if (this.diasSemanaShort[dias] == 'X' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].miercoles = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+                        if (this.diasSemanaShort[dias] == 'J' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].jueves = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+                        if (this.diasSemanaShort[dias] == 'V' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].viernes = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
+                      }
+                    } catch (error) {
+                      console.log("er: " + error)
+                    }
+
+                  }
+                }
               }
-
             }
-
           }
         }
       }
+      /*
       for (let grupo in this.gruposSegundo) {
+        var aux
+        this.gruposSegundo[grupo].charAt(1) === 'T' ? aux = 1 : aux = 0
         for (let asig in this.asignaturasSegundo) {
           for (let dias in this.diasSemanaShort) {
-            for (let i = 0; i < 7; i++) {
+            for (let i = aux; i < 7; i++) {
               if (data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]] != undefined) {
                 if (this.diasSemanaShort[dias] == 'L' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].lunes = this.asignaturasSegundo[asig]
                 if (this.diasSemanaShort[dias] == 'M' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].martes = this.asignaturasSegundo[asig]
@@ -96,8 +135,7 @@ export class HorariosComponent implements OnInit {
 
           }
         }
-      }
-
+      }*/
     });
   }
 
@@ -230,72 +268,72 @@ export class HorariosComponent implements OnInit {
   ]
 
   GCOM31: horario[] = [
-    { horas: "09-10", lunes: '', martes: "AA", miercoles: 'TL', jueves: '', viernes: '' },
-    { horas: "10-11", lunes: '', martes: "AA", miercoles: 'TL', jueves: '', viernes: '' },
-    { horas: "11-12", lunes: '', martes: "SSR", miercoles: 'SSR', jueves: 'AA', viernes: 'TL' },
-    { horas: "12-13", lunes: '', martes: "SSR", miercoles: 'SSR', jueves: 'AA', viernes: 'TL' },
-    { horas: "13-14", lunes: '', martes: "PHW", miercoles: '', jueves: 'PHW', viernes: '' },
-    { horas: "14-15", lunes: '', martes: "PHW", miercoles: '', jueves: 'PHW', viernes: '' },
+    { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GIWM31: horario[] = [
-    { horas: "09-10", lunes: '', martes: "", miercoles: 'BDA', jueves: 'ADS', viernes: 'BDA' },
-    { horas: "10-11", lunes: '', martes: "", miercoles: 'BDA', jueves: 'ADS', viernes: 'BDA' },
-    { horas: "11-12", lunes: '', martes: "TL", miercoles: 'EM', jueves: 'TL', viernes: 'EM' },
-    { horas: "12-13", lunes: '', martes: "TL", miercoles: 'EM', jueves: 'TL', viernes: 'EM' },
-    { horas: "13-14", lunes: '', martes: "CDI", miercoles: 'ADS', jueves: 'CDI', viernes: '' },
-    { horas: "14-15", lunes: '', martes: "CDI", miercoles: 'ADS', jueves: 'CDI', viernes: '' },
+    { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GIWT31: horario[] = [
     { horas: "09-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "15-16", lunes: '', martes: "CDI", miercoles: 'EM', jueves: 'EM', viernes: 'ADS' },
-    { horas: "16-17", lunes: '', martes: "CDI", miercoles: 'EM', jueves: 'EM', viernes: 'ADS' },
-    { horas: "17-18", lunes: '', martes: "ADS", miercoles: 'TL', jueves: 'CDI', viernes: 'TL' },
-    { horas: "18-19", lunes: '', martes: "ADS", miercoles: 'TL', jueves: 'CDI', viernes: 'TL' },
-    { horas: "19-20", lunes: '', martes: "BDA", miercoles: '', jueves: 'BDA', viernes: '' },
-    { horas: "20-21", lunes: '', martes: "BDA", miercoles: '', jueves: 'BDA', viernes: '' }
+    { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GSIT31: horario[] = [
     { horas: "09-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "15-16", lunes: '', martes: "MP", miercoles: 'PO', jueves: 'MP', viernes: 'SIG' },
-    { horas: "16-17", lunes: '', martes: "MP", miercoles: 'PO', jueves: 'MP', viernes: 'SIG' },
-    { horas: "17-18", lunes: '', martes: "MD", miercoles: 'TL', jueves: 'MD', viernes: 'TL' },
-    { horas: "18-19", lunes: '', martes: "MD", miercoles: 'TL', jueves: 'MD', viernes: 'TL' },
-    { horas: "19-20", lunes: '', martes: "BDA", miercoles: '', jueves: 'BDA', viernes: '' },
-    { horas: "20-21", lunes: '', martes: "BDA", miercoles: '', jueves: 'BDA', viernes: '' }
+    { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GTIM31: horario[] = [
-    { horas: "09-10", lunes: '', martes: "", miercoles: 'TL', jueves: 'CU', viernes: 'CU' },
-    { horas: "10-11", lunes: '', martes: "", miercoles: 'TL', jueves: 'CU', viernes: 'CU' },
-    { horas: "11-12", lunes: '', martes: "SSR", miercoles: 'SSR', jueves: '', viernes: 'TL' },
-    { horas: "12-13", lunes: '', martes: "SSR", miercoles: 'SSR', jueves: '', viernes: 'TL' },
-    { horas: "13-14", lunes: '', martes: "", miercoles: 'RA', jueves: '', viernes: 'RA' },
-    { horas: "14-15", lunes: '', martes: "", miercoles: 'RA', jueves: '', viernes: 'RA' },
+    { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GMOPT41: horario[] = [
-    { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: 'MTS', viernes: 'MTS' },
-    { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: 'MTS', viernes: 'MTS' },
-    { horas: "11-12", lunes: '', martes: "EPAC", miercoles: 'TDW', jueves: 'EPAC', viernes: 'TDW' },
-    { horas: "12-13", lunes: '', martes: "EPAC", miercoles: 'TDW', jueves: 'EPAC', viernes: 'TDW' },
-    { horas: "13-14", lunes: '', martes: "", miercoles: 'INM', jueves: '', viernes: '' },
-    { horas: "14-15", lunes: '', martes: "", miercoles: 'INM', jueves: '', viernes: '' },
+    { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GMOPT41a: horario[] = [
     { horas: "09-10", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "13-14", lunes: '', martes: "", miercoles: 'INA', jueves: '', viernes: '' },
-    { horas: "14-15", lunes: '', martes: "", miercoles: 'INA', jueves: '', viernes: '' },
+    { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
   GMOPT41b: horario[] = [
@@ -303,72 +341,72 @@ export class HorariosComponent implements OnInit {
     { horas: "10-11", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "11-12", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "12-13", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "13-14", lunes: '', martes: "", miercoles: 'TCI', jueves: '', viernes: '' },
-    { horas: "14-15", lunes: '', martes: "", miercoles: 'TCI', jueves: '', viernes: '' },
+    { horas: "13-14", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "14-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "15-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   GTOPT41: horario[] = [
     { horas: "09-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "15-16", lunes: '', martes: "AI", miercoles: 'DV', jueves: 'EPAC', viernes: 'DV' },
-    { horas: "16-17", lunes: '', martes: "AI", miercoles: 'DV', jueves: 'EPAC', viernes: 'DV' },
-    { horas: "17-18", lunes: '', martes: "EPAC", miercoles: 'SIA', jueves: 'AI', viernes: 'SIA' },
-    { horas: "18-19", lunes: '', martes: "EPAC", miercoles: 'SIA', jueves: 'AI', viernes: 'SIA' },
-    { horas: "19-20", lunes: '', martes: "GPS", miercoles: '', jueves: '', viernes: '' },
-    { horas: "20-21", lunes: '', martes: "GPS", miercoles: '', jueves: '', viernes: '' }
+    { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
   GTOPT42: horario[] = [
     { horas: "09-15", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
-    { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: 'EPAC', viernes: '' },
-    { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: 'EPAC', viernes: '' },
-    { horas: "17-18", lunes: '', martes: "EPAC", miercoles: '', jueves: '', viernes: '' },
-    { horas: "18-19", lunes: '', martes: "EPAC", miercoles: '', jueves: '', viernes: '' },
+    { horas: "15-16", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "16-17", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "17-18", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
+    { horas: "18-19", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "19-20", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' },
     { horas: "20-21", lunes: '', martes: "", miercoles: '', jueves: '', viernes: '' }
   ]
 
   primero: grupos[] = [
-    { nombreGrupo: "GM11", grupo: this.GM11 },
-    { nombreGrupo: "GM12", grupo: this.GM12 },
-    { nombreGrupo: "GM13", grupo: this.GM13 },
-    { nombreGrupo: "GM14", grupo: this.GM14 },
-    { nombreGrupo: "GM15", grupo: this.GM15 },
-    { nombreGrupo: "GT11", grupo: this.GT11 },
-    { nombreGrupo: "GT12", grupo: this.GT12 },
-    { nombreGrupo: "GT13", grupo: this.GT13 }
+    { nombreGrupo: "GM11", grupo: this.GM11, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GM12", grupo: this.GM12, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GM13", grupo: this.GM13, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GM14", grupo: this.GM14, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GM15", grupo: this.GM15, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GT11", grupo: this.GT11, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GT12", grupo: this.GT12, asignaturas: this.asignaturasPrimero },
+    { nombreGrupo: "GT13", grupo: this.GT13, asignaturas: this.asignaturasPrimero }
   ]
 
   segundo: grupos[] = [
-    { nombreGrupo: "GM21", grupo: this.GM21 },
-    { nombreGrupo: "GM22", grupo: this.GM22 },
-    { nombreGrupo: "GM23", grupo: this.GM23 },
-    { nombreGrupo: "GT21", grupo: this.GT21 },
-    { nombreGrupo: "GT22", grupo: this.GT22 }
+    { nombreGrupo: "GM21", grupo: this.GM21, asignaturas: this.asignaturasSegundo },
+    { nombreGrupo: "GM22", grupo: this.GM22, asignaturas: this.asignaturasSegundo },
+    { nombreGrupo: "GM23", grupo: this.GM23, asignaturas: this.asignaturasSegundo },
+    { nombreGrupo: "GT21", grupo: this.GT21, asignaturas: this.asignaturasSegundo },
+    { nombreGrupo: "GT22", grupo: this.GT22, asignaturas: this.asignaturasSegundo }
   ]
 
   terceroComputadores: grupos[] = [
-    { nombreGrupo: "GCOM31", grupo: this.GCOM31 }
+    { nombreGrupo: "GCOM31", grupo: this.GCOM31, asignaturas: this.asignaturasTerceroCompu }
   ]
 
   terceroSoftware: grupos[] = [
-    { nombreGrupo: "GIWM31", grupo: this.GIWM31 },
-    { nombreGrupo: "GIWT31", grupo: this.GIWT31 }
+    { nombreGrupo: "GIWM31", grupo: this.GIWM31, asignaturas: this.asignaturasTerceroSoft },
+    { nombreGrupo: "GIWT31", grupo: this.GIWT31, asignaturas: this.asignaturasTerceroSoft }
   ]
 
   terceroSI: grupos[] = [
-    { nombreGrupo: "GSIT31", grupo: this.GSIT31 }
+    { nombreGrupo: "GSIT31", grupo: this.GSIT31, asignaturas: this.asignaturasTerceroSI }
   ]
 
   terceroTSI: grupos[] = [
-    { nombreGrupo: "GTIM31", grupo: this.GTIM31 }
+    { nombreGrupo: "GTIM31", grupo: this.GTIM31, asignaturas: this.asignaturasTerceroTI }
   ]
 
   cuarto: grupos[] = [
-    { nombreGrupo: "GMOPT41", grupo: this.GMOPT41 },
-    { nombreGrupo: "GMOPT41a", grupo: this.GMOPT41a },
-    { nombreGrupo: "GMOPT41b", grupo: this.GMOPT41b },
-    { nombreGrupo: "GTOPT41", grupo: this.GTOPT41 },
-    { nombreGrupo: "GTOPT42", grupo: this.GTOPT42 }
+    { nombreGrupo: "GMOPT41", grupo: this.GMOPT41, asignaturas: this.asignaturasCuarto },
+    { nombreGrupo: "GMOPT41a", grupo: this.GMOPT41a, asignaturas: this.asignaturasCuarto },
+    { nombreGrupo: "GMOPT41b", grupo: this.GMOPT41b, asignaturas: this.asignaturasCuarto },
+    { nombreGrupo: "GTOPT41", grupo: this.GTOPT41, asignaturas: this.asignaturasCuarto },
+    { nombreGrupo: "GTOPT42", grupo: this.GTOPT42, asignaturas: this.asignaturasCuarto }
   ]
 
   computadores: cursos[] = [
