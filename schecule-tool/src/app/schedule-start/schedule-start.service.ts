@@ -41,12 +41,23 @@ export class ScheduleStartService {
         });     
         await this.delay(1000);
         this.grupos = result;
-      }
+        return result;
+    }
+
+    async getJsonConnection () {
+      var status;          
+      this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
+        status = response.status;
+      }); 
+      await this.delay(1000);
+      return status;
+    }
 
     getJSONURL () {
         return this.networkConstants.getJSONEndpoint()
     } 
 
+    //detecta si el dispositivo es móvil o no
     detectMob() { 
         if( navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
@@ -72,11 +83,16 @@ export class ScheduleStartService {
             return true;
           } 
         };
-    
-        doc.fromHTML(table.innerHTML, 80, 15, {
-          'width': 210,
-          'elementHandlers': specialElementHandlers,
-        });
+
+        if(table.innerHTML != undefined){
+          doc.fromHTML(table.innerHTML, 80, 15, {
+            'width': 210,
+            'elementHandlers': specialElementHandlers,
+          });
+        }else{
+          return false;
+        }
+        
     
         try {
           doc.save('horarios.pdf');

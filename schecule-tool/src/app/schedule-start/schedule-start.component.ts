@@ -276,7 +276,8 @@ export class ScheduleStartComponent implements OnInit {
     this.scheduleStartService.cargarMatriz();
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
-    this.scheduleStartService.getJson();    
+    this.scheduleStartService.getJson();
+    this.scheduleStartService.getJsonConnection();    
   }
 
 }

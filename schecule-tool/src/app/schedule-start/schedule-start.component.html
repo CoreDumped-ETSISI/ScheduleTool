@@ -26,6 +26,7 @@
           <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
         </div>
       </div>
+      <div *ngIf="mobile"><br></div>
       <div ngbDropdown class="buttons-grades sch-tool-child">
         <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
           <mat-icon class="selects-buttons">filter_1</mat-icon><span class="text-button">{{courseName}}</span>

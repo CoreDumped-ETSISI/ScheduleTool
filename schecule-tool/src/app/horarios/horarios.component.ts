@@ -116,26 +116,6 @@ export class HorariosComponent implements OnInit {
           }
         }
       }
-      /*
-      for (let grupo in this.gruposSegundo) {
-        var aux
-        this.gruposSegundo[grupo].charAt(1) === 'T' ? aux = 1 : aux = 0
-        for (let asig in this.asignaturasSegundo) {
-          for (let dias in this.diasSemanaShort) {
-            for (let i = aux; i < 7; i++) {
-              if (data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]] != undefined) {
-                if (this.diasSemanaShort[dias] == 'L' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].lunes = this.asignaturasSegundo[asig]
-                if (this.diasSemanaShort[dias] == 'M' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].martes = this.asignaturasSegundo[asig]
-                if (this.diasSemanaShort[dias] == 'X' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].miercoles = this.asignaturasSegundo[asig]
-                if (this.diasSemanaShort[dias] == 'J' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].jueves = this.asignaturasSegundo[asig]
-                if (this.diasSemanaShort[dias] == 'V' && this.checkHora(data[this.gruposSegundo[grupo]][this.asignaturasSegundo[asig]][this.diasSemanaShort[dias]], i, this.gruposSegundo[grupo].charAt(1) === 'T') && this.checkGrupo(this.gruposSegundo[grupo], grupo, 'segundo')) this.segundo[grupo].grupo[i].viernes = this.asignaturasSegundo[asig]
-              }
-
-            }
-
-          }
-        }
-      }*/
     });
   }
 

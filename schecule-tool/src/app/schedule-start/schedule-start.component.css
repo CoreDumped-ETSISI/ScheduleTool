@@ -110,6 +110,8 @@ button.reset {
     z-index: 9999;
 }
 
+
+
 .sch-tool-child {
     display: table-cell;
     margin-right: 5px;
@@ -128,9 +130,6 @@ span.text-button {
     margin-left: 10px;
 }
 
-@media only screen and (min-width: 1000px) {
-
-}
 
 .card.matrix {
     position: absolute;
