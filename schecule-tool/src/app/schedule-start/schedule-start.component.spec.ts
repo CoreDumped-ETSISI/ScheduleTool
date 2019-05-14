@@ -60,7 +60,6 @@ describe('ScheduleStartService', () => {
 
   describe('#getJSON', () => {
     it('should return a JSON', () => {
-  
       let json = service.getJson()
       expect(json).toBeDefined()
       httpMock.expectOne('http://localhost:3000/json')
@@ -68,12 +67,26 @@ describe('ScheduleStartService', () => {
     });
   });
 
-  describe('#it is downloaded', () => {
+  describe('#getJsonConnection', ()=> {
+    it('should connect to link and return true', () => {
+      let status = service.getJsonConnection()
+      expect(status).not.toBe(undefined)
+      httpMock.expectOne('http://localhost:3000/json')
+      httpMock.verify()
+    });
+  })
+
+  describe('#Pdfdownload', () => {
     it('should return true', () => {
-      let table = '<div></div>'
-      let down = service.downloadPDF(table);
+      let html = document.createElement('div')
+      let down = service.downloadPDF(html);
       expect(down).toBe(true);
     });
+    it('should return false', () => {
+      let table = 'hola'
+      let down = service.downloadPDF(table);
+      expect(down).toBe(false);
+    })
   });
 
   describe('#detect mobile', () => {
@@ -116,9 +129,5 @@ describe('ScheduleStartService', () => {
     TestBed.configureTestingModule({
       providers: [ScheduleStartService, NetworkConstants]
     });
-    injector = getTestBed();
-    service = injector.get(ScheduleStartService);
   });
-
-
-})*/
+});*/
