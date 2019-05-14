@@ -24,6 +24,8 @@ export class ScheduleStartService {
     actualSubjects:string[];
     actualCourse:string [];
     inicialDias = ["L", "M", "X", "J", "V"];
+    errorAlert = false;
+    textAlert = "";
 
     //dataConstants =new DataConstants;
     constructor(private http: HttpClient, private networkConstants: NetworkConstants){
@@ -88,6 +90,7 @@ export class ScheduleStartService {
         return result;
       }
       cargarMatriz(){
+        let matrixTraveled = false;
         this.matrizHorario = [];
         this.matrizCoincidencias = [];
         for(var i: number = 0; i < 12; i++) {
@@ -98,6 +101,15 @@ export class ScheduleStartService {
               this.matrizCoincidencias[i][j] = false;
           }
         }
+        //matrixTraveled = i == 12;
+        matrixTraveled = false;
+        if(!matrixTraveled){
+          //AQUI METER UN ALERT.
+          this.errorAlert = true;
+          this.textAlert  = "The Schedule Matrix is not Loaded";
+
+        }
+        return matrixTraveled;
       }
 
       

@@ -1,6 +1,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
+
+
+
+
 <div class="upmBlueBg header-tool-schedule">
   <h2>CENTRO DE INFORMÁTICA Y COMUNICACIONES</h2>
   <h4>Herramienta de Creación de Horarios</h4>
@@ -55,8 +59,9 @@
   </div>
   <div class="card matrix">
     <div class="container-fluid">
-
+        <div *ngIf="scheduleStartService.errorAlert" class="alert alert-danger" role="alert">{{scheduleStartService.textAlert}}</div>
       <div class="row">
+        
         <!--HORARIO-->
         <div class="col-12 col-lg-8 order-12 order-lg-1">
           <div #tabla>

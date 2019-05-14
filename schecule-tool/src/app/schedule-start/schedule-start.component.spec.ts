@@ -1,9 +1,17 @@
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import {HttpClientModule } from '@angular/common/http'
 import { ScheduleStartComponent } from './schedule-start.component';
 import { ScheduleStartService } from './schedule-start.service';
 import { NetworkConstants } from '../network/network-constants';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs'; 
+import {MatButtonModule} from '@angular/material/button';
+import { HorariosComponent } from '../horarios/horarios.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatTableModule } from '@angular/material/table';
+import { Component } from '@angular/core';
 
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
@@ -11,7 +19,8 @@ describe('ScheduleStartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScheduleStartComponent]
+      declarations: [ ScheduleStartComponent], 
+      imports:[MatIconModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatExpansionModule, MatTableModule, HttpClientModule ]
     })
     .compileComponents();
   }));
@@ -84,7 +93,19 @@ describe('ScheduleStartService', () => {
         }     
     })
   })
+
+  describe('#cargarMatriz', () =>{
+    it('should return true when matrix is loaded', () => {
+      let loaded = service.cargarMatriz();
+      expect(loaded).toBe(true);
+    });
+    it('should return false when matrix is not loaded', () =>{
+      let loaded = service.cargarMatriz();
+      expect(loaded).toBe(false);
+    });
+  });
 });
+
 
 /*describe('DownloadPdf', () => {
   let injector: TestBed;
