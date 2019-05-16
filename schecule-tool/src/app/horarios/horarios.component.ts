@@ -106,7 +106,7 @@ export class HorariosComponent implements OnInit {
                         if (this.diasSemanaShort[dias] == 'V' && this.checkHora(data[this.grados[grado].curso[curso].grupos[grupo].nombreGrupo][this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]][diasAux], i, gt) && this.checkGrupo(grupoAux.nombreGrupo, grupo, this.grados[grado].curso[curso].cursoN.toLowerCase(), this.grados[grado].gradoCode)) this.grados[grado].curso[curso].grupos[grupo].grupo[i].viernes = this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig]
                       }
                     } catch (error) {
-                      console.log("er: " + error)
+                      //sconsole.log("er: " + error)
                     }
 
                   }
