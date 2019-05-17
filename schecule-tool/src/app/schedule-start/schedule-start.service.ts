@@ -105,7 +105,7 @@ export class ScheduleStartService {
         }
         return result;
       }
-      cargarMatriz(){
+      cargarMatriz(){//Tested
         let matrixTraveled = false;
         this.matrizHorario = [];
         this.matrizCoincidencias = [];
@@ -117,8 +117,7 @@ export class ScheduleStartService {
               this.matrizCoincidencias[i][j] = false;
           }
         }
-        //matrixTraveled = i == 12;
-        matrixTraveled = false;
+        matrixTraveled = i == 12;
         if(!matrixTraveled){
           //AQUI METER UN ALERT.
           this.errorAlert = true;
@@ -129,9 +128,11 @@ export class ScheduleStartService {
       }
 
       
-      cargarMatrizBotones() {
+      cargarMatrizBotones() {//Tested
+        let matrixLoaded  = false;
         this.matrizBotonesPulsados = [];
         this.matrizBotones = [];
+        if(this.actualSubjects.length > 0 && this.actualCourse.length > 0){
         for (var i: number = 0; i < this.actualSubjects.length; i++) {
           this.matrizBotonesPulsados[i] = [];
           this.matrizBotones[i] = [];
@@ -140,46 +141,82 @@ export class ScheduleStartService {
             this.matrizBotonesPulsados[i][j] = false;
           }
         }
-        //console.log(this.matrizBotones);
+        matrixLoaded = i == this.actualSubjects.length;
+        if(!matrixLoaded){
+          this.errorAlert = true;
+          this.textAlert = "La matriz de botones no ha podido ser cargada.";
+          console.log("MATRIZ DE BOTONES NO CARGADA HACER TRACE");
+        }
+      }
+        return matrixLoaded;
       }
       
-      cargarAsignatura(asignatura:string, grupoStr:string, row:number, col:number){
-        this.botonPulsado(row, col);
-        let subject:SubjectModel = {
-          nombre:asignatura,
-          grupo:grupoStr
-        };
-        let clases = this.grupos[grupoStr][asignatura];
-        let dayNames = Object.keys(clases);
-        let finded = false;
-    
-        this.limpiarAsignatura(asignatura);
-    
-        for(let day in clases){
-          for(let hour in clases[day]){
-            //console.log("Guardamos: " + asignatura + " en " + "[" + (-9 + clases[day][hour]) +"]" + "[" + this.inicialDias.indexOf(day) + "]");
-            let hourPos = clases[day][hour] - 9;
-            let dayPos = this.inicialDias.indexOf(day);
-            if(!this.matrizHorario[hourPos][dayPos].includes(subject)){ //HAY QUE PENSAR ESTO AGAIN.
-              this.matrizHorario[hourPos][dayPos].push(subject);
-              //console.log("Metemos " + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].nombre + ":" + this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1].grupo );
-            }else{
-              //console.log("Ya existe!");
-            }
-            this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
-          }  
+      cargarAsignatura(asignatura:string, grupoStr:string, row:number, col:number){//Tested
+        /**
+         * Must Be Defined:
+         * grupos,
+         * matrizHorario,
+         * matrizCoincidencias,
+         * all the dependencies of botonPulsado()
+         * all the dependencies of limpiarAsignatura()
+         */
+        let pushed  = false;
+        if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr) ){
+          let subject:SubjectModel = {nombre:asignatura, grupo:grupoStr};
+          let clases = this.grupos[grupoStr][asignatura];
+        console.log(clases);
+        if(this.botonPulsado(row, col) && this.limpiarAsignatura(asignatura)){
+          for(let day in clases){
+            for(let hour in clases[day]){
+              let hourPos = clases[day][hour] - 9;
+              let dayPos = this.inicialDias.indexOf(day);
+              if(!this.matrizHorario[hourPos][dayPos].includes(subject)){
+                this.matrizHorario[hourPos][dayPos].push(subject);
+                let tester = JSON.stringify(this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1]);
+                pushed = tester == JSON.stringify(subject);
+              }
+              this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
+            }  
+          }
         }
-        //console.log(this.matrizCoincidencias);
-      }
-      botonLimpiarAsignatura(asignatura:string, row:number){
-        for(let col in this.matrizBotonesPulsados[row]){
-          this.matrizBotonesPulsados[row][col] = false;
         }
-        //console.log("Limpiamos...");
-        this.limpiarAsignatura(asignatura);
+        
+        if(!pushed){
+          this.errorAlert = true;
+          this.textAlert = "No se ha podido cargar la asignatura en el horario."
+          //Meter un trace.
+        }
+        return pushed;
       }
-      limpiarAsignatura(asignatura:string){
-     
+      botonLimpiarAsignatura(asignatura:string, row:number){//Tested
+        /*Must Be Defined:
+          matrizBotonesPulsados,
+          all the dependencies of limpiarAsignatura()
+        */
+        let removed = false;
+        let counter = 0;
+        if(this.matrizBotonesPulsados.length > 1 && this.matrizBotonesPulsados.length > row){
+          for(let col in this.matrizBotonesPulsados[row]){
+            this.matrizBotonesPulsados[row][col] = false;
+            counter++;
+          }
+          //console.log("Limpiamos...");
+          removed = this.limpiarAsignatura(asignatura) && counter >= this.matrizBotonesPulsados[row].length;
+        }
+
+        if(!removed){
+          this.errorAlert = true;
+          this.textAlert = "No se ha podido eliminar la asignatura."
+        }
+        return removed;
+      }
+      limpiarAsignatura(asignatura:string){//Tested
+        /*Must Be Defined:
+          matrizHorario,
+          matrizCoincidencias,
+        */
+       let removed = false;
+       if(asignatura != '' && this.matrizHorario.length > 1 && this.matrizCoincidencias.length > 1){
         for(let i in this.matrizHorario){
           for(let j in this.matrizHorario[i]){
             let counter = 0;
@@ -190,37 +227,112 @@ export class ScheduleStartService {
               counter++;
             }
             this.matrizCoincidencias[i][j] = this.matrizHorario[i][j].length > 1;
-    
           }
         }
+        removed = true;
+        this.matrizHorario.forEach(row => {
+          row.forEach((col) =>{
+            col.forEach((subject) => {
+              if(subject.nombre == asignatura){
+                removed = false;
+              }
+            });
+          });
+        });
+       }
+
+        if(!removed){
+          this.errorAlert = true;
+          this.textAlert = "No se ha eliminado la asignatura.";
+          //Meter un trace.
+        }
+        return removed;
       }
-      botonPulsado(row:number, col:number){
+      botonPulsado(row:number, col:number){//Tested
+        /*
+        Must Be Defined:
+        matrizBotonesPulsados
+        */
+        let touched = false;
+        if(this.matrizBotonesPulsados.length > 0 && this.matrizBotonesPulsados.length > col  && col < this.matrizBotonesPulsados[0].length){
         for(let i in this.matrizBotonesPulsados[row]){
           this.matrizBotonesPulsados[row][i] = false;
         }
         this.matrizBotonesPulsados[row][col] = true;
-      }
-      obtainActualSubjects(){
-        for(var group in this.actualCourse){
-          Object.keys(this.grupos[this.actualCourse[group]]).forEach(subject => {
-            if(!this.actualSubjects.includes(subject)){
-              this.actualSubjects.push(subject);
-            }
-          });
+        touched = true;
         }
+        if(!touched){
+        this.errorAlert = true;
+        this.textAlert ="No se ha podido pulsar el boton."
+        }
+        if(!touched){
+          this.errorAlert = true;
+          this.textAlert = "No se ha podido pulsar el boton.";
+          //Meter un trace;
+        }
+        return touched;
+      }
+      obtainActualSubjects(){//Tested
+        /*
+        Must Be Defined:
+        grupos,
+        actualCourse,
+        */
+        let obtained  = false;
+        if(!this.isEmpty(this.grupos) && this.actualCourse.length > 0){
+          for(var group in this.actualCourse){
+            Object.keys(this.grupos[this.actualCourse[group]]).forEach(subject => {
+              if(!this.actualSubjects.includes(subject)){
+                this.actualSubjects.push(subject);
+              }
+            });
+          }
+          obtained = this.actualSubjects.length > 0;
+        }
+                if(!obtained){
+          this.errorAlert = true;
+          this.textAlert = "No se han podido cargar las asignaturas de este curso."
+          //Meter un trace;
+        }
+        return obtained;
       }
       contieneLaAsignatura(subject:string, group:string){
+        /*
+        Must Be Defined:
+        grupos
+        */
         return Object.keys(this.grupos[group]).includes(subject);
       }
-      checkDesignedSchedule(){
-        for(let row in this.matrizHorario){
-          for(let col in this.matrizHorario[row]){
-            for(let asig in this.matrizHorario[row][col]){
-              if(this.actualCourse.includes(this.matrizHorario[row][col][asig].grupo)){
-                this.botonPulsado(this.actualSubjects.indexOf(this.matrizHorario[row][col][asig].nombre), this.actualCourse.indexOf(this.matrizHorario[row][col][asig].grupo));
+      containsTheGroup(group:string){
+        return Object.keys(this.grupos).includes(group);
+      }
+      checkDesignedSchedule(){//Tested
+        let traveled = false;
+        if(this.matrizHorario.length > 1){
+          for(let row in this.matrizHorario){
+            for(let col in this.matrizHorario[row]){
+              for(let asig in this.matrizHorario[row][col]){
+                if(this.actualCourse.includes(this.matrizHorario[row][col][asig].grupo)){
+                  this.botonPulsado(this.actualSubjects.indexOf(this.matrizHorario[row][col][asig].nombre), this.actualCourse.indexOf(this.matrizHorario[row][col][asig].grupo));
+                }
               }
             }
           }
+          traveled = true;  
         }
+        if(!traveled){
+          this.errorAlert = true;
+          this.textAlert = "La matriz horario no se ha generado."
+          //Meter un trace.
+        }
+        return traveled;
+        
       }
+      isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
 }
