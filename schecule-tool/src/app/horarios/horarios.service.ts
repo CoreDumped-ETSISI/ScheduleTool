@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { horario, grupos, grados, cursos } from './horario.interface'
 import * as $ from 'jquery';
 import { HttpClient } from '@angular/common/http';
-import { isNullOrUndefined } from 'util';
+import { MatTableModule } from '@angular/material/table';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
+})
+
+@NgModule({
+  imports: [MatTableModule]
 })
 export class HorariosService {
 
@@ -356,18 +360,19 @@ export class HorariosService {
 
   rellenarHorarios() {
     var data = this.gruposJSON
+    var buscarAsignatura: boolean = false
+    var aux
+    var gt: boolean
     for (let grado in this.gradosCodes) {
       for (let curso in this.grados[grado].curso) {
         for (let grupo in this.grados[grado].curso[curso].grupos) {
           var grupoAux = this.grados[grado].curso[curso].grupos[grupo]
-          var aux
-          var gt: boolean
           if (this.grados[grado].curso[curso].cursoN == 'primero' || this.grados[grado].curso[curso].cursoN == 'segundo' || this.grados[grado].curso[curso].cursoN == 'cuarto') this.grados[grado].curso[curso].grupos[grupo].nombreGrupo.charAt(1) === 'T' ? aux = 1 : aux = 0
           if (this.grados[grado].curso[curso].cursoN == 'tercero') this.grados[grado].curso[curso].grupos[grupo].nombreGrupo.charAt(3) === 'T' ? aux = 1 : aux = 0
+     
           aux == 1 ? gt = true : gt = false
 
           for (let i = aux; i < 7; i++) {
-            var buscarAsignatura: boolean = false
             for (let asig in grupoAux.asignaturas) {
               var asigAux
               if (this.grados[grado].curso[curso].grupos[grupo].asignaturas[asig] != undefined) {
@@ -421,7 +426,6 @@ export class HorariosService {
 
   getJson() {
     return this.http.get('http://localhost:3000/json').subscribe(data => {
-      console.log(data)
       this.gruposJSON = data;
       this.rellenarHorarios()
       return 'horarios creados'
@@ -440,10 +444,8 @@ export class HorariosService {
     if (this.cursoSel != null) $('#' + this.cursoSel.cursoN + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     if (this.gradoSel != null) $('#' + this.gradoSel.gradoCode + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     this.gradoSel = null
-    console.log(grado.gradoCode)
     $('#' + grado.gradoCode).addClass('btn-pantone285-active')
     $('#' + grado.gradoCode).removeClass('btn-pantone285')
-    console.log("gradoo: " + grado.grado)
     this.gradoSel = grado
     this.cursoSel = null
   }
@@ -453,7 +455,6 @@ export class HorariosService {
     this.cursoSel = curso
     $('#' + curso.cursoN).addClass('btn-pantone285-active')
     $('#' + curso.cursoN).removeClass('btn-pantone285')
-    console.log("cs: " + this.cursoSel.cursoN)
   }
 
   getGradoPos() {

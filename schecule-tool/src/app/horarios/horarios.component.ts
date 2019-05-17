@@ -18,5 +18,5 @@ export class HorariosComponent implements OnInit {
   }
 
   displayedColumns: string[] = ['horas', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
-
+  dataSource
 }
