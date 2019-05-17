@@ -74,7 +74,7 @@ describe('ScheduleStartService', () => {
       httpMock.expectOne('http://localhost:3000/json')
       httpMock.verify()
     });
-  })
+  });
 
   describe('#Pdfdownload', () => {
     it('should return true', () => {
@@ -86,7 +86,7 @@ describe('ScheduleStartService', () => {
       let table = 'hola'
       let down = service.downloadPDF(table);
       expect(down).toBe(false);
-    })
+    });
   });
 
   describe('#detect mobile', () => {
@@ -118,16 +118,3 @@ describe('ScheduleStartService', () => {
     });
   });
 });
-
-
-/*describe('DownloadPdf', () => {
-  let injector: TestBed;
-  let service: ScheduleStartService;
-
-  
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ScheduleStartService, NetworkConstants]
-    });
-  });
-});*/
