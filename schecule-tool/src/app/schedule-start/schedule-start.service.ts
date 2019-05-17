@@ -56,7 +56,7 @@ export class ScheduleStartService {
     }
 
     getJSONURL () {
-        return this.networkConstants.getJSONEndpoint()
+        return this.networkConstants.getJSONEndpoint('json')
     } 
 
     //detecta si el dispositivo es móvil o no
