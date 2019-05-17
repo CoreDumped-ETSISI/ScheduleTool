@@ -11,7 +11,8 @@ import { HorariosComponent } from '../horarios/horarios.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatTableModule } from '@angular/material/table';
-import { Component } from '@angular/core';
+import { errorTrace } from '../TraceModule/errorTrace'
+import { error } from '../TraceModule/error'
 
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
@@ -19,7 +20,7 @@ describe('ScheduleStartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScheduleStartComponent], 
+      declarations: [ScheduleStartComponent], 
       imports:[MatIconModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatExpansionModule, MatTableModule, HttpClientModule ]
     })
     .compileComponents();
@@ -41,8 +42,25 @@ describe('ScheduleStartService', () => {
   let service: ScheduleStartService;
   let networkConstants: NetworkConstants;
   let httpMock: HttpTestingController;
+  let component:ScheduleStartComponent;
 
-  
+  function setUp(){
+    service.cargarMatriz();
+    service.grupos = {
+      "GM11":
+      { "FS": {"J":[9,10]},
+        "A": {"J":[11,12],"M":[11,12],"V":[13]},
+        "ED": {"M":[9,10],"X":[13,14]},
+        "AS": {"M":[13,14]},
+        "FI": {"V":[9,10],"X":[9,10]},
+        "EC": {"V":[11,12],"X":[11,12]}}
+    }
+    service.actualSubjects = ['FS', 'A']
+    service.actualCourse = ['GM11']
+    service.cargarMatrizBotones();
+  }
+
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -74,7 +92,7 @@ describe('ScheduleStartService', () => {
       httpMock.expectOne('http://localhost:3000/json')
       httpMock.verify()
     });
-  })
+  });
 
   describe('#Pdfdownload', () => {
     it('should return true', () => {
@@ -86,9 +104,8 @@ describe('ScheduleStartService', () => {
       let table = 'hola'
       let down = service.downloadPDF(table);
       expect(down).toBe(false);
-    })
+    });
   });
-
   describe('#detect mobile', () => {
     it('should detect mobile devices', () => {
       if( navigator.userAgent.match(/Android/i)
@@ -107,27 +124,177 @@ describe('ScheduleStartService', () => {
     })
   })
 
-  describe('#cargarMatriz', () =>{
+  describe('#cargarMatriz', () =>{//Full tested. ¡¡¡¡QUE ALGUIEN INTENTE ROMPER ESTA FUNCION!!!!.
     it('should return true when matrix is loaded', () => {
       let loaded = service.cargarMatriz();
-      expect(loaded).toBe(true);
+      if(loaded){
+        expect(loaded).toBe(true);
+      }
     });
-    it('should return false when matrix is not loaded', () =>{
-      let loaded = service.cargarMatriz();
-      expect(loaded).toBe(false);
+  });
+
+  describe('#cargarMatrizBotones', () => {//Full tested
+    it('should return true when matrix is loaded', () =>{
+      service.actualSubjects = ['FS']
+      service.actualCourse = ['GM11']
+      expect(service.cargarMatrizBotones()).toBe(true);
+    });
+    it('should return false because the actualSubjects array is empty', () => {
+      service.actualSubjects = [];
+      service.actualCourse = ['GM11'];
+      expect(service.cargarMatrizBotones()).toBe(false);
+    });
+    it('should return false because the actualCourse array is empty', () => {
+      service.actualSubjects = ['FS'];
+      service.actualCourse = [];
+      expect(service.cargarMatrizBotones()).toBe(false);
+    });
+  });
+
+
+  describe('#cargarAsignatura', () => {//Full tested
+    it('should return true when subject is pushed to matrizHorario', () => {
+      setUp();
+      let pushed = service.cargarAsignatura('FS', 'GM11', 0, 0);
+      expect(pushed).toBe(true);
+    });
+    it('should return false because grupos is not defIned', () => {
+      setUp();
+      service.grupos = {};
+      let pushed = service.cargarAsignatura('FS', 'GM11', 0, 0);
+      expect(pushed).toBe(false);
+    });
+    it('should return false because the subject is not included in grupos',  () => {
+      setUp();
+      let pushed = service.cargarAsignatura('RANDOM_SUBJECT', 'GM11', 0, 0);
+      expect(pushed).toBe(false);
+    });
+    it('should return false because the group is not included in grupos',  () => {
+      setUp();
+      let pushed = service.cargarAsignatura('FS', 'RANDOM_GROUP', 0, 0);
+      expect(pushed).toBe(false);
+    });
+  });
+
+
+  describe('#botonLimpiarAsignatura', () => {//Full tested
+    it('should return true when the button is clicked', () => {
+      setUp();
+      service.cargarAsignatura('FS', 'GM11', 0, 0);
+      let clicked = service.botonLimpiarAsignatura('FS', 0);
+      expect(clicked).toBe(true);
+    });
+    it('should return false because the row is out of the matrix matrizBotones', () => {
+      setUp();
+      let clicked = service.botonLimpiarAsignatura('FS', 100);
+      expect(clicked).toBe(false);
+    });
+    it('should return false because the matrix matrizBotonesPulsados is empty', () => {
+      setUp();
+      service.matrizBotonesPulsados = [[]];
+      let clicked = service.botonLimpiarAsignatura('FS', 1);
+      expect(clicked).toBe(false);
+    });
+  });
+  describe('#limpiarAsignatura',  () =>{
+    it('should return true when the subject is removed of the matrizHorario', () => {//Full tested
+      setUp();
+      service.cargarAsignatura('FS', 'GM11', 0,0);
+      let removed = service.limpiarAsignatura('FS');
+      expect(removed).toBe(true);
+    });
+    it('should return false because matrizHorario is empty and matrizCoincidencias is empty', () =>{
+      setUp();
+      service.cargarAsignatura('FS', 'GM11', 0,0);
+      service.matrizHorario = [[]];
+      service.matrizCoincidencias = [[]];
+      let removed = service.limpiarAsignatura('GM11');
+      expect(removed).toBe(false);
+    });
+    it('should return false because the subject is not defined', () => {
+      setUp();
+      let removed = service.limpiarAsignatura('');
+      expect(removed).toBe(false);
+
+    });
+  });
+  describe('#checkDesignedSchedule', () => {//Full tested
+    it('should return true when the matrix is traveled', () => {
+      service.cargarMatriz();
+      let traveled = service.checkDesignedSchedule();
+      expect(traveled).toBe(true);
+    });
+    it('should return false because matrizHorario is not defined', () => {
+      service.matrizHorario = [[]];
+      let traveled = service.checkDesignedSchedule();
+      expect(traveled).toBe(false);
+    });
+  });
+  describe('#obtainActualSubjects', () =>{//Full tested.
+    it('should return true when actualSubjects is not empty.',  () => {
+      setUp();
+      let obtained = service.obtainActualSubjects();
+      expect(obtained).toBe(true);
+    });
+    it('should return false because grupos is not defined', () => {
+      setUp();
+      service.grupos = {};
+      let obtained = service.obtainActualSubjects();
+      expect(obtained).toBe(false);
+    });
+    it('should return false because actualCourse is empty', () => {
+      setUp();
+      service.actualCourse = [];
+      let obtained = service.obtainActualSubjects();
+      expect(obtained).toBe(false);
+    });
+  });
+  describe('#botonPulsado', () =>{//Full tested
+    it('should return true, all the dependencies are correct', () =>{ 
+      setUp();
+      let clicked = service.botonPulsado(0,0);
+      expect(clicked).toBe(true);
+    });
+    it('should return false, the position is not included in the matrix matrisBotones', () =>{
+      setUp();
+      let clicked = service.botonPulsado(100,100);
+      expect(clicked).toBe(false);
     });
   });
 });
 
-
-/*describe('DownloadPdf', () => {
+describe('errorTrace', () => {
   let injector: TestBed;
-  let service: ScheduleStartService;
+  let errortrace: errorTrace;
+  let httpMock: HttpTestingController;
 
-  
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ScheduleStartService, NetworkConstants]
+      imports: [HttpClientTestingModule],
+      providers: [errorTrace]
     });
+    injector = getTestBed();
+    errortrace = injector.get(errorTrace);
+    httpMock = injector.get(HttpTestingController);
   });
-});*/
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  describe('#Save error', () => {
+    it('should return true if error saved correctly', () => {
+      let err = new error('FatalError', 'Fatal error');
+      expect(errortrace.saveError(err, 'TestErrors', 'schedule-start.component.spec.ts')).toBe(true);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
+    })
+  })
+
+  describe('#Show error', () => {
+    it('should return true always, no matter what happens, even if the computer is destroyed', () => {
+      let err = new error('FatalError', 'Fatal error');
+      expect(errortrace.showError(err)).toBe(true);
+    })
+  })
+})
