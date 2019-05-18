@@ -20,7 +20,7 @@ describe('ScheduleStartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ScheduleStartComponent], 
+      declarations: [ScheduleStartComponent, HorariosComponent], 
       imports:[MatIconModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatExpansionModule, MatTableModule, HttpClientModule ]
     })
     .compileComponents();
