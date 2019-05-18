@@ -7,12 +7,9 @@ import { NetworkConstants } from '../network/network-constants';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs'; 
 import {MatButtonModule} from '@angular/material/button';
-import { HorariosComponent } from '../horarios/horarios.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatTableModule } from '@angular/material/table';
-import { errorTrace } from '../TraceModule/errorTrace'
-import { error } from '../TraceModule/error'
 
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
@@ -262,39 +259,3 @@ describe('ScheduleStartService', () => {
     });
   });
 });
-
-describe('errorTrace', () => {
-  let injector: TestBed;
-  let errortrace: errorTrace;
-  let httpMock: HttpTestingController;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [errorTrace]
-    });
-    injector = getTestBed();
-    errortrace = injector.get(errorTrace);
-    httpMock = injector.get(HttpTestingController);
-  });
-
-  afterEach(() => {
-    httpMock.verify();
-  });
-
-  describe('#Save error', () => {
-    it('should return true if error saved correctly', () => {
-      let err = new error('FatalError', 'Fatal error');
-      expect(errortrace.saveError(err, 'TestErrors', 'schedule-start.component.spec.ts')).toBe(true);
-      httpMock.expectOne('http://localhost:3000/tracelog')
-      httpMock.verify()
-    })
-  })
-
-  describe('#Show error', () => {
-    it('should return true always, no matter what happens, even if the computer is destroyed', () => {
-      let err = new error('FatalError', 'Fatal error');
-      expect(errortrace.showError(err)).toBe(true);
-    })
-  })
-})
