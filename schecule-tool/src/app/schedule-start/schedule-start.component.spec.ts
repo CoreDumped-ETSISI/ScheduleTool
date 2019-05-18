@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatTableModule } from '@angular/material/table';
+import {HorariosComponent} from '../horarios/horarios.component'
 
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
