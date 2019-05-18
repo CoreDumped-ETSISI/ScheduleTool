@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatTableModule } from '@angular/material';
 import { HorariosComponent } from './horarios.component';
 
 describe('HorariosComponent', () => {
@@ -8,6 +8,7 @@ describe('HorariosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MatTableModule],
       declarations: [ HorariosComponent ]
     })
     .compileComponents();

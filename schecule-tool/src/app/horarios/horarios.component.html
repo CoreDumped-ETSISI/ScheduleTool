@@ -1,23 +1,23 @@
 <div class="d-flex justify-content-center">
   <div class="btn-group mobile-btngroup" role="group">
-    <button type="button" class="btn btn-pantone285" *ngFor="let grado of grados" (click)="setGrado(grado)"
+    <button type="button" class="btn btn-pantone285" *ngFor="let grado of horariosService.grados" (click)="horariosService.setGrado(grado)"
       id="{{grado.gradoCode}}">{{grado.grado}}</button>
   </div>
 </div>
 
-<div *ngIf="gradoSel!=null">
+<div *ngIf="horariosService.gradoSel!=null">
   <div class="d-flex justify-content-center marg-tb-20">
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-pantone285" *ngFor="let curso of grados[getGradoPos()].curso"
-        id="{{curso.cursoN}}" (click)="setCurso(curso)">{{curso.cursoN}}</button>
+      <button type="button" class="btn btn-pantone285" *ngFor="let curso of horariosService.grados[horariosService.getGradoPos()].curso"
+        id="{{curso.cursoN}}" (click)="horariosService.setCurso(curso)">{{curso.cursoN}}</button>
     </div>
   </div>
 </div>
 
-<div *ngIf="gradoSel!=null && cursoSel != null">
+<div *ngIf="horariosService.gradoSel!=null && horariosService.cursoSel != null">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 marg-7"
-      *ngFor="let grupo of grados[getGradoPos()].curso[getCursoPos()].grupos">
+      *ngFor="let grupo of horariosService.grados[horariosService.getGradoPos()].curso[horariosService.getCursoPos()].grupos">
       <table mat-table [dataSource]="grupo.grupo" class="mat-elevation-z8">
         <ng-container matColumnDef="horas">
           <th class="curso" mat-header-cell *matHeaderCellDef>{{grupo.nombreGrupo}} </th>

@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import * as jsPDF from 'jspdf';
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
-import { HorariosComponent } from '../horarios/horarios.component';
+import { HorariosService } from '../horarios/horarios.service';
 import * as $ from 'jquery';
 import { ScheduleStartService } from './schedule-start.service';
 import { async } from '@angular/core/testing';
@@ -46,18 +46,18 @@ export class ScheduleStartComponent implements OnInit {
   }
   getAndUpdateGradoByName(gradoName) {
     gradoName = this.checkGradoName(gradoName)
-    this.horariosComponent.setGradoFromMatrix(this.horariosComponent.grados[this.horariosComponent.grados.map((el) => el.grado).indexOf(gradoName)])
+    this.horariosService.setGradoFromMatrix(this.horariosService.grados[this.horariosService.grados.map((el) => el.grado).indexOf(gradoName)])
   }
 
   getAndUpdateCursoByName(cursoName) {
     cursoName = cursoName.toLowerCase()
     if(cursoName===undefined) cursoName = 'primero'    
-    let grado = this.horariosComponent.grados[this.horariosComponent.grados.map((el) => el.grado).indexOf(this.checkGradoName(this.gradeName))]
+    let grado = this.horariosService.grados[this.horariosService.grados.map((el) => el.grado).indexOf(this.checkGradoName(this.gradeName))]
     let curso = grado.curso[grado.curso.map((el) => el.cursoN).indexOf(this.checkGradoName(cursoName))]
-    this.horariosComponent.setCursoFromMatrix(curso)
+    this.horariosService.setCursoFromMatrix(curso)
   }
   
-  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosComponent: HorariosComponent, public scheduleStartService: ScheduleStartService) { 
+  constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosService: HorariosService, public scheduleStartService: ScheduleStartService) { 
     iconRegistry.addSvgIcon(
       'deleteicon',
       sanitizer.bypassSecurityTrustResourceUrl('/src/app/schedule-start/deleteicon.svg'));
