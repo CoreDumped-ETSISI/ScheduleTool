@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material';
 import { HorariosComponent } from './horarios.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HorariosComponent', () => {
   let component: HorariosComponent;
@@ -8,7 +9,7 @@ describe('HorariosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatTableModule],
+      imports: [MatTableModule, HttpClientModule],
       declarations: [ HorariosComponent ]
     })
     .compileComponents();
