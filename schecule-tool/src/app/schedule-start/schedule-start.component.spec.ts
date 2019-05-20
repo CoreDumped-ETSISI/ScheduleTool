@@ -11,6 +11,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatTableModule } from '@angular/material/table';
 import {HorariosComponent} from '../horarios/horarios.component'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 describe('ScheduleStartComponent', () => {
   let component: ScheduleStartComponent;
@@ -19,7 +20,7 @@ describe('ScheduleStartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ScheduleStartComponent, HorariosComponent], 
-      imports:[MatIconModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatExpansionModule, MatTableModule, HttpClientModule ]
+      imports:[MatIconModule, MatButtonModule, MatTabsModule, MatTooltipModule, MatExpansionModule, MatTableModule, HttpClientModule, BrowserAnimationsModule ]
     })
     .compileComponents();
   }));
