@@ -46,8 +46,7 @@ export class ScheduleStartService {
           result = data;
         });     
         await this.delay(1000);
-        this.grupos = result["GRUPOS"];
-        this.organizationJSON = result["ORGANIZATION"];
+        this.grupos = result;
         return result;
     }
     defineOrganization(){
@@ -61,10 +60,12 @@ export class ScheduleStartService {
           let err = new error();
           this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
         }else if(status === null){
-
-        }else{
-
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json null','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
         }
       }); 
       await this.delay(1000);
@@ -116,7 +117,10 @@ export class ScheduleStartService {
           doc.save('horarios.pdf');
           result = true;
         } catch (error) {
-          console.log(error);
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'Cant download pdf','DownloadError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'DownloadErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
           result = false;
         }
         return result;

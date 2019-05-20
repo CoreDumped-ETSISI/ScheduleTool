@@ -279,9 +279,6 @@ export class ScheduleStartComponent implements OnInit {
     await this.scheduleStartService.getJsonConnection(); 
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
-
-
-    console.log("Funciona?" + this.scheduleStartService.cargarAsignatura('FS', 'GM12', 0, 0));
   }
 
 }
