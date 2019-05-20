@@ -319,7 +319,7 @@ span.text-button {
     .checkboxes-div {
         transform: scale(0.8)!important;
         margin-top: -12.5%;
-        margin-left: -12.5%;
+        margin-left: -5.5%;
     }
     .up-table {
         margin-top: -55px;
@@ -395,9 +395,18 @@ span.text-button {
 
 @media only screen and (max-width: 393px) {
     .checkboxes-div {
-        transform: scale(0.57)!important;
-        margin-top: -25%;
-        margin-left: -26%;
+        transform: scale(1)!important;
+        font-size:10px!important;
+        margin-right:1px;
+       /* margin-top: -10%;
+        margin-left: -20%;*/
+    }
+    .checkboxes-div .mat-icon{
+        font-size: 10px;
+        margin-right:1px;
+    }
+    .checkboxes-div td {
+        width: 20px!important;
     }
     .up-table {
         margin-top: -75px;
