@@ -422,6 +422,7 @@ export class HorariosService {
         }
       }
     }
+    return true
   }
 
   getJson() {
@@ -448,6 +449,7 @@ export class HorariosService {
     $('#' + grado.gradoCode).removeClass('btn-pantone285')
     this.gradoSel = grado
     this.cursoSel = null
+    return (grado !== undefined && grado !== 'undefined') ? true : false
   }
 
   public setCurso(curso) {
@@ -455,6 +457,7 @@ export class HorariosService {
     this.cursoSel = curso
     $('#' + curso.cursoN).addClass('btn-pantone285-active')
     $('#' + curso.cursoN).removeClass('btn-pantone285')
+    return (curso !== undefined && curso !== 'undefined') ? true : false
   }
 
   getGradoPos() {
