@@ -47,7 +47,7 @@ export class ScheduleStartService {
         });     
         await this.delay(1000);
         this.grupos = result["GRUPOS"];
-        this.organizationJSON = result["ORGANIZAC ION"];
+        this.organizationJSON = result["ORGANIZACION"];
         return result;
     }
     defineOrganization(){
