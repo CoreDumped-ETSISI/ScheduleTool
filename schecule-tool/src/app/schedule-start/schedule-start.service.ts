@@ -1,16 +1,19 @@
 import {NetworkConstants} from '../network/network-constants'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable, ElementRef, ViewChild, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { SubjectModel } from '../subject-model';
 import {DataConstants} from '../data-constants'
+import { errorTrace } from '../TraceModule/errorTrace'
+import { error } from '../TraceModule/error'
+import { lineNumber } from '../TraceModule/errorLine'
 
 @Injectable({
     providedIn: 'root',
 })
 
 @NgModule({
-    providers: [HttpClient, NetworkConstants], 
+    providers: [HttpClient, NetworkConstants, lineNumber, errorTrace, error, HttpClientModule], 
 })
 
 
@@ -26,9 +29,10 @@ export class ScheduleStartService {
     inicialDias = ["L", "M", "X", "J", "V"];
     errorAlert = false;
     textAlert = "";
+    organizationJSON:{};
 
     //dataConstants =new DataConstants;
-    constructor(private http: HttpClient, private networkConstants: NetworkConstants){
+    constructor(private http: HttpClient, private networkConstants: NetworkConstants, private ErrorLine: lineNumber, private ErrorTrace: errorTrace, private Error: error){
 
      }
 
@@ -42,14 +46,26 @@ export class ScheduleStartService {
           result = data;
         });     
         await this.delay(1000);
-        this.grupos = result;
+        this.grupos = result["GRUPOS"];
+        this.organizationJSON = result["ORGANIZACION"];
         return result;
     }
+    defineOrganization(){
 
+    }
     async getJsonConnection () {
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
         status = response.status;
+        if(status === undefined){
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+        }else if(status === null){
+
+        }else{
+
+        }
       }); 
       await this.delay(1000);
       return status;
@@ -119,7 +135,6 @@ export class ScheduleStartService {
         }
         matrixTraveled = i == 12;
         if(!matrixTraveled){
-          //AQUI METER UN ALERT.
           this.errorAlert = true;
           this.textAlert  = "The Schedule Matrix is not Loaded";
 
@@ -161,7 +176,7 @@ export class ScheduleStartService {
          * all the dependencies of limpiarAsignatura()
          */
         let pushed  = false;
-        if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr) ){
+        if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr)){
           let subject:SubjectModel = {nombre:asignatura, grupo:grupoStr};
           let clases = this.grupos[grupoStr][asignatura];
         console.log(clases);
@@ -180,7 +195,7 @@ export class ScheduleStartService {
           }
         }
         }
-        
+        console.log(this.matrizHorario)
         if(!pushed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
@@ -254,7 +269,7 @@ export class ScheduleStartService {
         matrizBotonesPulsados
         */
         let touched = false;
-        if(this.matrizBotonesPulsados.length > 0 && this.matrizBotonesPulsados.length > col  && col < this.matrizBotonesPulsados[0].length){
+        if(this.matrizBotonesPulsados.length > 0 && this.matrizBotonesPulsados.length > row  && col < this.matrizBotonesPulsados[0].length){
         for(let i in this.matrizBotonesPulsados[row]){
           this.matrizBotonesPulsados[row][i] = false;
         }
@@ -289,7 +304,7 @@ export class ScheduleStartService {
           }
           obtained = this.actualSubjects.length > 0;
         }
-                if(!obtained){
+          if(!obtained){
           this.errorAlert = true;
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
           //Meter un trace;

@@ -12,7 +12,7 @@ export class errorTrace {
     constructor(private http: HttpClient, private networkConstants: NetworkConstants){
     }
 
-    saveError(error: error,errorFolder: String,errorFile: String){
+    saveError(error: error,errorFolder: string,errorFile: string){
         var sendJson = {
             "errorName" : error.errorName,
             "errorType" : error.errorType,
@@ -30,9 +30,9 @@ export class errorTrace {
         }      
     }
 
-    showError(error: error){
+    showError(error: error, errorFile: string){
         try{
-            console.log("Error "+ error.errorName+" de tipo "+error.errorType+ " en la línea "+error.errorLine)
+            console.log("Error "+ error.errorName+" de tipo "+error.errorType+ " en la línea "+error.errorLine+" del archivo "+errorFile)
             return true;
         }catch(err){
             console.log(err)

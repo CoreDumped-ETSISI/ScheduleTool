@@ -413,7 +413,7 @@ export class HorariosService {
                       }
                     }
                   } catch (error) {
-                    console.log("Error: " + error)
+                    //console.log("Error: " + error)
                   }
                 }
               }

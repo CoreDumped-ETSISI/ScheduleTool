@@ -284,14 +284,11 @@ export class ScheduleStartComponent implements OnInit {
     }
 
     this.mobile = this.scheduleStartService.detectMob();
-    this.scheduleStartService.cargarMatriz();
     await this.scheduleStartService.getJson();
-    await this.scheduleStartService.getJsonConnection(); 
+    this.scheduleStartService.cargarMatriz();
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
 
-
-    console.log("Funciona?" + this.scheduleStartService.cargarAsignatura('FS', 'GM12', 0, 0));
   }
 
 }

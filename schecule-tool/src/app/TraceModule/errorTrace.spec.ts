@@ -1,7 +1,8 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { errorTrace } from '../TraceModule/errorTrace'
-import { error, lineNumber } from '../TraceModule/error'
+import { error } from '../TraceModule/error'
+import { lineNumber } from '../TraceModule/errorLine'
 
 describe('errorTrace', () => {
     let injector: TestBed;
@@ -26,7 +27,8 @@ describe('errorTrace', () => {
   
     describe('#Save error', () => {
       it('should return true if error saved correctly', () => {
-        let err = new error('FatalError', 'Fatal error', ln.ln());
+        let err = new error();
+        ln.fulfillError(err,'FatalError', 'Fatal error', ln.ln());
         expect(errortrace.saveError(err, 'TestErrors', 'schedule-start.component.spec.ts')).toBe(true);
         httpMock.expectOne('http://localhost:3000/tracelog')
         httpMock.verify()
@@ -35,8 +37,9 @@ describe('errorTrace', () => {
   
     describe('#Show error', () => {
       it('should return true always, no matter what happens, even if the computer is destroyed', () => {
-        let err = new error('FatalError', 'Fatal error', ln.ln());
-        expect(errortrace.showError(err)).toBe(true);
+        let err = new error();
+        ln.fulfillError(err,'FatalError', 'Fatal error', ln.ln());
+        expect(errortrace.showError(err,'errorTrace.spec.ts')).toBe(true);
       })
     })
   })
