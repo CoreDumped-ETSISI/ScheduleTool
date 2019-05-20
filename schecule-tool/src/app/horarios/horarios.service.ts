@@ -413,7 +413,7 @@ export class HorariosService {
                       }
                     }
                   } catch (error) {
-                    console.log("Error: " + error)
+                    //console.log("Error: " + error)
                   }
                 }
               }
@@ -427,7 +427,7 @@ export class HorariosService {
 
   getJson() {
     return this.http.get('http://localhost:3000/json').subscribe(data => {
-      this.gruposJSON = data;
+      this.gruposJSON = data['GRUPOS'];
       this.rellenarHorarios()
       return 'horarios creados'
     });

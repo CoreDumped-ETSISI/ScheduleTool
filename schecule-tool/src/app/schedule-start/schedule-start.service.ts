@@ -46,7 +46,8 @@ export class ScheduleStartService {
           result = data;
         });     
         await this.delay(1000);
-        this.grupos = result;
+        this.grupos = result["GRUPOS"];
+        this.organizationJSON = result["ORGANIZAC ION"];
         return result;
     }
     defineOrganization(){
@@ -180,7 +181,7 @@ export class ScheduleStartService {
          * all the dependencies of limpiarAsignatura()
          */
         let pushed  = false;
-        if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr) ){
+        if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr)){
           let subject:SubjectModel = {nombre:asignatura, grupo:grupoStr};
           let clases = this.grupos[grupoStr][asignatura];
         console.log(clases);
@@ -199,7 +200,7 @@ export class ScheduleStartService {
           }
         }
         }
-        
+        console.log(this.matrizHorario)
         if(!pushed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
@@ -273,7 +274,7 @@ export class ScheduleStartService {
         matrizBotonesPulsados
         */
         let touched = false;
-        if(this.matrizBotonesPulsados.length > 0 && this.matrizBotonesPulsados.length > col  && col < this.matrizBotonesPulsados[0].length){
+        if(this.matrizBotonesPulsados.length > 0 && this.matrizBotonesPulsados.length > row  && col < this.matrizBotonesPulsados[0].length){
         for(let i in this.matrizBotonesPulsados[row]){
           this.matrizBotonesPulsados[row][i] = false;
         }
