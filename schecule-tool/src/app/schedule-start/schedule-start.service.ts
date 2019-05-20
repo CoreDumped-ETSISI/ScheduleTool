@@ -4,13 +4,16 @@ import { Injectable, ElementRef, ViewChild, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { SubjectModel } from '../subject-model';
 import {DataConstants} from '../data-constants'
+import { errorTrace } from '../TraceModule/errorTrace'
+import { error } from '../TraceModule/error'
+import { lineNumber } from '../TraceModule/errorLine'
 
 @Injectable({
     providedIn: 'root',
 })
 
 @NgModule({
-    providers: [HttpClient, NetworkConstants], 
+    providers: [HttpClient, NetworkConstants, lineNumber, errorTrace, error], 
 })
 
 
@@ -28,7 +31,7 @@ export class ScheduleStartService {
     textAlert = "";
 
     //dataConstants =new DataConstants;
-    constructor(private http: HttpClient, private networkConstants: NetworkConstants){
+    constructor(private http: HttpClient, private networkConstants: NetworkConstants, private ErrorLine: lineNumber, private ErrorTrace: errorTrace, private Error: error){
 
      }
 
@@ -50,6 +53,14 @@ export class ScheduleStartService {
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
         status = response.status;
+        if(status === undefined){
+          let err = new error('json undefined','FatalError', this.ErrorLine.ln());
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+        }else if(status === null){
+
+        }else{
+
+        }
       }); 
       await this.delay(1000);
       return status;
