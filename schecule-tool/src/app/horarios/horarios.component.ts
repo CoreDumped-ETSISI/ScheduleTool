@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HorariosService } from './horarios.service'
+import {HttpClientModule } from '@angular/common/http'
 
 @Component({
   selector: 'app-horarios',
