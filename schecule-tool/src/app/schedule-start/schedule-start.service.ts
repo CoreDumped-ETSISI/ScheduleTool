@@ -1,22 +1,19 @@
 import {NetworkConstants} from '../network/network-constants'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable, ElementRef, ViewChild, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { SubjectModel } from '../subject-model';
 import {DataConstants} from '../data-constants'
-<<<<<<< HEAD
 import { errorTrace } from '../TraceModule/errorTrace'
 import { error } from '../TraceModule/error'
 import { lineNumber } from '../TraceModule/errorLine'
 
-=======
->>>>>>> 3936a60941f3399120ccb7bde0e0e81ae608a66e
 @Injectable({
     providedIn: 'root',
 })
 
 @NgModule({
-    providers: [HttpClient, NetworkConstants, lineNumber, errorTrace, error], 
+    providers: [HttpClient, NetworkConstants, lineNumber, errorTrace, error, HttpClientModule], 
 })
 
 
@@ -61,7 +58,8 @@ export class ScheduleStartService {
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
         status = response.status;
         if(status === undefined){
-          let err = new error('json undefined','FatalError', this.ErrorLine.ln());
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
         }else if(status === null){
 

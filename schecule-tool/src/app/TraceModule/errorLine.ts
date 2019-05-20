@@ -23,4 +23,10 @@ export class lineNumber {
         return frameRE.exec(stack.shift())[1];
     }
 
+    fulfillError(err, errorName: string, errorType: string, errorLine) {
+        err.errorName = errorName;
+        err.errorType = errorType;
+        err.errorLine = errorLine;
+    }
+
 }
