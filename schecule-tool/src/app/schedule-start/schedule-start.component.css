@@ -208,7 +208,7 @@ span.text-button {
         width: 100%;
         padding: 2%;
         z-index: 100;
-        top: 200px;
+        top: 285px;
         border-radius: 17.5px;
     }
     .sch-tool-mom {
@@ -425,9 +425,6 @@ span.text-button {
     .header-tool-schedule>h4 {
         font-size: 1.1rem;
         margin-top: 20px;
-    }
-    .sch-tool-mom{
-        transform: scale(0.8) translateX(-15%);
     }
 }
 

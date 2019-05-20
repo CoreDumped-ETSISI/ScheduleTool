@@ -273,6 +273,16 @@ export class ScheduleStartComponent implements OnInit {
   
   async ngOnInit() {
 
+    var size = $( window ).width();
+    console.log("SIZE: "+size)
+    if (size < 500){
+      $('#botones-matriz').addClass('btn-group-vertical');
+      $('#botones-matriz').removeClass('btn-group');
+    }else{
+      $('#botones-matriz').removeClass('btn-group-vertical');
+      $('#botones-matriz').addClass('btn-group');
+    }
+
     this.mobile = this.scheduleStartService.detectMob();
     await this.scheduleStartService.getJson();
     this.scheduleStartService.cargarMatriz();

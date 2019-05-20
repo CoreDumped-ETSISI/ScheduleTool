@@ -10,7 +10,7 @@
   <h4>Herramienta de Creación de Horarios</h4>
 
   <div class="sch-tool-child">
-    <div class="btn-group" role="group">
+    <div id="botones-matriz" class="btn-group-vertical" role="group">
       <div ngbDropdown class="buttons-grades sch-tool-child">
         <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
           <mat-icon class="selects-buttons">school</mat-icon><span class="text-button">{{gradeName}}</span>
@@ -30,7 +30,6 @@
           <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
         </div>
       </div>
-      <div *ngIf="mobile"><br></div>
       <div ngbDropdown class="buttons-grades sch-tool-child">
         <button mat-flat-button class="btn black bigger btn-white mt-2" id="dropdownBasic1" ngbDropdownToggle>
           <mat-icon class="selects-buttons">filter_1</mat-icon><span class="text-button">{{courseName}}</span>
