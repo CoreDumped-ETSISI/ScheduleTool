@@ -118,14 +118,10 @@ export class ScheduleStartService {
           doc.save('horarios.pdf');
           result = true;
         } catch (error) {
-<<<<<<< HEAD
           let err = new error();
           this.ErrorLine.fulfillError(err,'Cant download pdf','DownloadError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'DownloadErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
-=======
-          //console.log(error);
->>>>>>> ba4ba9a7afc5fef6a41696584547dd7563ad0e81
           result = false;
         }
         return result;
