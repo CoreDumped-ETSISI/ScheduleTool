@@ -118,10 +118,14 @@ export class ScheduleStartService {
           doc.save('horarios.pdf');
           result = true;
         } catch (error) {
+<<<<<<< HEAD
           let err = new error();
           this.ErrorLine.fulfillError(err,'Cant download pdf','DownloadError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'DownloadErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+=======
+          //console.log(error);
+>>>>>>> ba4ba9a7afc5fef6a41696584547dd7563ad0e81
           result = false;
         }
         return result;
@@ -142,6 +146,10 @@ export class ScheduleStartService {
         if(!matrixTraveled){
           this.errorAlert = true;
           this.textAlert  = "The Schedule Matrix is not Loaded";
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
         }
         return matrixTraveled;
@@ -168,7 +176,8 @@ export class ScheduleStartService {
           let err = new error();
           this.ErrorLine.fulfillError(err,'The matrix matrizBotones is not loaded','FatalError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
-          
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
         }
       }
         return matrixLoaded;
@@ -203,13 +212,15 @@ export class ScheduleStartService {
           }
         }
         }
-        console.log(this.matrizHorario)
+       // console.log(this.matrizHorario)
         if(!pushed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
           let err = new error();
           this.ErrorLine.fulfillError(err,'Subject Unloaded','FatalError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
         }
         return pushed;
       }
@@ -235,6 +246,8 @@ export class ScheduleStartService {
           let err = new error();
           this.ErrorLine.fulfillError(err,'Clean Subject button not clicked','HtmlError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
         }
         return removed;
       }
@@ -274,7 +287,10 @@ export class ScheduleStartService {
           this.textAlert = "No se ha eliminado la asignatura.";
           let err = new error();
           this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
-          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        }
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
+        }
         return removed;
       }
       botonPulsado(row:number, col:number){//Tested
@@ -300,6 +316,8 @@ export class ScheduleStartService {
           let err = new error();
           this.ErrorLine.fulfillError(err,'json undefined','HtmlError', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
         }
         return touched;
       }
@@ -326,7 +344,10 @@ export class ScheduleStartService {
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
           let err = new error();
           this.ErrorLine.fulfillError(err,'The subjects are not loaded in the array actualSubjects','FatalError', this.ErrorLine.ln())
-          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        }
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+
+        }
         return obtained;
       }
       contieneLaAsignatura(subject:string, group:string){
@@ -356,7 +377,11 @@ export class ScheduleStartService {
         if(!traveled){
           this.errorAlert = true;
           this.textAlert = "La matriz horario no se ha generado."
-          //Meter un trace.
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'The subjects are not loaded in the array actualSubjects','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+          
         }
         return traveled;
         
