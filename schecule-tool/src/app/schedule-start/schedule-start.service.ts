@@ -4,10 +4,13 @@ import { Injectable, ElementRef, ViewChild, NgModule } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { SubjectModel } from '../subject-model';
 import {DataConstants} from '../data-constants'
+<<<<<<< HEAD
 import { errorTrace } from '../TraceModule/errorTrace'
 import { error } from '../TraceModule/error'
 import { lineNumber } from '../TraceModule/errorLine'
 
+=======
+>>>>>>> 3936a60941f3399120ccb7bde0e0e81ae608a66e
 @Injectable({
     providedIn: 'root',
 })
@@ -29,6 +32,7 @@ export class ScheduleStartService {
     inicialDias = ["L", "M", "X", "J", "V"];
     errorAlert = false;
     textAlert = "";
+    organizationJSON:{};
 
     //dataConstants =new DataConstants;
     constructor(private http: HttpClient, private networkConstants: NetworkConstants, private ErrorLine: lineNumber, private ErrorTrace: errorTrace, private Error: error){
@@ -45,10 +49,13 @@ export class ScheduleStartService {
           result = data;
         });     
         await this.delay(1000);
-        this.grupos = result;
+        this.grupos = result["GRUPOS"];
+        this.organizationJSON = result["ORGANIZATION"];
         return result;
     }
+    defineOrganization(){
 
+    }
     async getJsonConnection () {
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
@@ -130,7 +137,6 @@ export class ScheduleStartService {
         }
         matrixTraveled = i == 12;
         if(!matrixTraveled){
-          //AQUI METER UN ALERT.
           this.errorAlert = true;
           this.textAlert  = "The Schedule Matrix is not Loaded";
 
@@ -300,7 +306,7 @@ export class ScheduleStartService {
           }
           obtained = this.actualSubjects.length > 0;
         }
-                if(!obtained){
+          if(!obtained){
           this.errorAlert = true;
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
           //Meter un trace;
