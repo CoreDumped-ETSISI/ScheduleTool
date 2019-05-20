@@ -137,16 +137,22 @@ describe('ScheduleStartService', () => {
       service.actualSubjects = ['FS']
       service.actualCourse = ['GM11']
       expect(service.cargarMatrizBotones()).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because the actualSubjects array is empty', () => {
       service.actualSubjects = [];
       service.actualCourse = ['GM11'];
       expect(service.cargarMatrizBotones()).toBe(false);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because the actualCourse array is empty', () => {
       service.actualSubjects = ['FS'];
       service.actualCourse = [];
       expect(service.cargarMatrizBotones()).toBe(false);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
   });
 
@@ -156,22 +162,30 @@ describe('ScheduleStartService', () => {
       setUp();
       let pushed = service.cargarAsignatura('FS', 'GM11', 0, 0);
       expect(pushed).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because grupos is not defIned', () => {
       setUp();
       service.grupos = {};
       let pushed = service.cargarAsignatura('FS', 'GM11', 0, 0);
       expect(pushed).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
     it('should return false because the subject is not included in grupos',  () => {
       setUp();
       let pushed = service.cargarAsignatura('RANDOM_SUBJECT', 'GM11', 0, 0);
       expect(pushed).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
     it('should return false because the group is not included in grupos',  () => {
       setUp();
       let pushed = service.cargarAsignatura('FS', 'RANDOM_GROUP', 0, 0);
       expect(pushed).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
   });
 
@@ -182,17 +196,23 @@ describe('ScheduleStartService', () => {
       service.cargarAsignatura('FS', 'GM11', 0, 0);
       let clicked = service.botonLimpiarAsignatura('FS', 0);
       expect(clicked).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because the row is out of the matrix matrizBotones', () => {
       setUp();
       let clicked = service.botonLimpiarAsignatura('FS', 100);
       expect(clicked).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
     it('should return false because the matrix matrizBotonesPulsados is empty', () => {
       setUp();
       service.matrizBotonesPulsados = [[]];
       let clicked = service.botonLimpiarAsignatura('FS', 1);
       expect(clicked).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
   });
   describe('#limpiarAsignatura',  () =>{
@@ -201,6 +221,8 @@ describe('ScheduleStartService', () => {
       service.cargarAsignatura('FS', 'GM11', 0,0);
       let removed = service.limpiarAsignatura('FS');
       expect(removed).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because matrizHorario is empty and matrizCoincidencias is empty', () =>{
       setUp();
@@ -209,11 +231,15 @@ describe('ScheduleStartService', () => {
       service.matrizCoincidencias = [[]];
       let removed = service.limpiarAsignatura('GM11');
       expect(removed).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
     it('should return false because the subject is not defined', () => {
       setUp();
       let removed = service.limpiarAsignatura('');
       expect(removed).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
 
     });
   });
@@ -222,11 +248,15 @@ describe('ScheduleStartService', () => {
       service.cargarMatriz();
       let traveled = service.checkDesignedSchedule();
       expect(traveled).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because matrizHorario is not defined', () => {
       service.matrizHorario = [[]];
       let traveled = service.checkDesignedSchedule();
       expect(traveled).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
   });
   describe('#obtainActualSubjects', () =>{//Full tested.
@@ -234,18 +264,24 @@ describe('ScheduleStartService', () => {
       setUp();
       let obtained = service.obtainActualSubjects();
       expect(obtained).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false because grupos is not defined', () => {
       setUp();
       service.grupos = {};
       let obtained = service.obtainActualSubjects();
       expect(obtained).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
     it('should return false because actualCourse is empty', () => {
       setUp();
       service.actualCourse = [];
       let obtained = service.obtainActualSubjects();
       expect(obtained).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
   });
   describe('#botonPulsado', () =>{//Full tested
@@ -253,11 +289,15 @@ describe('ScheduleStartService', () => {
       setUp();
       let clicked = service.botonPulsado(0,0);
       expect(clicked).toBe(true);
+      //httpMock.expectOne(null)
+      httpMock.verify()
     });
     it('should return false, the position is not included in the matrix matrisBotones', () =>{
       setUp();
       let clicked = service.botonPulsado(100,100);
       expect(clicked).toBe(false);
+      httpMock.expectOne('http://localhost:3000/tracelog')
+      httpMock.verify()
     });
   });
 });
