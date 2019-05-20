@@ -165,7 +165,10 @@ export class ScheduleStartService {
         if(!matrixLoaded){
           this.errorAlert = true;
           this.textAlert = "La matriz de botones no ha podido ser cargada.";
-          console.log("MATRIZ DE BOTONES NO CARGADA HACER TRACE");
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'The matrix matrizBotones is not loaded','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
+          
         }
       }
         return matrixLoaded;
@@ -204,7 +207,9 @@ export class ScheduleStartService {
         if(!pushed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
-          //Meter un trace.
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'Subject Unloaded','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
         }
         return pushed;
       }
@@ -227,6 +232,9 @@ export class ScheduleStartService {
         if(!removed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido eliminar la asignatura."
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'Clean Subject button not clicked','HtmlError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
         }
         return removed;
       }
@@ -264,8 +272,9 @@ export class ScheduleStartService {
         if(!removed){
           this.errorAlert = true;
           this.textAlert = "No se ha eliminado la asignatura.";
-          //Meter un trace.
-        }
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        }
         return removed;
       }
       botonPulsado(row:number, col:number){//Tested
@@ -288,12 +297,15 @@ export class ScheduleStartService {
         if(!touched){
           this.errorAlert = true;
           this.textAlert = "No se ha podido pulsar el boton.";
-          //Meter un trace;
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'json undefined','HtmlError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
         }
         return touched;
       }
       obtainActualSubjects(){//Tested
         /*
+        GUARDAMOS LAS ASIGNATURAS DEL CURSO ACTUAL EN EL ARRAY DE actualSubjects.
         Must Be Defined:
         grupos,
         actualCourse,
@@ -312,8 +324,9 @@ export class ScheduleStartService {
           if(!obtained){
           this.errorAlert = true;
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
-          //Meter un trace;
-        }
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'The subjects are not loaded in the array actualSubjects','FatalError', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        }
         return obtained;
       }
       contieneLaAsignatura(subject:string, group:string){
