@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material';
 import { HorariosComponent } from './horarios.component';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+
 describe('HorariosComponent', () => {
   let component: HorariosComponent;
   let fixture: ComponentFixture<HorariosComponent>;
