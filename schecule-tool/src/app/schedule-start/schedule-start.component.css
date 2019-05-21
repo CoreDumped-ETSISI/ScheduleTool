@@ -347,9 +347,18 @@ span.text-button {
 
 @media only screen and (max-width: 520px) {
     .checkboxes-div {
-        transform: scale(0.75)!important;
-        margin-top: -50px;
-        margin-left: -15%;
+        transform: scale(1)!important;
+        font-size:10px!important;
+        margin-right:1px;
+       /* margin-top: -10%;
+        margin-left: -20%;*/
+    }
+    .checkboxes-div .mat-icon{
+        font-size: 10px;
+        margin-right:1px;
+    }
+    .checkboxes-div td {
+        width: 20px!important;
     }
     .up-table {
         margin-top: -60px;
@@ -358,10 +367,18 @@ span.text-button {
 
 @media only screen and (max-width: 480px) {
     .checkboxes-div {
-        transform-origin: scale(0.65)!important;
-        margin-left: -19%;
-        left: 0;
-        right: 0;
+        transform: scale(1)!important;
+        font-size:10px!important;
+        margin-right:1px;
+       /* margin-top: -10%;
+        margin-left: -20%;*/
+    }
+    .checkboxes-div .mat-icon{
+        font-size: 10px;
+        margin-right:1px;
+    }
+    .checkboxes-div td {
+        width: 20px!important;
     }
     .up-table {
         margin-top: -65px;
@@ -370,9 +387,18 @@ span.text-button {
 
 @media only screen and (max-width: 440px) {
     .checkboxes-div {
-        transform-origin: scale(0.63)!important;
-        margin-top: -20%;
-        margin-left: -20%;
+        transform: scale(1)!important;
+        font-size:10px!important;
+        margin-right:1px;
+       /* margin-top: -10%;
+        margin-left: -20%;*/
+    }
+    .checkboxes-div .mat-icon{
+        font-size: 10px;
+        margin-right:1px;
+    }
+    .checkboxes-div td {
+        width: 20px!important;
     }
     .up-table {
         margin-top: -65px;
@@ -384,9 +410,18 @@ span.text-button {
 
 @media only screen and (max-width: 435px) {
     .checkboxes-div {
-        transform: scale(0.62)!important;
-        margin-top: -23%;
-        margin-left: -22.5%;
+        transform: scale(1)!important;
+        font-size:10px!important;
+        margin-right:1px;
+       /* margin-top: -10%;
+        margin-left: -20%;*/
+    }
+    .checkboxes-div .mat-icon{
+        font-size: 10px;
+        margin-right:1px;
+    }
+    .checkboxes-div td {
+        width: 20px!important;
     }
     .up-table {
         margin-top: -70px;

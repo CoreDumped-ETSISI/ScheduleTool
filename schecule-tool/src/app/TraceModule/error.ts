@@ -7,7 +7,6 @@ import { Injectable } from '@angular/core';
 export class error{
 
     errorName: string;
-    errorType: string;
     errorLine;
     constructor(){
     }
