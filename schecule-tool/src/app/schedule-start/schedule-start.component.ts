@@ -287,6 +287,8 @@ export class ScheduleStartComponent implements OnInit {
     this.mobile = this.scheduleStartService.detectMob();
     await this.scheduleStartService.getJson();
     this.scheduleStartService.cargarMatriz();
+    this.scheduleStartService.cargarGrados();
+    this.scheduleStartService.cargarCursos();
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
   }

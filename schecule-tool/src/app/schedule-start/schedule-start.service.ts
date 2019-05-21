@@ -50,9 +50,6 @@ export class ScheduleStartService {
         this.organizationJSON = result["ORGANIZACION"];
         return result;
     }
-    defineOrganization(){
-
-    }
     async getJsonConnection () {
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
@@ -156,7 +153,23 @@ export class ScheduleStartService {
         return matrixTraveled;
       }
 
-      
+      cargarGrados(){//UNTESTED
+        let grados;
+        if(this.organizationJSON!=undefined){
+          grados = Object.keys(this.organizationJSON)
+          console.log(grados);
+        }
+      }
+      cargarCursos(){//UNTESTED
+        let cursos;
+        if(this.organizationJSON != undefined){
+            cursos = [];
+          for(let grado in this.organizationJSON){
+            cursos.push(this.organizationJSON[grado]);
+          }
+          console.log(cursos);
+        }
+      }
       cargarMatrizBotones() {//Tested
         let matrixLoaded  = false;
         this.matrizBotonesPulsados = [];
