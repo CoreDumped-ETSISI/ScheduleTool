@@ -141,9 +141,9 @@ export class ScheduleStartService {
         matrixTraveled = i == 12;
         if(!matrixTraveled){
           this.errorAlert = true;
-          this.textAlert  = "The Schedule Matrix is not Loaded";
+          this.textAlert  = "La matriz de horarios no se ha podido cargar.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'La matriz de horarios no se ha podido cargar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -168,9 +168,9 @@ export class ScheduleStartService {
         matrixLoaded = i == this.actualSubjects.length;
         if(!matrixLoaded){
           this.errorAlert = true;
-          this.textAlert = "La matriz de botones no ha podido ser cargada.";
+          this.textAlert = "La matriz que controla los botones no se ha podido cargar.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'The matrix matrizBotones is not loaded','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'La matriz que controla los botones no se ha podido cargar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -213,7 +213,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Subject Unloaded', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'No se ha podido cargar la asignatura en el horario.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -238,9 +238,9 @@ export class ScheduleStartService {
 
         if(!removed){
           this.errorAlert = true;
-          this.textAlert = "No se ha podido eliminar la asignatura."
+          this.textAlert = "No se ha podido eliminar la asignatura al pulsar el boton de borrar."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Clean Subject button not clicked','HtmlError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura al pulsar el boton de borrar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -282,7 +282,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha eliminado la asignatura.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -308,9 +308,9 @@ export class ScheduleStartService {
         }
         if(!touched){
           this.errorAlert = true;
-          this.textAlert = "No se ha podido pulsar el boton.";
+          this.textAlert = "Ha ocurrido un error al pulsar un boton del diseñador de horarios.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'json undefined','HtmlError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'Ha ocurrido un error al pulsar un boton del diseñador de horarios.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -339,7 +339,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'The subjects are not loaded in the array actualSubjects','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'No se han podido cargar las asignaturas de este curso.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -372,9 +372,9 @@ export class ScheduleStartService {
         }
         if(!traveled){
           this.errorAlert = true;
-          this.textAlert = "La matriz horario no se ha generado."
+          this.textAlert = "La matriz matrizHorario no se ha generado correctamente."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'The subjects are not loaded in the array actualSubjects','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'La matriz matrizHorario no se ha generado correctamente.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
           
