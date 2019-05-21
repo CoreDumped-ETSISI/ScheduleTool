@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class lineNumber {
 
-    ln() {
+    ln(fileName: string) {
         var e = new Error();
         if (!e.stack) try {
           throw e;
@@ -15,12 +15,21 @@ export class lineNumber {
             return 0; 
           }
         }
-        var stack = e.stack.toString().split(/\r\n|\n/);
-        var frameRE = /:(\d+):(?:\d+)[^\d]*$/;
-        do {
-          var frame = stack.shift();
-        } while (!frameRE.exec(frame) && stack.length);
-        return frameRE.exec(stack.shift())[1].toString();
+        var str = '';
+        const arr = fileName.split('.')
+        for(var i = 0; i < arr.length; i++){
+          if(i!=arr.length-1)
+            str = str+arr[i]+'\.'
+          else{
+            str = str+arr[i]
+          }
+        }
+        const reg = new RegExp(''+str+'\:.*\:');
+        const prueba = e.stack.toString().match(reg)
+        const reg2 = new RegExp(/\:.*\:/)
+        const prueba2 = prueba.toString().match(reg2)
+        const arr2 = prueba2.toString().split(':')
+        return arr2[1]
     }
 
     fulfillError(err, errorName: string, errorLine) {

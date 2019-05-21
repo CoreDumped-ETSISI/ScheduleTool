@@ -24,6 +24,7 @@
     "@fullcalendar/angular": "^4.1.0",
     "@fullcalendar/core": "^4.1.0",
     "@fullcalendar/daygrid": "^4.1.0",
+    "@fullcalendar/google-calendar": "^4.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.1.2",
     "@types/axios": "^0.14.0",
     "angular-calendar": "^0.27.7",
