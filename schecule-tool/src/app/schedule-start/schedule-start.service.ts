@@ -59,12 +59,12 @@ export class ScheduleStartService {
         status = response.status;
         if(status === undefined){
           let err = new error();
-          this.ErrorLine.fulfillError(err,'json undefined','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve undefined', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
         }else if(status === null){
           let err = new error();
-          this.ErrorLine.fulfillError(err,'json null','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve null', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
         }
@@ -119,7 +119,7 @@ export class ScheduleStartService {
           result = true;
         } catch (error) {
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Cant download pdf','DownloadError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'Se intenta descargar el pdf del horario pero no se ha podido', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'DownloadErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
           result = false;
@@ -213,7 +213,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Subject Unloaded','FatalError', this.ErrorLine.ln())
+          this.ErrorLine.fulfillError(err,'Subject Unloaded', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 

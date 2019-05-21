@@ -15,7 +15,6 @@ export class errorTrace {
     saveError(error: error,errorFolder: string,errorFile: string){
         var sendJson = {
             "errorName" : error.errorName,
-            "errorType" : error.errorType,
             "errorLine" : error.errorLine,
             "errorFolder" : errorFolder,
             "errorFile" : errorFile
@@ -32,7 +31,7 @@ export class errorTrace {
 
     showError(error: error, errorFile: string){
         try{
-            console.log("Error "+ error.errorName+" de tipo "+error.errorType+ " en la línea "+error.errorLine+" del archivo "+errorFile)
+            console.log(error.errorName+" en la línea "+error.errorLine+" del archivo "+errorFile)
             return true;
         }catch(err){
             console.log(err)
