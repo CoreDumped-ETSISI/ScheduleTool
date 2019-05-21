@@ -20,7 +20,7 @@ export class lineNumber {
         do {
           var frame = stack.shift();
         } while (!frameRE.exec(frame) && stack.length);
-        return frameRE.exec(stack.shift())[1];
+        return frameRE.exec(stack.shift())[1].toString();
     }
 
     fulfillError(err, errorName: string, errorLine) {
