@@ -33,7 +33,7 @@ describe('HorariosService', () => {
 
   describe('#setGrado', () => {
     it('should return true when grado is selected', () => {
-      let setGrado = service.setGrado({ grado: "Computadores", gradoCode: "comp", curso: service.computadores });
+      let setGrado = service.setGrado('Computadores');
       expect(setGrado).toBe(true);
     });
     it('should return false because grado is undefined', () => {
@@ -44,7 +44,7 @@ describe('HorariosService', () => {
 
   describe('#setCurso', () => {
     it('should return true when curso is selected', () => {
-      let setCurso = service.setCurso({ cursoN: "primero", grupos: service.primero });
+      let setCurso = service.setCurso('primero');
       expect(setCurso).toBe(true);
     });
     it('should return false because curso is undefined', () => {
@@ -53,11 +53,6 @@ describe('HorariosService', () => {
     });
   });
 
-  describe('#rellenarHorarios', () => {
-    it('should return true when curso is selected', () => {
-      let rellenarHorarios = service.rellenarHorarios();
-      expect(rellenarHorarios).toBe(true);
-    });
-  });
+  
 
 })

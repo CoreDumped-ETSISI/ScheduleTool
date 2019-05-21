@@ -191,7 +191,7 @@ export class HorariosService {
     $('#' + grado.slice(0, 3)).removeClass('btn-pantone285')
     this.gradoSel = grado
     this.cursoSel = null
-    this.setCursos()
+    if(this.organizationJSON !== undefined) this.setCursos()
     return (grado !== undefined && grado !== 'undefined') ? true : false
   }
 
@@ -200,7 +200,7 @@ export class HorariosService {
     this.cursoSel = curso
     $('#' + curso).addClass('btn-pantone285-active')
     $('#' + curso).removeClass('btn-pantone285')
-    this.setGrupos()
+    if(this.gradoSel !== undefined) this.setGrupos()
     return (curso !== undefined && curso !== 'undefined') ? true : false
   }
 
