@@ -38,7 +38,7 @@ export class ScheduleStartComponent implements OnInit {
     //'Software y Tecnologías de Sociedades de Información',
     //'Computadores y Tecnologías de Sociedades de Información'
   ];
-
+/*
   checkGradoName(gradoName) {
     if (gradoName === "Sistemas de Información") return 'Sist. Información'
     if (gradoName === "Tecnologías de Sociedades de Información") return 'Tec. para la Sociedad de la Información'
@@ -55,7 +55,7 @@ export class ScheduleStartComponent implements OnInit {
     let grado = this.horariosService.grados[this.horariosService.grados.map((el) => el.grado).indexOf(this.checkGradoName(this.gradeName))]
     let curso = grado.curso[grado.curso.map((el) => el.cursoN).indexOf(this.checkGradoName(cursoName))]
     this.horariosService.setCursoFromMatrix(curso)
-  }
+  }*/
   
   constructor(iconRegistry: MatIconRegistry, sanitizer:DomSanitizer, private http: HttpClient, private horariosService: HorariosService, public scheduleStartService: ScheduleStartService) { 
     iconRegistry.addSvgIcon(
@@ -251,7 +251,7 @@ export class ScheduleStartComponent implements OnInit {
       this.actualGrade = this.cursos[this.grades.indexOf(name)];
       this.gradeName = name;
       this.changeCourseName(this.courseName);
-      this.getAndUpdateGradoByName(name)
+     // this.getAndUpdateGradoByName(name)
     }
   }
 
@@ -264,7 +264,7 @@ export class ScheduleStartComponent implements OnInit {
       this.scheduleStartService.obtainActualSubjects();
       this.scheduleStartService.cargarMatrizBotones();
       this.scheduleStartService.checkDesignedSchedule();
-      this.getAndUpdateCursoByName(name)
+      //this.getAndUpdateCursoByName(name)
       if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
       else $('table.table').removeClass('up-table')
       
