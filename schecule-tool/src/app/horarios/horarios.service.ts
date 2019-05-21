@@ -175,11 +175,11 @@ export class HorariosService {
   }
 
   public setGradoFromMatrix(grado) {
-    $('#' + grado.gradoCode).click()
+    $('#' + grado.slice(0,3)).click()
   }
 
   public setCursoFromMatrix(curso) {
-    $('#' + curso.cursoN).click()
+    $('#' + curso).click()
   }
 
   public setGrado(grado) {
