@@ -38,37 +38,47 @@ export class ScheduleStartService {
       return new Promise( resolve => setTimeout(resolve, ms) );
     }
 
+    //Hace la petición http para obtener el Json que se utilizará para que la aplicación funcione
     async getJson () {          
         var result;
-        this.http.get(this.getJSONURL()).subscribe(data => {           
+        this.http.get(this.getJSONURL()).subscribe(data => {          
           result = data;
         });     
         await this.delay(1000);
+        if(result == undefined){
+          let err = new error();
+          this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve undefined', this.ErrorLine.ln())
+          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+        } 
         this.grupos = result["GRUPOS"];
         this.organizationJSON = result["ORGANIZACION"];
         console.log(this.organizationJSON)
         return result;
     }
+
+    //Comprueba que la conexión a la API es correcta
     async getJsonConnection () {
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
-        status = response.status;
-        if(status === undefined){
-          let err = new error();
-          this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve undefined', this.ErrorLine.ln('schedule-start.service.ts'))
-          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
-          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
-        }else if(status === null){
-          let err = new error();
-          this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve null', this.ErrorLine.ln('schedule-start.service.ts'))
-          this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
-          this.ErrorTrace.showError(err, 'schedule-start.service.ts')
-        }
+        status = response.status;        
       }); 
       await this.delay(1000);
+      if(status >= 400){
+        let err = new error();
+        this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve un error 400 o más', this.ErrorLine.ln())
+        this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+        this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+      }else if(status >= 500){
+        let err = new error();
+        this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve un error 500 o más', this.ErrorLine.ln())
+        this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+        this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+      }
       return status;
     }
 
+    //Obtiene la url para hacer la petición a la API para obtener el JSON
     getJSONURL () {
         return this.networkConstants.getJSONEndpoint('json')
     } 
@@ -90,8 +100,8 @@ export class ScheduleStartService {
         }
       };
 
+      //Función que genera un pdf a partir del html que se le pasa como parámetro y luego lo descarga
       downloadPDF(table){
-        //console.log(table)
         var result = null;
         let doc = new jsPDF('p', 'pt', 'letter');      
         let specialElementHandlers = {
@@ -115,16 +125,12 @@ export class ScheduleStartService {
           result = true;
         } catch (error) {
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Se intenta descargar el pdf del horario pero no se ha podido', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'Se intenta descargar el pdf del horario pero no se ha podido', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'DownloadErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
           result = false;
         }
         return result;
-      }
-
-      downloadCSV(events: Array<any>) {
-        
       }
 
       cargarMatriz(){//Tested
@@ -145,7 +151,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert  = "La matriz de horarios no se ha podido cargar.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'La matriz de horarios no se ha podido cargar.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'La matriz de horarios no se ha podido cargar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -199,7 +205,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "La matriz que controla los botones no se ha podido cargar.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'La matriz que controla los botones no se ha podido cargar.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'La matriz que controla los botones no se ha podido cargar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -244,7 +250,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'No se ha podido cargar la asignatura en el horario.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'No se ha podido cargar la asignatura en el horario.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -273,7 +279,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha podido eliminar la asignatura al pulsar el boton de borrar."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura al pulsar el boton de borrar.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura al pulsar el boton de borrar.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -318,7 +324,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se ha eliminado la asignatura.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'No se ha podido eliminar la asignatura.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -349,7 +355,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "Ha ocurrido un error al pulsar un boton del diseñador de horarios.";
           let err = new error();
-          this.ErrorLine.fulfillError(err,'Ha ocurrido un error al pulsar un boton del diseñador de horarios.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'Ha ocurrido un error al pulsar un boton del diseñador de horarios.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'HtmlErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -378,7 +384,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "No se han podido cargar las asignaturas de este curso."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'No se han podido cargar las asignaturas de este curso.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'No se han podido cargar las asignaturas de este curso.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');        
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
 
@@ -413,7 +419,7 @@ export class ScheduleStartService {
           this.errorAlert = true;
           this.textAlert = "La matriz matrizHorario no se ha generado correctamente."
           let err = new error();
-          this.ErrorLine.fulfillError(err,'La matriz matrizHorario no se ha generado correctamente.', this.ErrorLine.ln('schedule-start.service.ts'))
+          this.ErrorLine.fulfillError(err,'La matriz matrizHorario no se ha generado correctamente.', this.ErrorLine.ln())
           this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
           this.ErrorTrace.showError(err, 'schedule-start.service.ts')
           

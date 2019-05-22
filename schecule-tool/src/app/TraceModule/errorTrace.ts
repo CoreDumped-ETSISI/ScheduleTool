@@ -12,6 +12,8 @@ export class errorTrace {
     constructor(private http: HttpClient, private networkConstants: NetworkConstants){
     }
 
+    //esta función hace una petición a la API para guardar el error en un archivo .txt cuyo nombre es el contenido de la variable errorFile
+
     saveError(error: error,errorFolder: string,errorFile: string){
         var sendJson = {
             "errorName" : error.errorName,
@@ -19,6 +21,8 @@ export class errorTrace {
             "errorFolder" : errorFolder,
             "errorFile" : errorFile
         }
+
+        console.log(sendJson)
 
         try{
             this.http.post(this.networkConstants.getJSONEndpoint('tracelog'), sendJson).subscribe();
@@ -28,6 +32,8 @@ export class errorTrace {
             return false;
         }      
     }
+
+    //Esta función hace un console.log sencillo del error, para no tener que escribirlo en cada error
 
     showError(error: error, errorFile: string){
         try{

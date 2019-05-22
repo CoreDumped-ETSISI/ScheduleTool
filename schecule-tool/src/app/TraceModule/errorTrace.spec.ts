@@ -28,7 +28,7 @@ describe('errorTrace', () => {
     describe('#Save error', () => {
       it('should return true if error saved correctly', () => {
         let err = new error();
-        ln.fulfillError(err,'Error de prueba', ln.ln('errorTrace.spec.ts'));
+        ln.fulfillError(err,'Error de prueba', ln.ln());
         expect(errortrace.saveError(err, 'TestErrors', 'errorTrace.spec.ts')).toBe(true);
         httpMock.expectOne('http://localhost:3000/tracelog')
         httpMock.verify()
@@ -38,7 +38,7 @@ describe('errorTrace', () => {
     describe('#Show error', () => {
       it('should return true always, no matter what happens, even if the computer is destroyed', () => {
         let err = new error();
-        ln.fulfillError(err,'Error de prueba', ln.ln('errorTrace.spec.ts'));
+        ln.fulfillError(err,'Error de prueba', ln.ln());
         expect(errortrace.showError(err,'errorTrace.spec.ts')).toBe(true);
       })
     })
