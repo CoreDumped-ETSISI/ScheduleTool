@@ -15,12 +15,10 @@ export class lineNumber {
             return 0; 
           }
         }
-
         var stack = e.stack.toString().split(/\r\n|\n/);
         var file = 'main.js'
         var errString = stack[1]
-
-
+        console.log(stack)
         var str = '';
         const arr = file.split('.')
         for(var i = 0; i < arr.length; i++){

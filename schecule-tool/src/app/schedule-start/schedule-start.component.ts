@@ -261,7 +261,7 @@ export class ScheduleStartComponent implements OnInit {
     this.courseName = name;
     if (this.gradeName != 'Elige Grado' && name != 'Elige Curso') {
       this.chargeCheckboxes = true;
-      this.scheduleStartService.actualCourse = this.actualGrade[this.courses.indexOf(name)];
+      //this.scheduleStartService.actualCourse = this.actualGrade[this.courses.indexOf(name)];
       this.scheduleStartService.obtainActualSubjects();
       this.scheduleStartService.cargarMatrizBotones();
       this.scheduleStartService.checkDesignedSchedule();
@@ -284,6 +284,7 @@ export class ScheduleStartComponent implements OnInit {
     }
 
     this.mobile = this.scheduleStartService.detectMob();
+    await this.scheduleStartService.getJsonConnection();
     await this.scheduleStartService.getJson();
     this.scheduleStartService.cargarMatriz();
     this.scheduleStartService.cargarGrados();

@@ -60,6 +60,7 @@ export class ScheduleStartService {
 
     //Comprueba que la conexión a la API es correcta
     async getJsonConnection () {
+      console.log('hola')
       var status;          
       this.http.get(this.getJSONURL(), {observe: 'response'}).subscribe(response => {        
         status = response.status;        
