@@ -4,6 +4,9 @@ import * as $ from 'jquery';
 import { HttpClient } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { NetworkConstants } from '../network/network-constants'
+import { lineNumber } from '../TraceModule/errorLine';
+import { error } from '../TraceModule/error';
+import { errorTrace } from '../TraceModule/errorTrace';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,7 @@ import { NetworkConstants } from '../network/network-constants'
 })
 export class HorariosService {
 
-  constructor(private http: HttpClient, private networkConstants: NetworkConstants) { }
+  constructor(private http: HttpClient, private networkConstants: NetworkConstants, private ErrorLine: lineNumber, private Error: error, private ErrorTrace: errorTrace) { }
 
   gruposJSON
   gradoSel: string
@@ -36,6 +39,12 @@ export class HorariosService {
       result = data;
     });
     await this.delay(1000);
+    if(result == undefined){
+      let err = new error();
+      this.ErrorLine.fulfillError(err,'Se intenta hacer una llamada http get satisfactoria a la API y devuelve undefined', this.ErrorLine.ln())
+      this.ErrorTrace.saveError(err,'FatalErrors','schedule-start.service.ts');
+      this.ErrorTrace.showError(err, 'schedule-start.service.ts')
+    } 
     this.gradosJSON = result["GRUPOS"];
     this.organizationJSON = result["ORGANIZACION"];
     this.setGrados()

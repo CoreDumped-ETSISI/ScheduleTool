@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class lineNumber {
 
-    ln(fileName: string) {
+    ln() {
         var e = new Error();
         if (!e.stack) try {
           throw e;
@@ -15,8 +15,14 @@ export class lineNumber {
             return 0; 
           }
         }
+
+        var stack = e.stack.toString().split(/\r\n|\n/);
+        var file = 'main.js'
+        var errString = stack[1]
+
+
         var str = '';
-        const arr = fileName.split('.')
+        const arr = file.split('.')
         for(var i = 0; i < arr.length; i++){
           if(i!=arr.length-1)
             str = str+arr[i]+'\.'
@@ -24,8 +30,9 @@ export class lineNumber {
             str = str+arr[i]
           }
         }
+
         const reg = new RegExp(''+str+'\:.*\:');
-        const prueba = e.stack.toString().match(reg)
+        const prueba = errString.toString().match(reg)
         const reg2 = new RegExp(/\:.*\:/)
         const prueba2 = prueba.toString().match(reg2)
         const arr2 = prueba2.toString().split(':')

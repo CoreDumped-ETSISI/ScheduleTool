@@ -271,7 +271,6 @@ export class ScheduleStartComponent implements OnInit {
     }
   }
 
-
   async ngOnInit() {
 
     var size = $( window ).width();
