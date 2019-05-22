@@ -16,18 +16,7 @@
           <mat-icon class="selects-buttons">school</mat-icon><span class="text-button">{{gradeName}}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[0]);">{{grades[0]}}</button>
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[1]);">{{grades[1]}}</button>
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[2]);">{{grades[2]}}</button>
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[3]);">{{grades[3]}}</button>
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[4]);">{{grades[4]}}</button>
-          <button *ngIf="!mobile" ngbDropdownItem (click)="changeGradeName(grades[5]);">{{grades[5]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[0])">{{mobileGrades[0]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[1])">{{mobileGrades[1]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[2])">{{mobileGrades[2]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[3])">{{mobileGrades[3]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[4])">{{mobileGrades[4]}}</button>
-          <button *ngIf="mobile" ngbDropdownItem (click)="changeGradeName(mobileGrades[5])">{{mobileGrades[5]}}</button>
+          <button *ngFor="let grade of grades"  ngbDropdownItem  (click)="changeGradeName(grade)">{{grade}}</button>
         </div>
       </div>
       <div ngbDropdown class="buttons-grades sch-tool-child">
@@ -35,10 +24,8 @@
           <mat-icon class="selects-buttons">filter_1</mat-icon><span class="text-button">{{courseName}}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem (click)="changeCourseName(courses[0])">{{courses[0]}}</button>
-          <button ngbDropdownItem (click)="changeCourseName(courses[1])">{{courses[1]}}</button>
-          <button ngbDropdownItem (click)="changeCourseName(courses[2])">{{courses[2]}}</button>
-          <button ngbDropdownItem (click)="changeCourseName(courses[3])">{{courses[3]}}</button>
+          <button *ngFor="let course of courses" ngbDropdownItem (click)="changeCourseName(course)">{{course}}</button>
+
         </div>
       </div>
       <div class="reset-buttons sch-tool-child">

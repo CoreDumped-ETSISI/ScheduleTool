@@ -30,8 +30,6 @@ export class ScheduleStartService {
     errorAlert = false;
     textAlert = "";
     organizationJSON:{};
-
-    //dataConstants =new DataConstants;
     constructor(private http: HttpClient, private networkConstants: NetworkConstants, private ErrorLine: lineNumber, private ErrorTrace: errorTrace, private Error: error){
 
      }
@@ -48,6 +46,7 @@ export class ScheduleStartService {
         await this.delay(1000);
         this.grupos = result["GRUPOS"];
         this.organizationJSON = result["ORGANIZACION"];
+        console.log(this.organizationJSON)
         return result;
     }
     async getJsonConnection () {
@@ -129,6 +128,7 @@ export class ScheduleStartService {
       }
 
       cargarMatriz(){//Tested
+        //rellenamos las matrices con los días de la semana (5) y las horas que hay entre la primera y ultima clase, (12)
         let matrixTraveled = false;
         this.matrizHorario = [];
         this.matrizCoincidencias = [];
@@ -154,23 +154,34 @@ export class ScheduleStartService {
       }
 
       cargarGrados(){//UNTESTED
+        //Devolvemos los nombre de los grados que hay en JSON.
         let grados;
-        if(this.organizationJSON!=undefined){
+        if(this.organizationJSON !=undefined){
           grados = Object.keys(this.organizationJSON)
-          console.log(grados);
         }
+        console.log(grados);
+        return grados;
       }
-      cargarCursos(){//UNTESTED
-        let cursos;
-        if(this.organizationJSON != undefined){
-            cursos = [];
-          for(let grado in this.organizationJSON){
-            cursos.push(this.organizationJSON[grado]);
-          }
-          console.log(cursos);
+      cargarGrupos(actualGrade:string, actualCourse:string){//UNTESTED
+        //Guardamos en actualCourse los grupos del curso que hemos seleccionado dentro del grado que hemos seleccionado. 
+        let grupos;
+        if(!this.isEmpty(this.organizationJSON)){
+          grupos = this.organizationJSON[actualGrade][actualCourse];
+          this.actualCourse = grupos;
         }
+        return grupos;
+      }
+      cargarCursos(actualGrade){
+        //Cargamos los cursos del grado que hemos seleccionado, (Primero, Segundo, Tercero, ...)
+        let cursos;
+        if(!this.isEmpty(this.organizationJSON)){
+          cursos = Object.keys(this.organizationJSON[actualGrade]);
+        }
+        return cursos;
       }
       cargarMatrizBotones() {//Tested
+        //Con las dimensiones nºAsingaturas y nºGrupos generamos una matriz donde cada casilla corresponde al nombre del nombreAsigntaura y nombreGrupo
+        // correspondientes con los arrays actualSubjects y actualCourse
         let matrixLoaded  = false;
         this.matrizBotonesPulsados = [];
         this.matrizBotones = [];
@@ -199,6 +210,9 @@ export class ScheduleStartService {
       
       cargarAsignatura(asignatura:string, grupoStr:string, row:number, col:number){//Tested
         /**
+         * Recibimos el nombre y el grupo al que pertenece la asignatura asignatura y recorremos su horario,
+         * colocamos la informacion (nombreAsignatura:grupoAsignatura) en las casillas correspondientes a la hora/dia a la que se imparte.
+         * Row y Col solo se usa para cambiar el estado del boton a pulsado.
          * Must Be Defined:
          * grupos,
          * matrizHorario,
@@ -221,12 +235,11 @@ export class ScheduleStartService {
                 let tester = JSON.stringify(this.matrizHorario[hourPos][dayPos][this.matrizHorario[hourPos][dayPos].length - 1]);
                 pushed = tester == JSON.stringify(subject);
               }
-              this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;
+              this.matrizCoincidencias[hourPos][dayPos] = this.matrizHorario[hourPos][dayPos].length > 1;//Comprobamos si existe mas de una asignatura en la misma casilla, para alertar de coincidencias.
             }  
           }
         }
         }
-       // console.log(this.matrizHorario)
         if(!pushed){
           this.errorAlert = true;
           this.textAlert = "No se ha podido cargar la asignatura en el horario."
@@ -239,7 +252,9 @@ export class ScheduleStartService {
         return pushed;
       }
       botonLimpiarAsignatura(asignatura:string, row:number){//Tested
-        /*Must Be Defined:
+        /**
+         * Cambiamos la fila de matrizBotonesPulsados al estado noPulsado.
+          Must Be Defined:
           matrizBotonesPulsados,
           all the dependencies of limpiarAsignatura()
         */
@@ -266,7 +281,10 @@ export class ScheduleStartService {
         return removed;
       }
       limpiarAsignatura(asignatura:string){//Tested
-        /*Must Be Defined:
+
+        /**
+         * Recorremos la MatrizHorario buscando la asignatura que queremos borrar. Cuando la encuentra la borra de la celda y sigue buscando.
+         * Must Be Defined:
           matrizHorario,
           matrizCoincidencias,
         */
@@ -309,6 +327,9 @@ export class ScheduleStartService {
       }
       botonPulsado(row:number, col:number){//Tested
         /*
+        Cambiamos a Pulsado el estado del boton correspondiente en la matriz matrizBotones, usamos una matriz boolena auxialiar para mostrar ese estado,
+        matrizBotonesPulsados[row][col] == true enotnces estado= Pulsado. Tambien cambiamos el estado a noPulsado del resto de botones de la fila.
+        No se puede mostrar la informacion de 2 grupos sobre la misma asignatura a la vez.
         Must Be Defined:
         matrizBotonesPulsados
         */
@@ -342,8 +363,8 @@ export class ScheduleStartService {
         grupos,
         actualCourse,
         */
-        let obtained  = false;
-        if(!this.isEmpty(this.grupos) && this.actualCourse.length > 0){
+        let obtained  = !this.isEmpty(this.grupos) && this.actualCourse != undefined && this.actualCourse.length > 0;
+        if(obtained){
           for(var group in this.actualCourse){
             Object.keys(this.grupos[this.actualCourse[group]]).forEach(subject => {
               if(!this.actualSubjects.includes(subject)){
@@ -407,4 +428,5 @@ export class ScheduleStartService {
         }
         return true;
     }
+
 }
