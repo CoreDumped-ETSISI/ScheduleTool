@@ -1,20 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs'; 
-import {MatRadioModule} from '@angular/material/radio';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {SubjectModel} from '../subject-model';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import * as jsPDF from 'jspdf';
-import { strictEqual } from 'assert';
-import { stringify } from '@angular/core/src/util';
 import { HorariosService } from '../horarios/horarios.service';
 import * as $ from 'jquery';
 import { ScheduleStartService } from './schedule-start.service';
-import { async } from '@angular/core/testing';
-import { debug } from 'util';
+
 
 @Component({
   selector: 'app-schedule-start',
@@ -45,8 +36,8 @@ export class ScheduleStartComponent implements OnInit {
     'Computadores',
     'Sistemas de Información',
     'Tecnologías de Soc de Inf',
-    //'Software y Tec Soc Inf',
-    //'Computadores y Tec Soc Inf'
+    'Software y Tec Soc Inf',
+    'Computadores y Tec Soc Inf'
   ];
 
   courses= [];
@@ -68,8 +59,6 @@ export class ScheduleStartComponent implements OnInit {
   actualCourse = [];
   actualGrade;
   actualSubjects = [];
-
-
 
   reset() {
     this.gradeName = 'Elige Grado';
