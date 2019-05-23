@@ -12,6 +12,9 @@
     font-size:16px;
     color:white;
 }
+.btn-group{
+    overflow-x: scroll;
+}
 /* Margin top and margin bottom 7px */
 .marg-7{
     margin:7px 0;
@@ -46,5 +49,15 @@
     .mobile-btngroup {
       transform: scale(0.7);
     }
+    
+    .t-10{
+        font-size:10px!important;
+    }
+    
+    .t-12{
+        font-size:12px!important;
+    }
+    .row{
+        overflow: scroll;
+    }
 }
-

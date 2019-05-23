@@ -190,10 +190,6 @@ span.text-button {
         margin-right: auto;
         transform: translateX(-12.5px);
     }
-    table.table {
-        width: 100%;
-        font-size: 11px;
-    }
 }
 
 @media only screen and (max-width: 550px) {
@@ -218,11 +214,28 @@ span.text-button {
         margin-right: auto;
         transform: translateX(-12.5px);
     }
-    table.table {
-        width: 100%;
+    .up-table {
+        margin-top: -40px;
+    }
+    #tablaMatriz {
         font-size: 11px;
     }
 }
+
+@media only screen and (max-width: 450px) {
+    #tablaMatriz {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #tablaMatriz {
+        font-size: 9px;
+        width: 115%;
+        transform: translateX(-15px);
+    }
+}
+
 
 @media only screen and (min-width: 1800px) {
     .checkboxes-div {
@@ -343,122 +356,19 @@ span.text-button {
     .dwld-btn {
         display: none;
     }
-}
-
-@media only screen and (max-width: 520px) {
-    .checkboxes-div {
-        transform: scale(1)!important;
-        font-size:10px!important;
-        margin-right:1px;
-       /* margin-top: -10%;
-        margin-left: -20%;*/
-    }
-    .checkboxes-div .mat-icon{
-        font-size: 10px;
-        margin-right:1px;
-    }
-    .checkboxes-div td {
-        width: 20px!important;
-    }
     .up-table {
-        margin-top: -60px;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    .checkboxes-div {
-        transform: scale(1)!important;
-        font-size:10px!important;
-        margin-right:1px;
-       /* margin-top: -10%;
-        margin-left: -20%;*/
-    }
-    .checkboxes-div .mat-icon{
-        font-size: 10px;
-        margin-right:1px;
-    }
-    .checkboxes-div td {
-        width: 20px!important;
-    }
-    .up-table {
-        margin-top: -65px;
-    }
-}
-
-@media only screen and (max-width: 440px) {
-    .checkboxes-div {
-        transform: scale(1)!important;
-        font-size:10px!important;
-        margin-right:1px;
-       /* margin-top: -10%;
-        margin-left: -20%;*/
-    }
-    .checkboxes-div .mat-icon{
-        font-size: 10px;
-        margin-right:1px;
-    }
-    .checkboxes-div td {
-        width: 20px!important;
-    }
-    .up-table {
-        margin-top: -65px;
-    }
-    table.table{
-        transform: translateX(-15px);
-    }
-}
-
-@media only screen and (max-width: 435px) {
-    .checkboxes-div {
-        transform: scale(1)!important;
-        font-size:10px!important;
-        margin-right:1px;
-       /* margin-top: -10%;
-        margin-left: -20%;*/
-    }
-    .checkboxes-div .mat-icon{
-        font-size: 10px;
-        margin-right:1px;
-    }
-    .checkboxes-div td {
-        width: 20px!important;
-    }
-    .up-table {
-        margin-top: -70px;
-    }
-}
-
-@media only screen and (max-width: 393px) {
-    .checkboxes-div {
-        transform: scale(1)!important;
-        font-size:10px!important;
-        margin-right:1px;
-       /* margin-top: -10%;
-        margin-left: -20%;*/
-    }
-    .checkboxes-div .mat-icon{
-        font-size: 10px;
-        margin-right:1px;
-    }
-    .checkboxes-div td {
-        width: 20px!important;
-    }
-    .up-table {
-        margin-top: -75px;
+        margin-top: -40px;
     }
     table.table {
         width: 100%;
-        font-size: 10px;
-        transform: translateX(-15px);
+        overflow-x:scroll;
+        display: block;
     }
 }
 
+
+
 @media only screen and (max-width: 393px) {
-    table.table {
-        width: 100%;
-        font-size: 9px;
-        transform: translateX(-15px);
-    }
     .header-tool-schedule {
         padding-left: 2.5%;
         padding-top: 25px;

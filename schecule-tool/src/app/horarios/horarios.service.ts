@@ -169,6 +169,17 @@ export class HorariosService {
     this.cursoSel = curso
     $('#' + curso).addClass('btn-pantone285-active')
     $('#' + curso).removeClass('btn-pantone285')
+    if(curso=='Cuarto'){
+      $('td.mat-cell').addClass('t-10')
+      $('.mat-header-cell').addClass('t-10')
+      $('.horas-cell').addClass('t-10')
+      $('.curso').addClass('t-12')
+    }else{
+      $('td.mat-cell').removeClass('t-10')
+      $('.mat-header-cell').removeClass('t-10')
+      $('.horas-cell').removeClass('t-10')
+      $('.curso').removeClass('t-12')
+    }
     if(this.gradoSel !== undefined) this.setGrupos()
     return (curso !== undefined && curso !== 'undefined') ? true : false
   }
