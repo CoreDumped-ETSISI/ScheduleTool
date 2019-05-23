@@ -154,10 +154,10 @@ export class HorariosService {
   public setGrado(grado) {
     this.cursos = []
     if (this.cursoSel != null) $('#' + this.cursoSel + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
-    if (this.gradoSel != null) $('#' + this.gradoSel.slice(0, 3) + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
+    if (this.gradoSel != null) $('#' + this.gradoSel.slice(0, 3)+""+this.gradoSel.slice(this.gradoSel.length-3,this.gradoSel.length-1)+ '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     this.gradoSel = null
-    $('#' + grado.slice(0, 3)).addClass('btn-pantone285-active')
-    $('#' + grado.slice(0, 3)).removeClass('btn-pantone285')
+    $('#' + grado.slice(0, 3)+""+grado.slice(grado.length-3,grado.length-1)).addClass('btn-pantone285-active')
+    $('#' + grado.slice(0, 3)+""+grado.slice(grado.length-3,grado.length-1)).removeClass('btn-pantone285')
     this.gradoSel = grado
     this.cursoSel = null
     if(this.organizationJSON !== undefined) this.setCursos()

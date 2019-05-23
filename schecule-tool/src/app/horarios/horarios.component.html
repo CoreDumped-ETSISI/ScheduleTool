@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="btn-group mobile-btngroup" role="group">
     <button type="button" class="btn btn-pantone285" *ngFor="let grado of horariosService.grados" (click)="horariosService.setGrado(grado)"
-      id="{{grado.slice(0,3)}}">{{grado}}</button>
+      id="{{grado.slice(0,3)+''+grado.slice(grado.length-3,grado.length-1)}}">{{grado}}</button>
   </div>
 </div>
 
