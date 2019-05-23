@@ -68,21 +68,21 @@ export class HorariosService {
   // Rellena un array con todos los cursos que contiene un grado seleccionado
   setCursos() {
     for (let curso in this.organizationJSON[this.gradoSel]) {
-      this.cursos.push(this.stringifyCurso(curso))
+      this.cursos.push(curso)
     }
   }
 
   // Rellena un array con todos los grupos de un curso en un grado
   setGrupos() {
-    this.grupos = this.organizationJSON[this.gradoSel][this.unStringifyCurso(this.cursoSel)]
+    this.grupos = this.organizationJSON[this.gradoSel][this.cursoSel]
     this.setAsignaturas()
   }
 
   // Devuelve true si el grupo es de tarde
   checkTarde(grupo: string): boolean {
-    if (this.cursoSel != 'tercero' && this.cursoSel != undefined) {
+    if (this.cursoSel != 'Tercero' && this.cursoSel != undefined) {
       return grupo.charAt(1) === 'T' ? true : false
-    } else if (this.cursoSel === 'tercero') {
+    } else if (this.cursoSel === 'Tercero') {
       return grupo.charAt(3) === 'T' ? true : false
     }
   }
@@ -141,46 +141,6 @@ export class HorariosService {
       let h = i + sum
       this.grupoStruct[i].horas = h < 10 ? "0" + h + ":00" : h + ":00"
     }
-  }
-
-  // Transforma el valor numerico de un curso a una string (ejemplo '1' ==> 'primero')
-  stringifyCurso(curso): string {
-    let nCurso: string
-    switch (curso) {
-      case "1":
-        nCurso = 'primero'
-        break;
-      case "2":
-        nCurso = 'segundo'
-        break;
-      case "3":
-        nCurso = 'tercero'
-        break;
-      case "4":
-        nCurso = 'cuarto'
-        break;
-    }
-    return nCurso
-  }
-
-  // Transforma el string de un curso a un valor numerico (en string) (ejemplo 'primero' ==> '1')
-  unStringifyCurso(nCurso): string {
-    let curso: string
-    switch (nCurso) {
-      case "primero":
-        curso = '1'
-        break;
-      case "segundo":
-        curso = '2'
-        break;
-      case "tercero":
-        curso = '3'
-        break;
-      case "cuarto":
-        curso = '4'
-        break;
-    }
-    return curso
   }
 
   public setGradoFromMatrix(grado) {

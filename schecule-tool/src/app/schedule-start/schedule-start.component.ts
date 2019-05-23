@@ -105,7 +105,7 @@ export class ScheduleStartComponent implements OnInit {
       this.scheduleStartService.cargarMatrizBotones();
       this.scheduleStartService.checkDesignedSchedule();
       this.horariosService.setCursoFromMatrix(name.toLowerCase())
-      if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
+      if(name!="Elige Curso" ) $('table.table').addClass('up-table')
       else $('table.table').removeClass('up-table')     
     }
   }
