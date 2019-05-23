@@ -80,7 +80,7 @@ export class ScheduleStartComponent implements OnInit {
 
   changeGradeName(name) {
     if (name != 'Elige Grado') {
-      //this.actualGrade = this.grades[this.grades.indexOf(name)];
+      this.actualGrade = this.grades[this.grades.indexOf(name)];
       this.gradeName = name;
       this.courses = this.scheduleStartService.cargarCursos(name);
       if(!this.courses.includes(this.courseName)){
@@ -89,7 +89,6 @@ export class ScheduleStartComponent implements OnInit {
         this.changeCourseName(this.courseName);
         console.log(name.slice(0,3))
         this.horariosService.setGradoFromMatrix(name)
-        console.log("Paquetocas")
     }
   }
 

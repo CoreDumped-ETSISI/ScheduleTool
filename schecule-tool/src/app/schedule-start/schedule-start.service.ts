@@ -162,8 +162,12 @@ export class ScheduleStartService {
 
       cargarGrados(){//UNTESTED
         //Devolvemos los nombre de los grados que hay en JSON.
+        /**
+         * Must Be Defined:
+         * organizationJSON{}
+         */
         let grados;
-        if(this.organizationJSON !=undefined){
+        if(!this.isEmpty(this.organizationJSON)){
           grados = Object.keys(this.organizationJSON)
         }
         console.log(grados);
@@ -178,7 +182,7 @@ export class ScheduleStartService {
         }
         return grupos;
       }
-      cargarCursos(actualGrade){
+      cargarCursos(actualGrade){//UNTESTEDs
         //Cargamos los cursos del grado que hemos seleccionado, (Primero, Segundo, Tercero, ...)
         let cursos;
         if(!this.isEmpty(this.organizationJSON)){
