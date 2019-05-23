@@ -37,9 +37,9 @@ export class lineNumber {
         return arr2[1]
     }
 
-    fulfillError(err, errorName: string, errorLine) {
+    fulfillError(err, errorName: string, errorFunc) {
         err.errorName = errorName;
-        err.errorLine = errorLine;
+        err.errorLine = errorFunc;
     }
 
 }
