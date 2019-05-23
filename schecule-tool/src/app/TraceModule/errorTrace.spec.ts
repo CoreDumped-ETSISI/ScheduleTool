@@ -38,7 +38,7 @@ describe('errorTrace', () => {
     describe('#Show error', () => {
       it('should return true always, no matter what happens, even if the computer is destroyed', () => {
         let err = new error();
-        ln.fulfillError(err,'Error de prueba', ln.ln());
+        ln.fulfillError(err,'Error de prueba', 'testFunction');
         expect(errortrace.showError(err,'errorTrace.spec.ts')).toBe(true);
       })
     })
