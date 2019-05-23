@@ -120,7 +120,7 @@ export class ScheduleStartComponent implements OnInit {
       $('#botones-matriz').removeClass('btn-group-vertical');
       $('#botones-matriz').addClass('btn-group');
     }
-
+    this.scheduleStartService.cargarMatriz();
     this.mobile = this.scheduleStartService.detectMob();
     await this.scheduleStartService.getJsonConnection();
     await this.scheduleStartService.getJson();
@@ -131,7 +131,6 @@ export class ScheduleStartComponent implements OnInit {
 
     //console.log("Cursos:")
    // console.log(this.cursos);
-    this.scheduleStartService.cargarMatriz();
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
   }
