@@ -162,8 +162,12 @@ export class ScheduleStartService {
 
       cargarGrados(){//UNTESTED
         //Devolvemos los nombre de los grados que hay en JSON.
+        /**
+         * Must Be Defined:
+         * organizationJSON{}
+         */
         let grados;
-        if(this.organizationJSON !=undefined){
+        if(!this.isEmpty(this.organizationJSON)){
           grados = Object.keys(this.organizationJSON)
         }
         console.log(grados);
@@ -171,17 +175,21 @@ export class ScheduleStartService {
       }
       cargarGrupos(actualGrade:string, actualCourse:string){//UNTESTED
         //Guardamos en actualCourse los grupos del curso que hemos seleccionado dentro del grado que hemos seleccionado. 
+        /**
+         * Must Be Defined:
+         * actualGrade, actualCourse, organizationJSON
+         */
         let grupos;
-        if(!this.isEmpty(this.organizationJSON)){
+        if(this.containsTheCourse(actualGrade, actualCourse)){
           grupos = this.organizationJSON[actualGrade][actualCourse];
           this.actualCourse = grupos;
         }
         return grupos;
       }
-      cargarCursos(actualGrade){
+      cargarCursos(actualGrade){//UNTESTEDs
         //Cargamos los cursos del grado que hemos seleccionado, (Primero, Segundo, Tercero, ...)
         let cursos;
-        if(!this.isEmpty(this.organizationJSON)){
+        if(this.containsActualGrade(actualGrade)){
           cursos = Object.keys(this.organizationJSON[actualGrade]);
         }
         return cursos;
@@ -231,7 +239,6 @@ export class ScheduleStartService {
         if(this.containsTheGroup(grupoStr) && this.contieneLaAsignatura(asignatura, grupoStr)){
           let subject:SubjectModel = {nombre:asignatura, grupo:grupoStr};
           let clases = this.grupos[grupoStr][asignatura];
-        console.log(clases);
         if(this.botonPulsado(row, col) && this.limpiarAsignatura(asignatura)){
           for(let day in clases){
             for(let hour in clases[day]){
@@ -434,6 +441,20 @@ export class ScheduleStartService {
                 return false;
         }
         return true;
+    }
+    containsActualGrade(grade:string){
+      let contained  = false;
+      if(!this.isEmpty(this.organizationJSON) && grade != ''){
+        contained  = Object.keys(this.organizationJSON).includes(grade);
+      }
+      return contained;
+    }
+    containsTheCourse(grade:string, course:string){
+      let contained = false;
+      if(this.containsActualGrade(grade)){
+        contained = Object.keys(this.organizationJSON[grade]).includes(course);
+      }
+      return contained;
     }
 
 }

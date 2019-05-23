@@ -303,4 +303,102 @@ describe('ScheduleStartService', () => {
       httpMock.verify()
     });
   });
+  describe('#cargarGrupos', () => {
+    it('should return defined, the json is loaded, the grade is conained in the json, and the course is cointained in the grade', () => {
+      service.organizationJSON = {
+         "Software":{
+        "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+        "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+        "Tercero": ["GIWM31", "GIWT31"],
+        "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+        }
+      }
+      httpMock.verify();
+      let grades = service.cargarGrados();
+      let courses = service.cargarCursos(grades[0])
+      let loaded = service.cargarGrupos(grades[0], courses[0]);
+      expect(loaded).toBeDefined();
+    });
+    it('should return false, the JSON is not loaded', () => {
+      let loaded = service.cargarGrupos('Software', 'Primero');
+      expect(loaded).toBe(undefined);
+    });
+    it('should return false, the grade is not contained in the JSON', () =>{
+      service.organizationJSON = {
+         "Software":{
+        "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+        "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+        "Tercero": ["GIWM31", "GIWT31"],
+        "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+        }
+      }
+      httpMock.verify();
+      let loaded = service.cargarGrupos('fakeGrade', 'Primero');
+      expect(loaded).toBe(undefined);
+    });
+    it('should return false, the course is not contained in the grade', () => {
+      service.organizationJSON = {
+         "Software":{
+        "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+        "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+        "Tercero": ["GIWM31", "GIWT31"],
+        "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+        }
+      }
+      httpMock.verify();
+      let loaded = service.cargarGrupos('Software y Tech. Soc. Infor.', 'Cuarto');
+      expect(loaded).toBe(undefined);
+    });
+  });
+  describe('#cargarGrados', () => {
+    it('should return true, the Json is loaded', () => {
+      service.organizationJSON = {
+         "Software":{
+        "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+        "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+        "Tercero": ["GIWM31", "GIWT31"],
+        "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+        }
+      }
+      httpMock.verify();
+      let loaded = service.cargarGrados();
+      expect(loaded).toBeDefined();      
+    })
+    it('should return false, the JSON is not loaded', () => {
+      let loaded = service.cargarGrados();
+      expect(loaded).toBe(undefined);
+    })
+  });
+  describe('#cargarCursos', () => {
+    it('should return defined, the JSON is loaded and the grade is contained in the JSON', () => {
+      service.organizationJSON = {
+        "Software":{
+       "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+       "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+       "Tercero": ["GIWM31", "GIWT31"],
+       "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+       }
+      }
+      let grades = service.cargarGrados();
+      let loaded = service.cargarCursos(grades[0]);
+      expect(loaded).toBeDefined();
+    });
+    it('Should return false the JSON is not loaded', () => {
+      let loaded = service.cargarCursos('someGrade');
+      expect(loaded).toBe(undefined);
+    });
+    it('should return undefined, the grade is not contained in the JSON', () => {
+      service.organizationJSON = {
+         "Software":{
+        "Primero":["GM11", "GM12", "GM13", "GM14", "GM15", "GT11", "GT12", "GT13"],
+        "Segundo":["GM21", "GM22", "GM23", "GT21", "GT22"],
+        "Tercero": ["GIWM31", "GIWT31"],
+        "Cuarto":["GMOPT41", "GMOPT41a", "GMOPT41b", "GTOPT41", "GTOPT42"]
+        }
+      }
+      httpMock.verify();
+      let loaded = service.cargarCursos('fakeGrade');
+      expect(loaded).toBe(undefined);
+    })
+  });
 });

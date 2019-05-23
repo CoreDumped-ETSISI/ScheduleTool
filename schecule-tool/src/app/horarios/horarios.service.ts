@@ -68,21 +68,21 @@ export class HorariosService {
   // Rellena un array con todos los cursos que contiene un grado seleccionado
   setCursos() {
     for (let curso in this.organizationJSON[this.gradoSel]) {
-      this.cursos.push(this.stringifyCurso(curso))
+      this.cursos.push(curso)
     }
   }
 
   // Rellena un array con todos los grupos de un curso en un grado
   setGrupos() {
-    this.grupos = this.organizationJSON[this.gradoSel][this.unStringifyCurso(this.cursoSel)]
+    this.grupos = this.organizationJSON[this.gradoSel][this.cursoSel]
     this.setAsignaturas()
   }
 
   // Devuelve true si el grupo es de tarde
   checkTarde(grupo: string): boolean {
-    if (this.cursoSel != 'tercero' && this.cursoSel != undefined) {
+    if (this.cursoSel != 'Tercero' && this.cursoSel != undefined) {
       return grupo.charAt(1) === 'T' ? true : false
-    } else if (this.cursoSel === 'tercero') {
+    } else if (this.cursoSel === 'Tercero') {
       return grupo.charAt(3) === 'T' ? true : false
     }
   }
@@ -143,46 +143,6 @@ export class HorariosService {
     }
   }
 
-  // Transforma el valor numerico de un curso a una string (ejemplo '1' ==> 'primero')
-  stringifyCurso(curso): string {
-    let nCurso: string
-    switch (curso) {
-      case "1":
-        nCurso = 'primero'
-        break;
-      case "2":
-        nCurso = 'segundo'
-        break;
-      case "3":
-        nCurso = 'tercero'
-        break;
-      case "4":
-        nCurso = 'cuarto'
-        break;
-    }
-    return nCurso
-  }
-
-  // Transforma el string de un curso a un valor numerico (en string) (ejemplo 'primero' ==> '1')
-  unStringifyCurso(nCurso): string {
-    let curso: string
-    switch (nCurso) {
-      case "primero":
-        curso = '1'
-        break;
-      case "segundo":
-        curso = '2'
-        break;
-      case "tercero":
-        curso = '3'
-        break;
-      case "cuarto":
-        curso = '4'
-        break;
-    }
-    return curso
-  }
-
   public setGradoFromMatrix(grado) {
     $('#' + grado.slice(0,3)).click()
   }
@@ -194,10 +154,10 @@ export class HorariosService {
   public setGrado(grado) {
     this.cursos = []
     if (this.cursoSel != null) $('#' + this.cursoSel + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
-    if (this.gradoSel != null) $('#' + this.gradoSel.slice(0, 3) + '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
+    if (this.gradoSel != null) $('#' + this.gradoSel.slice(0, 3)+""+this.gradoSel.slice(this.gradoSel.length-3,this.gradoSel.length-1)+ '.btn-pantone285-active').removeClass('btn-pantone285-active').addClass('btn-pantone285')
     this.gradoSel = null
-    $('#' + grado.slice(0, 3)).addClass('btn-pantone285-active')
-    $('#' + grado.slice(0, 3)).removeClass('btn-pantone285')
+    $('#' + grado.slice(0, 3)+""+grado.slice(grado.length-3,grado.length-1)).addClass('btn-pantone285-active')
+    $('#' + grado.slice(0, 3)+""+grado.slice(grado.length-3,grado.length-1)).removeClass('btn-pantone285')
     this.gradoSel = grado
     this.cursoSel = null
     if(this.organizationJSON !== undefined) this.setCursos()
@@ -209,6 +169,17 @@ export class HorariosService {
     this.cursoSel = curso
     $('#' + curso).addClass('btn-pantone285-active')
     $('#' + curso).removeClass('btn-pantone285')
+    if(curso=='Cuarto'){
+      $('td.mat-cell').addClass('t-10')
+      $('.mat-header-cell').addClass('t-10')
+      $('.horas-cell').addClass('t-10')
+      $('.curso').addClass('t-12')
+    }else{
+      $('td.mat-cell').removeClass('t-10')
+      $('.mat-header-cell').removeClass('t-10')
+      $('.horas-cell').removeClass('t-10')
+      $('.curso').removeClass('t-12')
+    }
     if(this.gradoSel !== undefined) this.setGrupos()
     return (curso !== undefined && curso !== 'undefined') ? true : false
   }

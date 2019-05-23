@@ -69,7 +69,7 @@ export class ScheduleStartComponent implements OnInit {
 
   changeGradeName(name) {
     if (name != 'Elige Grado') {
-      //this.actualGrade = this.grades[this.grades.indexOf(name)];
+      this.actualGrade = this.grades[this.grades.indexOf(name)];
       this.gradeName = name;
       this.courses = this.scheduleStartService.cargarCursos(name);
       if(!this.courses.includes(this.courseName)){
@@ -78,7 +78,6 @@ export class ScheduleStartComponent implements OnInit {
         this.changeCourseName(this.courseName);
         console.log(name.slice(0,3))
         this.horariosService.setGradoFromMatrix(name)
-        console.log("Paquetocas")
     }
   }
 
@@ -94,7 +93,7 @@ export class ScheduleStartComponent implements OnInit {
       this.scheduleStartService.cargarMatrizBotones();
       this.scheduleStartService.checkDesignedSchedule();
       this.horariosService.setCursoFromMatrix(name.toLowerCase())
-      if(name=="Primero" || name=="Segundo" || name=="Tercero" || name == "Cuarto" ) $('table.table').addClass('up-table')
+      if(name!="Elige Curso" ) $('table.table').addClass('up-table')
       else $('table.table').removeClass('up-table')     
     }
   }
@@ -110,7 +109,7 @@ export class ScheduleStartComponent implements OnInit {
       $('#botones-matriz').removeClass('btn-group-vertical');
       $('#botones-matriz').addClass('btn-group');
     }
-
+    this.scheduleStartService.cargarMatriz();
     this.mobile = this.scheduleStartService.detectMob();
     await this.scheduleStartService.getJsonConnection();
     await this.scheduleStartService.getJson();
@@ -121,7 +120,6 @@ export class ScheduleStartComponent implements OnInit {
 
     //console.log("Cursos:")
    // console.log(this.cursos);
-    this.scheduleStartService.cargarMatriz();
     this.scheduleStartService.actualSubjects  =[];
     this.scheduleStartService.actualCourse = [];
   }
