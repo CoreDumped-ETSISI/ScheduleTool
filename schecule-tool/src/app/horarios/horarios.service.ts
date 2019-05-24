@@ -170,8 +170,7 @@ export class HorariosService {
     $('#' + curso).addClass('btn-pantone285-active')
     $('#' + curso).removeClass('btn-pantone285')
     if(curso=='Cuarto'){
-      $('td.mat-cell').addClass('t-10')
-      $('.mat-header-cell').addClass('t-10')
+      $('#celda').addClass('t-10')
       $('.horas-cell').addClass('t-10')
       $('.curso').addClass('t-12')
     }else{
