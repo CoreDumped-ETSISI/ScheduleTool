@@ -25,7 +25,13 @@ Desde de la API se debe haber obtenido un fichero tipo .json con toda la informa
 
 Hemos utilizado trazabilidad, la "librería" que hemos utilizado ha sido hecha por nosotros mismos y, corresponde a los ficheros **error.ts**, **errorTrace.ts** y **errorLine.ts**. La trazabilidad muestra los errores en consola y además hace una petición POST(guardar información) a la API para almacenar los errores en una carpeta llamada errors, en esta carpeta hay diferentes ficheros de texto, en el cual están los errores separados por el tipo de error.
 
+Tenemos también un protocolo de pruebas unitarias y de generación de elementos, todas las pruebas funcionan correctamente, utilizamos **jasmine** y **karma** para realizar las pruebas.
+
 ### Cómo utilizar la herramienta
-Lo primero de todo, hay que enlazar la herramienta con la API, actualmente está enlazada con una supuesta API local (http://localhost:3000), lo único que hay que hacer es acceder al fichero **network-constants.ts** cuya ruta es: ./schedule-tool/src/app/network/network-constants.ts y cambiar el endpoint/url (http://localhost:3000) por el obtenido al desplegar la API que viene junto con esta aplicación.
+Lo primero de todo, hay que enlazar la herramienta con la API, actualmente está enlazada con una supuesta API local (http://localhost:3000), lo único que hay que hacer es acceder al fichero **network-constants.ts** cuya ruta es: ./schedule-tool/src/app/network/network-constants.ts y cambiar el endpoint/url (http://localhost:3000) por la url cuando se despligue la API que viene junto con esta aplicación.
+
+### Para ejecutarlo
+```ng serve``` sirve para iniciar la aplicación, necesita que la base de datos y API estén en funcionamiento.
+```ng test``` sirve para iniciar las pruebas (una de las pruebas descarga un pdf).
 
 
