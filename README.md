@@ -18,6 +18,9 @@ npm install @types/jspdf --save-dev
  
 1. Instalar npm install --save @fullcalendar/angular @fullcalendar/core @fullcalendar/daygrid
 
+### Se necesita
+Tener instalado Node.js, MongoDb y AngularCli (npm install -g @angular/cli).
+
 ### Sobre show schedules
 Es una herramienta que permite la creación de horarios a partir de los horarios de todos los grupos de todos los cursos de todas las carreras de la ETSISI. 
 
